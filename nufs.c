@@ -20,6 +20,8 @@ int
 nufs_access(const char *path, int mask)
 {
     printf("access(%s, %04o)\n", path, mask);
+    printf("%s\n","--TEST--");
+    printf("%d\n",access(path, mask));
     return 0;
 }
 
@@ -64,6 +66,10 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 int
 nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 {
+
+    open(path, O_CREAT, mode); //TODO  --- maybe for mode do S_IRWXU | mode
+    //link()
+
     printf("mknod(%s, %04o)\n", path, mode);
     return -1;
 }
@@ -96,6 +102,7 @@ nufs_rmdir(const char *path)
 int
 nufs_rename(const char *from, const char *to)
 {
+    rename(from, to); //TODO
     printf("rename(%s => %s)\n", from, to);
     return -1;
 }
@@ -173,7 +180,7 @@ nufs_init_ops(struct fuse_operations* ops)
     ops->rename   = nufs_rename;
     ops->chmod    = nufs_chmod;
     ops->truncate = nufs_truncate;
-    ops->open	  = nufs_open;
+    ops->open	    = nufs_open;
     ops->read     = nufs_read;
     ops->write    = nufs_write;
     ops->utimens  = nufs_utimens;
@@ -189,4 +196,3 @@ main(int argc, char *argv[])
     nufs_init_ops(&nufs_ops);
     return fuse_main(argc, argv, &nufs_ops, NULL);
 }
-

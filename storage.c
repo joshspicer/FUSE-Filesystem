@@ -12,7 +12,8 @@ typedef struct file_data {
 
 static file_data file_table[] = {
     {"/", 040755, 0},
-    {"/hello.txt", 0100644, "hello\n"},
+    {"/hello.txt", S_IFREG /*| S_IWUSR*/ /*0100644*/, "hello\n"},
+    //{"/josh.txt"},
     {0, 0, 0},
 };
 
@@ -75,4 +76,3 @@ get_data(const char* path)
 
     return dat->data;
 }
-
