@@ -15,7 +15,7 @@ clean: unmount
 
 mount: nufs
 	mkdir -p mnt || true
-	./nufs -s -f mnt data.nufs
+	./nufs -s -f -o nonempty mnt data.nufs
 
 unmount:
 	fusermount -u mnt || true
@@ -28,4 +28,3 @@ gdb: nufs
 	gdb --args ./nufs -f mnt data.nufs
 
 .PHONY: clean mount unmount gdb
-

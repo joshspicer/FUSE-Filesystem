@@ -1,8 +1,20 @@
-
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <bsd/string.h>
+#include <assert.h>
+
+#define FUSE_USE_VERSION 26
+#include <fuse.h>
 
 #include "storage.h"
+
+//Josh: Included one of his hints
+#include "pages.h"
 
 typedef struct file_data {
     const char* path;
@@ -12,8 +24,8 @@ typedef struct file_data {
 
 static file_data file_table[] = {
     {"/", 040755, 0},
-    {"/hello.txt", S_IFREG /*| S_IWUSR*/ /*0100644*/, "hello\n"},
-    //{"/josh.txt"},
+    {"/hello.txt", S_IFREG  /*| S_IWUSR*/ /*0100644*/, "hello\n"},
+    {"/josh.txt", S_IFREG, "maddie\n"},
     {0, 0, 0},
 };
 
@@ -21,6 +33,20 @@ void
 storage_init(const char* path)
 {
     printf("TODO: Store file system data in: %s\n", path);
+
+    pages_init(path);
+
+    //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
+    // TEST
+     //char buffer[10];
+     //read(dataRV, buffer,10);
+     ///printf("%s\n", buffer);
+     //  char newBuffer = "newBuffer";
+     // printf("%s\n",strerror(errno));
+      //int reval = write(dataRV, &newBuffer, 5);
+    //  printf("%s\n",strerror(errno));
+     // printf("%s%d\n","RETURN: ",reval);
+
 }
 
 static int

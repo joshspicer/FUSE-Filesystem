@@ -18,12 +18,17 @@
 const int NUFS_SIZE  = 1024 * 1024; // 1MB
 const int PAGE_COUNT = 256;
 
-static int   pages_fd   = -1;
-static void* pages_base =  0;
+
+// NOTE: moved this .h file.
+// static int   pages_fd   = -1;
+// static void* pages_base =  0;
 
 void
 pages_init(const char* path)
 {
+
+  printf("%s\n","PAGE INIT STARTING.");
+
     pages_fd = open(path, O_CREAT | O_RDWR, 0644);
     assert(pages_fd != -1);
 
@@ -32,6 +37,12 @@ pages_init(const char* path)
 
     pages_base = mmap(0, NUFS_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, pages_fd, 0);
     assert(pages_base != MAP_FAILED);
+
+    printf("IN PAGES FD:%d\n", pages_fd);
+
+    char letterJ = 'J';
+    write(pages_fd, &letterJ, 1);
+
 }
 
 void
@@ -48,7 +59,7 @@ pages_get_page(int pnum)
 }
 
 pnode*
-pages_get_node(int node_id)
+pages_get_node(int node_id)  //NOTE: changed node_id to pnum
 {
     pnode* idx = (pnode*) pages_get_page(0);
     return &(idx[pnum]);
@@ -78,5 +89,3 @@ print_node(pnode* node)
         printf("node{null}\n");
     }
 }
-
-

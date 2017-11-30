@@ -13,6 +13,9 @@
 
 #include "storage.h"
 
+// Josh added this
+#include "pages.h"
+
 
 // implementation for: man 2 access
 // Checks if a file exists.
@@ -31,6 +34,9 @@ int
 nufs_getattr(const char *path, struct stat *st)
 {
     printf("getattr(%s)\n", path);
+
+    printf("IN NUFS FD:%d\n", pages_fd);
+
     int rv = get_stat(path, st);
     if (rv == -1) {
         return -ENOENT;
@@ -38,6 +44,8 @@ nufs_getattr(const char *path, struct stat *st)
     else {
         return 0;
     }
+
+
 }
 
 // implementation for: man 2 readdir
@@ -57,6 +65,9 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     get_stat("/hello.txt", &st);
     filler(buf, "hello.txt", &st, 0);
+
+    get_stat("/josh.txt", &st);
+    filler(buf, "josh.txt",&st,0);
 
     return 0;
 }
@@ -118,6 +129,7 @@ int
 nufs_truncate(const char *path, off_t size)
 {
     printf("truncate(%s, %ld bytes)\n", path, size);
+    printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
     return -1;
 }
 
@@ -191,7 +203,7 @@ struct fuse_operations nufs_ops;
 int
 main(int argc, char *argv[])
 {
-    assert(argc > 2 && argc < 6);
+    assert(argc > 2 && argc < 10000); //Changed from 6
     storage_init(argv[--argc]);
     nufs_init_ops(&nufs_ops);
     return fuse_main(argc, argv, &nufs_ops, NULL);

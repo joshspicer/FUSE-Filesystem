@@ -10,10 +10,14 @@ typedef struct inode {
     int xtra; // more stuff can go here
 } pnode;
 
+// Moved this from .c file.
+static int   pages_fd   = -1;
+static void* pages_base =  0;
+
 void   pages_init(const char* path);
 void   pages_free();
 void*  pages_get_page(int pnum);
-inode* pages_get_node(int node_id);
+/*inode**/ pnode* pages_get_node(int node_id);
 int    pages_find_empty();
 void   print_node(pnode* node);
 
