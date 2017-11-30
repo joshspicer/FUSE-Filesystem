@@ -23,8 +23,6 @@ int
 nufs_access(const char *path, int mask)
 {
     printf("access(%s, %04o)\n", path, mask);
-    printf("%s\n","--TEST--");
-    printf("%d\n",access(path, mask));
     return 0;
 }
 
@@ -35,7 +33,7 @@ nufs_getattr(const char *path, struct stat *st)
 {
     printf("getattr(%s)\n", path);
 
-    printf("IN NUFS FD:%d\n", pages_fd);
+    //print_node(pages_get_page(0));
 
     int rv = get_stat(path, st);
     if (rv == -1) {
@@ -45,7 +43,7 @@ nufs_getattr(const char *path, struct stat *st)
         return 0;
     }
 
-
+// method over.
 }
 
 // implementation for: man 2 readdir

@@ -20,6 +20,7 @@ typedef struct file_data {
     const char* path;
     int         mode;
     const char* data;
+
 } file_data;
 
 static file_data file_table[] = {
@@ -35,6 +36,7 @@ storage_init(const char* path)
     printf("TODO: Store file system data in: %s\n", path);
 
     pages_init(path);
+
 
     //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
     // TEST

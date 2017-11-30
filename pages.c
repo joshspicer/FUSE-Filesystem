@@ -40,8 +40,35 @@ pages_init(const char* path)
 
     printf("IN PAGES FD:%d\n", pages_fd);
 
-    char letterJ = 'J';
-    write(pages_fd, &letterJ, 1);
+       char letterJ = 'J';
+      // write(pages_fd, &letterJ, 5);
+
+      printf("PAGES BASE: %d\n",pages_base);
+
+      *((char*)pages_base) = 'H';
+
+      printf("PAGES BASE: %d\n",pages_base);
+
+       //char readME = (char*)pages_base;
+       printf("PAGES BASE content: %s \n",(char*)pages_base);
+
+
+      //pnode testNode = {0,S_IFREG,5,0,'Z'};
+     // write(pages_fd,&testNode,5);
+
+     // FILE* f = fdopen(pages_fd, "w+");
+
+     // fseek(f,0,SEEK_SET);
+
+     // fwrite(&testNode, sizeof(pnode),1,f);
+
+     //pnode readStuff;
+     // fread(&readStuff, sizeof(pnode),1,f);
+
+     // fseek(f,0,SEEK_SET);
+
+     //print_node(&testNode);
+     // printf("SMALLDATA: %c\n",readStuff.smallData);
 
 }
 
@@ -59,10 +86,10 @@ pages_get_page(int pnum)
 }
 
 pnode*
-pages_get_node(int node_id)  //NOTE: changed node_id to pnum
+pages_get_node(int nodeNum)  //NOTE: changed node_id to nodeNum
 {
     pnode* idx = (pnode*) pages_get_page(0);
-    return &(idx[pnum]);
+    return &(idx[nodeNum]);
 }
 
 int
@@ -82,10 +109,17 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d}\n",
-               node->refs, node->mode, node->size, node->xtra);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, smallData: %s}\n",
+               node->refs, node->mode, node->size, node->xtra, node->smallData);
     }
     else {
         printf("node{null}\n");
     }
+}
+
+
+void
+add_node(int mode, int size, char smallData, int offset) {
+
+
 }
