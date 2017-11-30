@@ -50,7 +50,7 @@ pages_init(const char* path)
       printf("PAGES BASE: %d\n",pages_base);
 
        //char readME = (char*)pages_base;
-       printf("PAGES BASE content: %s \n",(char*)pages_base);
+       printf("PAGES BASE content: %s \n",(char*)pages_base);t
 
 
       //pnode testNode = {0,S_IFREG,5,0,'Z'};
