@@ -40,17 +40,15 @@ pages_init(const char* path)
 
     printf("IN PAGES FD:%d\n", pages_fd);
 
-       char letterJ = 'J';
-      // write(pages_fd, &letterJ, 5);
 
-      printf("PAGES BASE: %d\n",pages_base);
+    printf("PAGES BASE: %d\n",pages_base);
 
-      *((char*)pages_base) = 'H';
+    *((char*)pages_base) = 'H';
 
-      printf("PAGES BASE: %d\n",pages_base);
+    printf("PAGES BASE: %d\n",pages_base);
 
-       //char readME = (char*)pages_base;
-       printf("PAGES BASE content: %s \n",(char*)pages_base);t
+    //char readME = (char*)pages_base;
+    printf("PAGES BASE content: %s \n",(char*)pages_base);
 
 
       //pnode testNode = {0,S_IFREG,5,0,'Z'};
