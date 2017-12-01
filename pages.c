@@ -38,7 +38,18 @@ pages_init(const char* path)
     //*((char*)pages_base) = 'H';
 
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
-    // Start location of iNode Bitmap
+    // Start location of iNode
+    SUPER_SIZE = 20;
+    NUMBER_OF_INODES = 8;
+    NUMBER_OF_DATABLOCKS = 8;
+
+    start_iNode_bitMap = SUPER_SIZE;
+    start_dataBlock_bitMap = start_iNode_bitMap
+                                    + NUMBER_OF_INODES*sizeof(int);
+    start_iNode_Table = start_dataBlock_bitMap
+                                    + NUMBER_OF_DATABLOCKS*sizeof(int);
+    start_dataBlocks = start_iNode_Table
+                                    + NUMBER_OF_INODES*sizeof(pnode);
 
     // Write offset to start of inode bitmap in the superblock
     write_int_offset(0, start_iNode_bitMap);
@@ -47,7 +58,7 @@ pages_init(const char* path)
     // Write offset to start of inode table in the superblock
     write_int_offset(2, start_iNode_Table);
     // Write offset to start of data blocks in the superblock
-    write_int_offset(3, start_dataBlocks;
+    write_int_offset(3, start_dataBlocks);
 
     // + (int*)(pages_base);
 

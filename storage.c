@@ -40,10 +40,10 @@ storage_init(const char* path)
     pages_init(path);
 
     // TEST
-    printf("1stGetter: %d\n", GET_PTR_start_iNode_bitMap());
-    printf("2stGetter: %d\n",GET_PTR_start_dataBlock_bitMap());
-    printf("3stGetter: %d\n",GET_PTR_start_iNode_Table());
-    printf("4stGetter: %d\n",GET_PTR_start_dataBlocks());
+    printf("1stGetter: %d\n", GET_ptr_start_iNode_bitMap());
+    printf("2stGetter: %d\n",GET_ptr_start_dataBlock_bitMap());
+    printf("3stGetter: %d\n",GET_ptr_start_iNode_Table());
+    printf("4stGetter: %d\n",GET_ptr_start_dataBlocks());
 
     //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
     // TEST
@@ -75,7 +75,7 @@ get_file_data(const char* path) {
   for (int i = 0; i < 10; i++) {  //loop through all inodes (right now there's 10)
 
     // check inode bitmap later
-    if(GET_OFFSET_start_iNode_bitMap + sizeof(int)*i != 1) {
+    if(GET_ptr_start_iNode_bitMap + sizeof(int)*i != 1) {
       continue;
     }
 
