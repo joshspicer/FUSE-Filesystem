@@ -16,8 +16,6 @@
 //Josh: Included one of his hints
 #include "pages.h"
 
-
-
 typedef struct file_data {
     const char* path;
     int         mode;
@@ -41,7 +39,12 @@ storage_init(const char* path)
 
     pages_init(path);
 
-    printf("GOOD: %d\n",GET_OFFSET_start_dataBlocks());
+    // TEST
+    printf("1stGetter: %d\n", GET_OFFSET_start_iNode_bitMap());
+    printf("2stGetter: %d\n",GET_OFFSET_start_dataBlock_bitMap());
+    printf("3stGetter: %d\n",GET_OFFSET_start_iNode_Table());
+    printf("4stGetter: %d\n",GET_OFFSET_start_dataBlocks());
+
 
 
     //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
@@ -66,10 +69,13 @@ streq(const char* aa, const char* bb)
 // TODO Rewrite get_file_data  and use OUR file storage system
 //      instead of file_table[]
 
-static file_data*
+static file_data* //TODO should we change this to pnode? (probably)
 get_file_data(const char* path) {
 
   printf("%s\n","RE-IMPLEMENT GET_FILE_DATA");
+
+  // TODO do this next!!
+
 
     // for (int ii = 0; 1; ++ii) {
     //     file_data row = file_table[ii];

@@ -51,13 +51,13 @@ pages_init(const char* path)
     write_int_offset(3,10+sizeof(int)*20+sizeof(pnode)*10);
     start_dataBlocks = (int*)(pages_base+sizeof(int)*3);
 
-
+    // TEST
     printf("PAGES BASE: %d\n",pages_base);
     printf("1stOffset Mem Address:%d\n",start_iNode_bitMap);
     printf("2stOffset Mem Address:%d\n",start_dataBlock_bitMap);
     printf("3stOffset Mem Address:%d\n",start_iNode_Table);
     printf("4stOffset Mem Address:%d\n",start_dataBlocks);
-
+    // TEST
     printf("1stOffset Offset Location: %d\n",*((int*)start_iNode_bitMap));
     printf("2stOffset Offset Location: %d\n",*((int*)start_dataBlock_bitMap));
     printf("3stOffset Offset Location:%d\n",*((int*)start_iNode_Table));
@@ -137,14 +137,14 @@ print_node(pnode* node)
 
 // GETTERS
 int GET_OFFSET_start_iNode_bitMap() {
-  return *((int*)start_iNode_bitMap);
+  return ((int*)start_iNode_bitMap);
 }
 int GET_OFFSET_start_dataBlock_bitMap() {
-  return *((int*)start_dataBlock_bitMap);
+  return ((int*)start_dataBlock_bitMap);
 }
 int GET_OFFSET_start_iNode_Table() {
-  return *((int*)start_iNode_Table);
+  return ((int*)start_iNode_Table);
 }
 int GET_OFFSET_start_dataBlocks() {
-  return *((int*)start_dataBlocks);
+  return ((int*)start_dataBlocks);
 }

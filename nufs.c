@@ -12,7 +12,6 @@
 #include <fuse.h>
 
 #include "storage.h"
-
 // Josh added this
 #include "pages.h"
 
@@ -33,8 +32,7 @@ nufs_getattr(const char *path, struct stat *st)
 {
     printf("getattr(%s)\n", path);
 
-
-    int rv = get_stat(path, st);
+    int rv = get_stat(path, st);  //TODO re-write get_stat()
     if (rv == -1) {
         return -ENOENT;
     }
@@ -60,18 +58,19 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     // it will return non-zero when the buffer is full
     filler(buf, ".", &st, 0);
 
-
     // TODO: Loop through current iNodes and present their data
     // like hardcoded below...
+
+    for (int i = 0; i<10;i++) { //TODO right now we only support 10 iNodes
+    //  GET_OFFSET_start_iNode_bitMap();
+    }
+
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
     //
     // get_stat("/josh.txt", &st);
     // filler(buf, "josh.txt",&st,0);
-
-    // TEST
-    //write_offset(sizeof(char), 'B');
 
     return 0;
 }
@@ -82,7 +81,9 @@ int
 nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 {
 
-    open(path, O_CREAT, mode); //TODO  --- maybe for mode do S_IRWXU | mode
+    //TODO: this is the next step! (after getAttr)
+
+    //open(path, O_CREAT, mode); --- maybe for mode do S_IRWXU | mode
     //link()
 
     printf("mknod(%s, %04o)\n", path, mode);
