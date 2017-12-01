@@ -64,15 +64,10 @@ pages_init(const char* path)
 
     // TEST
     printf("PAGES BASE: %d\n",pages_base);
-    printf("1stOffset Mem Address:%d\n",start_iNode_bitMap);
-    printf("2stOffset Mem Address:%d\n",start_dataBlock_bitMap);
-    printf("3stOffset Mem Address:%d\n",start_iNode_Table);
-    printf("4stOffset Mem Address:%d\n",start_dataBlocks);
-    // TEST
-    printf("1stOffset Offset Location: %d\n",*((int*)start_iNode_bitMap));
-    printf("2stOffset Offset Location: %d\n",*((int*)start_dataBlock_bitMap));
-    printf("3stOffset Offset Location:%d\n",*((int*)start_iNode_Table));
-    printf("4stOffset Offset Location:%d\n",*((int*)start_dataBlocks));
+    printf("1stOffset:%d\n",start_iNode_bitMap);
+    printf("2stOffset:%d\n",start_dataBlock_bitMap);
+    printf("3stOffset:%d\n",start_iNode_Table);
+    printf("4stOffset:%d\n",start_dataBlocks);
 
     // Test inserting Inode into thing
     add_node("/",56,25,145,3);
@@ -98,21 +93,24 @@ void
 add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
   //TODO add the data block array as an argument of this function and set.
 
-  void* locationToPlace = (sizeof(pnode)*which_iNode) + start_iNode_Table;
+  void* locationToPlace =
+            (sizeof(pnode)*which_iNode) + GET_ptr_start_iNode_Table();
   pnode* newNode = (pnode*)(locationToPlace);
   newNode->mode = mode;
   newNode->size = size;
   newNode->xtra = xtra;
   newNode->path = path;
+
+  printf("%s\n", "add node got to this point");
 }
 
 void
 flip_iNode_bit(int which_iNode) {
-  void* targetPtr = ((void*)(start_iNode_bitMap + sizeof(int)*which_iNode));
+  void* targetPtr = GET_ptr_start_iNode_bitMap() + sizeof(int)*which_iNode;
   printf("TargetPointer: %d\n", targetPtr);
-  int target = *((int*)targetPtr);
-  printf("Target%s\n",target);
-
+  //*((int*)(targetPtr)) = 1;
+  int targetVal = ((int*)targetPtr)[0];
+  printf("Target%d\n", targetVal);
 }
 
 void
