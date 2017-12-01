@@ -19,6 +19,12 @@ typedef struct inode {
 static int   pages_fd   = -1;
 static void* pages_base =  0;
 
+// Global variables
+static void* start_iNode_bitMap;
+static void* start_dataBlock_bitMap;
+static void* start_iNode_Table;
+static void* start_dataBlocks;
+
 
 void   pages_init(const char* path);
 void   pages_free();
@@ -29,10 +35,13 @@ void   print_node(pnode* node);
 
 // Josh: My new methods
 void add_node(int mode, int size, int xtra, int which_iNode);
-
 void write_int_offset(int offset, int data);
-
 void write_char_offset(int offset, char data);
+
+int GET_OFFSET_start_iNode_bitMap();
+int GET_OFFSET_start_dataBlock_bitMap();
+int GET_OFFSET_start_iNode_Table();
+int GET_OFFSET_start_dataBlocks();
 
 
 #endif

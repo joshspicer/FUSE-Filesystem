@@ -16,6 +16,8 @@
 //Josh: Included one of his hints
 #include "pages.h"
 
+
+
 typedef struct file_data {
     const char* path;
     int         mode;
@@ -23,12 +25,14 @@ typedef struct file_data {
 
 } file_data;
 
-static file_data file_table[] = {
-    {"/", 040755, 0},
-    {"/hello.txt", S_IFREG  /*| S_IWUSR*/ /*0100644*/, "hello\n"},
-    {"/josh.txt", S_IFREG, "maddie\n"},
-    {0, 0, 0},
-};
+// Josh: This struct is replaced by our data.nufs storage solution.
+
+// static file_data file_table[] = {
+//     {"/", 040755, 0},
+//     {"/hello.txt", S_IFREG  /*| S_IWUSR*/ /*0100644*/, "hello\n"},
+//     {"/josh.txt", S_IFREG, "maddie\n"},
+//     {0, 0, 0},
+// };
 
 void
 storage_init(const char* path)
@@ -36,6 +40,8 @@ storage_init(const char* path)
     printf("TODO: Store file system data in: %s\n", path);
 
     pages_init(path);
+
+    printf("GOOD: %d\n",GET_OFFSET_start_dataBlocks());
 
 
     //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
@@ -57,19 +63,25 @@ streq(const char* aa, const char* bb)
     return strcmp(aa, bb) == 0;
 }
 
+// TODO Rewrite get_file_data  and use OUR file storage system
+//      instead of file_table[]
+
 static file_data*
 get_file_data(const char* path) {
-    for (int ii = 0; 1; ++ii) {
-        file_data row = file_table[ii];
 
-        if (file_table[ii].path == 0) {
-            break;
-        }
+  printf("%s\n","RE-IMPLEMENT GET_FILE_DATA");
 
-        if (streq(path, file_table[ii].path)) {
-            return &(file_table[ii]);
-        }
-    }
+    // for (int ii = 0; 1; ++ii) {
+    //     file_data row = file_table[ii];
+    //
+    //     if (file_table[ii].path == 0) {
+    //         break;
+    //     }
+    //
+    //     if (streq(path, file_table[ii].path)) {
+    //         return &(file_table[ii]);
+    //     }
+    // }
 
     return 0;
 }

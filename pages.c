@@ -18,16 +18,11 @@
 const int NUFS_SIZE  = 1024 * 1024; // 1MB
 const int PAGE_COUNT = 256;
 
-
-// NOTE: moved this .h file.
-// static int   pages_fd   = -1;
-// static void* pages_base =  0;
-
 void
 pages_init(const char* path)
 {
 
-  printf("%s\n","PAGE INIT STARTING.");
+    printf("%s\n","PAGE INIT STARTING.");
 
     pages_fd = open(path, O_CREAT | O_RDWR, 0644);
     assert(pages_fd != -1);
@@ -45,16 +40,16 @@ pages_init(const char* path)
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
     // Start location of iNode Bitmap
     write_int_offset(0,10);
-    void* start_iNode_bitMap = (int*)(pages_base);
+    start_iNode_bitMap = (int*)(pages_base);
     // Start location of Data block bitmap
     write_int_offset(1,10+sizeof(int)*10);
-    void* start_dataBlock_bitMap = (int*)(pages_base+sizeof(int)*1);
+    start_dataBlock_bitMap = (int*)(pages_base+sizeof(int)*1);
     // Start of iNode Table
     write_int_offset(2,10+sizeof(int)*20);
-    void* start_iNode_Table = (int*)(pages_base+sizeof(int)*2);
+    start_iNode_Table = (int*)(pages_base+sizeof(int)*2);
     // Data blocks
     write_int_offset(3,10+sizeof(int)*20+sizeof(pnode)*10);
-    void* start_dataBlocks = (int*)(pages_base+sizeof(int)*3);
+    start_dataBlocks = (int*)(pages_base+sizeof(int)*3);
 
 
     printf("PAGES BASE: %d\n",pages_base);
@@ -69,6 +64,9 @@ pages_init(const char* path)
     printf("4stOffset Offset Location:%d\n",*((int*)start_dataBlocks));
 
     // Test inserting Inode into thing
+    add_node(56,25,145,3);
+    printf("%s","Print out the node: xtra should equal 145\n");
+    print_node((pnode*)(start_iNode_Table + sizeof(pnode)*3));
 
 }
 
@@ -82,11 +80,15 @@ void write_char_offset(int offset, char data) {
 }
 
 void
-add_node(int mode, int size, char smallData, int which_iNode) {
-  void* locationToPlace = (sizeof(iNode)*which_iNode) + start_iNode_Table;
+add_node(int mode, int size, int xtra, int which_iNode) {
+  //TODO add the data block array as an argument of this function and set.
 
+  void* locationToPlace = (sizeof(pnode)*which_iNode) + start_iNode_Table;
+  pnode* newNode = (pnode*)(locationToPlace);
+  newNode->mode = mode;
+  newNode->size = size;
+  newNode->xtra = xtra;
 }
-
 
 void
 pages_free()
@@ -131,4 +133,18 @@ print_node(pnode* node)
     else {
         printf("node{null}\n");
     }
+}
+
+// GETTERS
+int GET_OFFSET_start_iNode_bitMap() {
+  return *((int*)start_iNode_bitMap);
+}
+int GET_OFFSET_start_dataBlock_bitMap() {
+  return *((int*)start_dataBlock_bitMap);
+}
+int GET_OFFSET_start_iNode_Table() {
+  return *((int*)start_iNode_Table);
+}
+int GET_OFFSET_start_dataBlocks() {
+  return *((int*)start_dataBlocks);
 }

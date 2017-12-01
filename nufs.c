@@ -33,7 +33,6 @@ nufs_getattr(const char *path, struct stat *st)
 {
     printf("getattr(%s)\n", path);
 
-    //print_node(pages_get_page(0));
 
     int rv = get_stat(path, st);
     if (rv == -1) {
@@ -61,11 +60,15 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     // it will return non-zero when the buffer is full
     filler(buf, ".", &st, 0);
 
-    get_stat("/hello.txt", &st);
-    filler(buf, "hello.txt", &st, 0);
 
-    get_stat("/josh.txt", &st);
-    filler(buf, "josh.txt",&st,0);
+    // TODO: Loop through current iNodes and present their data
+    // like hardcoded below...
+
+    // get_stat("/hello.txt", &st);
+    // filler(buf, "hello.txt", &st, 0);
+    //
+    // get_stat("/josh.txt", &st);
+    // filler(buf, "josh.txt",&st,0);
 
     // TEST
     //write_offset(sizeof(char), 'B');
