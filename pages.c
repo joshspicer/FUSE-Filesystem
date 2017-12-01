@@ -39,17 +39,17 @@ pages_init(const char* path)
 
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
     // Start location of iNode Bitmap
-    write_int_offset(0,10);
-    start_iNode_bitMap = (int*)(pages_base);
-    // Start location of Data block bitmap
-    write_int_offset(1,10+sizeof(int)*10);
-    start_dataBlock_bitMap = (int*)(pages_base+sizeof(int)*1);
-    // Start of iNode Table
-    write_int_offset(2,10+sizeof(int)*20);
-    start_iNode_Table = (int*)(pages_base+sizeof(int)*2);
-    // Data blocks
-    write_int_offset(3,10+sizeof(int)*20+sizeof(pnode)*10);
-    start_dataBlocks = (int*)(pages_base+sizeof(int)*3);
+
+    // Write offset to start of inode bitmap in the superblock
+    write_int_offset(0, start_iNode_bitMap);
+    // Write offset to start of data block bitmap in the superblock
+    write_int_offset(1, start_dataBlock_bitMap);
+    // Write offset to start of inode table in the superblock
+    write_int_offset(2, start_iNode_Table);
+    // Write offset to start of data blocks in the superblock
+    write_int_offset(3, start_dataBlocks;
+
+    // + (int*)(pages_base);
 
     // TEST
     printf("PAGES BASE: %d\n",pages_base);
@@ -64,23 +64,27 @@ pages_init(const char* path)
     printf("4stOffset Offset Location:%d\n",*((int*)start_dataBlocks));
 
     // Test inserting Inode into thing
-    add_node(56,25,145,3);
+    add_node("/",56,25,145,3);
+    flip_iNode_bit(3);
     printf("%s","Print out the node: xtra should equal 145\n");
     print_node((pnode*)(start_iNode_Table + sizeof(pnode)*3));
 
+
 }
 
-void write_int_offset(int offset, int data) {
+void
+write_int_offset(int offset, int data) {
     *((int*)(pages_base + sizeof(int)*offset)) = data;
 }
 
 
-void write_char_offset(int offset, char data) {
+void
+write_char_offset(int offset, char data) {
     *((char*)pages_base + sizeof(char)*offset) = data;
 }
 
 void
-add_node(int mode, int size, int xtra, int which_iNode) {
+add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
   //TODO add the data block array as an argument of this function and set.
 
   void* locationToPlace = (sizeof(pnode)*which_iNode) + start_iNode_Table;
@@ -88,6 +92,16 @@ add_node(int mode, int size, int xtra, int which_iNode) {
   newNode->mode = mode;
   newNode->size = size;
   newNode->xtra = xtra;
+  newNode->path = path;
+}
+
+void
+flip_iNode_bit(int which_iNode) {
+  void* targetPtr = ((void*)(start_iNode_bitMap + sizeof(int)*which_iNode));
+  printf("TargetPointer: %d\n", targetPtr);
+  int target = *((int*)targetPtr);
+  printf("Target%s\n",target);
+
 }
 
 void
@@ -127,8 +141,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d}\n",
-               node->refs, node->mode, node->size, node->xtra);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s}\n",
+               node->refs, node->mode, node->size, node->xtra, node->path);
     }
     else {
         printf("node{null}\n");
@@ -136,15 +150,19 @@ print_node(pnode* node)
 }
 
 // GETTERS
-int GET_OFFSET_start_iNode_bitMap() {
-  return ((int*)start_iNode_bitMap);
+void*
+GET_ptr_start_iNode_bitMap() {
+  return start_iNode_bitMap + pages_base;
 }
-int GET_OFFSET_start_dataBlock_bitMap() {
-  return ((int*)start_dataBlock_bitMap);
+void*
+GET_ptr_start_dataBlock_bitMap() {
+  return start_dataBlock_bitMap + pages_base;
 }
-int GET_OFFSET_start_iNode_Table() {
-  return ((int*)start_iNode_Table);
+void*
+GET_ptr_start_iNode_Table() {
+  return start_iNode_Table + pages_base;
 }
-int GET_OFFSET_start_dataBlocks() {
-  return ((int*)start_dataBlocks);
+void*
+GET_ptr_start_dataBlocks() {
+  return start_dataBlocks + pages_base;
 }

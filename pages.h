@@ -9,8 +9,12 @@ typedef struct inode {
     int size; // bytes for file
     int xtra; // more stuff can go here
 
+    // Path of file
+    const char* path;
+
     // IDs of all data blocks in use.
     int blocksIDS[];
+
 
 } pnode;
 
@@ -20,10 +24,15 @@ static int   pages_fd   = -1;
 static void* pages_base =  0;
 
 // Global variables
-static void* start_iNode_bitMap;
-static void* start_dataBlock_bitMap;
-static void* start_iNode_Table;
-static void* start_dataBlocks;
+const int SUPER_SIZE = 20;
+const int NUMBER_OF_INODES = 8;
+const int NUMBER_OF_DATABLOCKS = 8;
+const int start_iNode_bitMap = SUPER_SIZE;
+const int start_dataBlock_bitMap = start_iNode_bitMap + NUMBER_OF_INODES*sizeof(int);
+const int start_iNode_Table = start_dataBlock_bitMap + NUMBER_OF_DATABLOCKS*sizeof(int);
+const int start_dataBlocks = start_iNode_Table + NUMBER_OF_INODES*sizeof(pnode);
+
+
 
 
 void   pages_init(const char* path);
@@ -34,14 +43,19 @@ int    pages_find_empty();
 void   print_node(pnode* node);
 
 // Josh: My new methods
-void add_node(int mode, int size, int xtra, int which_iNode);
+void add_node(const char* path, int mode, int size, int xtra, int which_iNode);
+void flip_iNode_bit(int which_iNode);
+
 void write_int_offset(int offset, int data);
 void write_char_offset(int offset, char data);
 
-int GET_OFFSET_start_iNode_bitMap();
-int GET_OFFSET_start_dataBlock_bitMap();
-int GET_OFFSET_start_iNode_Table();
-int GET_OFFSET_start_dataBlocks();
+void* GET_ptr_start_iNode_bitMap();
+void* GET_ptr_start_dataBlock_bitMap();
+void* GET_ptr_start_iNode_Table();
+void* GET_ptr_start_dataBlocks();
+
+int GET_NUMBER_OF_INODES();
+int GET_NUMBER_OF_DATABLOCKS();
 
 
 #endif

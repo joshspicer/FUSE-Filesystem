@@ -16,12 +16,12 @@
 //Josh: Included one of his hints
 #include "pages.h"
 
-typedef struct file_data {
-    const char* path;
-    int         mode;
-    const char* data;
-
-} file_data;
+// typedef struct file_data {
+//     const char* path;
+//     int         mode;
+//     const char* data;
+//
+// } file_data;
 
 // Josh: This struct is replaced by our data.nufs storage solution.
 
@@ -40,12 +40,10 @@ storage_init(const char* path)
     pages_init(path);
 
     // TEST
-    printf("1stGetter: %d\n", GET_OFFSET_start_iNode_bitMap());
-    printf("2stGetter: %d\n",GET_OFFSET_start_dataBlock_bitMap());
-    printf("3stGetter: %d\n",GET_OFFSET_start_iNode_Table());
-    printf("4stGetter: %d\n",GET_OFFSET_start_dataBlocks());
-
-
+    printf("1stGetter: %d\n", GET_PTR_start_iNode_bitMap());
+    printf("2stGetter: %d\n",GET_PTR_start_dataBlock_bitMap());
+    printf("3stGetter: %d\n",GET_PTR_start_iNode_Table());
+    printf("4stGetter: %d\n",GET_PTR_start_dataBlocks());
 
     //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
     // TEST
@@ -69,13 +67,30 @@ streq(const char* aa, const char* bb)
 // TODO Rewrite get_file_data  and use OUR file storage system
 //      instead of file_table[]
 
-static file_data* //TODO should we change this to pnode? (probably)
+static pnode*
 get_file_data(const char* path) {
 
   printf("%s\n","RE-IMPLEMENT GET_FILE_DATA");
 
-  // TODO do this next!!
+  for (int i = 0; i < 10; i++) {  //loop through all inodes (right now there's 10)
 
+    // check inode bitmap later
+    if(GET_OFFSET_start_iNode_bitMap + sizeof(int)*i != 1) {
+      continue;
+    }
+
+    void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
+    pnode* current = ((pnode*)currentPtr);
+    printf("CURRENT POINTER%d\n",current->xtra);
+
+    printf("%s%d\n","help: ",i);
+    printf("%s\n", "after continue");
+
+    if (streq(path, current->path) == 0) { //If this pnode's path is same.
+      printf("%s\n","hello its me");
+      return current;
+    }
+  }
 
     // for (int ii = 0; 1; ++ii) {
     //     file_data row = file_table[ii];
@@ -95,7 +110,7 @@ get_file_data(const char* path) {
 int
 get_stat(const char* path, struct stat* st)
 {
-    file_data* dat = get_file_data(path);
+    pnode* dat = get_file_data(path);
     if (!dat) {
         return -1;
     }
@@ -103,22 +118,26 @@ get_stat(const char* path, struct stat* st)
     memset(st, 0, sizeof(struct stat));
     st->st_uid  = getuid();
     st->st_mode = dat->mode;
-    if (dat->data) {
-        st->st_size = strlen(dat->data);
-    }
-    else {
-        st->st_size = 0;
-    }
+    st->st_atime = time( NULL );
+    st->st_mtime = time( NULL );
+    st->st_size = dat->size;
+
+    //TODO stat with something to do with data blocks....
+
     return 0;
 }
 
 const char*
 get_data(const char* path)
 {
-    file_data* dat = get_file_data(path);
-    if (!dat) {
-        return 0;
-    }
+  //TODO actually getting data from the pnodes and sharing that.
 
-    return dat->data;
+
+    // pnode* dat = get_file_data(path);
+    // if (!dat) {
+    //     return 0;
+    // }
+
+    //return dat->data;
+    return "helpme";
 }
