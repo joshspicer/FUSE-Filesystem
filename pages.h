@@ -9,12 +9,11 @@ typedef struct inode {
     int size; // bytes for file
     int xtra; // more stuff can go here
 
-    // Josh: My new additions
-    char smallData; //Proof of concept (stores a char representing file data)
+    // IDs of all data blocks in use.
+    int blocksIDS[];
 
-    //int amtDataBlocks;
-    //int firstDataBlock;
 } pnode;
+
 
 // Moved this from .c file.
 static int   pages_fd   = -1;
@@ -29,7 +28,11 @@ int    pages_find_empty();
 void   print_node(pnode* node);
 
 // Josh: My new methods
-void add_node(int mode, int size, char smallData, int offset);
+void add_node(int mode, int size, int xtra, int which_iNode);
+
+void write_int_offset(int offset, int data);
+
+void write_char_offset(int offset, char data);
 
 
 #endif

@@ -15,7 +15,7 @@ clean: unmount
 
 mount: nufs
 	mkdir -p mnt || true
-	./nufs -s -f -o nonempty mnt data.nufs
+	./nufs -s -f mnt data.nufs
 
 unmount:
 	fusermount -u mnt || true

@@ -40,35 +40,53 @@ pages_init(const char* path)
 
     printf("IN PAGES FD:%d\n", pages_fd);
 
+    //*((char*)pages_base) = 'H';
+
+    // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
+    // Start location of iNode Bitmap
+    write_int_offset(0,10);
+    void* start_iNode_bitMap = (int*)(pages_base);
+    // Start location of Data block bitmap
+    write_int_offset(1,10+sizeof(int)*10);
+    void* start_dataBlock_bitMap = (int*)(pages_base+sizeof(int)*1);
+    // Start of iNode Table
+    write_int_offset(2,10+sizeof(int)*20);
+    void* start_iNode_Table = (int*)(pages_base+sizeof(int)*2);
+    // Data blocks
+    write_int_offset(3,10+sizeof(int)*20+sizeof(pnode)*10);
+    void* start_dataBlocks = (int*)(pages_base+sizeof(int)*3);
+
 
     printf("PAGES BASE: %d\n",pages_base);
+    printf("1stOffset Mem Address:%d\n",start_iNode_bitMap);
+    printf("2stOffset Mem Address:%d\n",start_dataBlock_bitMap);
+    printf("3stOffset Mem Address:%d\n",start_iNode_Table);
+    printf("4stOffset Mem Address:%d\n",start_dataBlocks);
 
-    *((char*)pages_base) = 'H';
+    printf("1stOffset Offset Location: %d\n",*((int*)start_iNode_bitMap));
+    printf("2stOffset Offset Location: %d\n",*((int*)start_dataBlock_bitMap));
+    printf("3stOffset Offset Location:%d\n",*((int*)start_iNode_Table));
+    printf("4stOffset Offset Location:%d\n",*((int*)start_dataBlocks));
 
-    printf("PAGES BASE: %d\n",pages_base);
-
-    //char readME = (char*)pages_base;
-    printf("PAGES BASE content: %s \n",(char*)pages_base);
-
-
-      //pnode testNode = {0,S_IFREG,5,0,'Z'};
-     // write(pages_fd,&testNode,5);
-
-     // FILE* f = fdopen(pages_fd, "w+");
-
-     // fseek(f,0,SEEK_SET);
-
-     // fwrite(&testNode, sizeof(pnode),1,f);
-
-     //pnode readStuff;
-     // fread(&readStuff, sizeof(pnode),1,f);
-
-     // fseek(f,0,SEEK_SET);
-
-     //print_node(&testNode);
-     // printf("SMALLDATA: %c\n",readStuff.smallData);
+    // Test inserting Inode into thing
 
 }
+
+void write_int_offset(int offset, int data) {
+    *((int*)(pages_base + sizeof(int)*offset)) = data;
+}
+
+
+void write_char_offset(int offset, char data) {
+    *((char*)pages_base + sizeof(char)*offset) = data;
+}
+
+void
+add_node(int mode, int size, char smallData, int which_iNode) {
+  void* locationToPlace = (sizeof(iNode)*which_iNode) + start_iNode_Table;
+
+}
+
 
 void
 pages_free()
@@ -107,17 +125,10 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, smallData: %s}\n",
-               node->refs, node->mode, node->size, node->xtra, node->smallData);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d}\n",
+               node->refs, node->mode, node->size, node->xtra);
     }
     else {
         printf("node{null}\n");
     }
-}
-
-
-void
-add_node(int mode, int size, char smallData, int offset) {
-
-
 }

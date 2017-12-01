@@ -67,6 +67,9 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     get_stat("/josh.txt", &st);
     filler(buf, "josh.txt",&st,0);
 
+    // TEST
+    //write_offset(sizeof(char), 'B');
+
     return 0;
 }
 
@@ -162,6 +165,8 @@ int
 nufs_write(const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
     printf("write(%s, %ld bytes, @%ld)\n", path, size, offset);
+
+
     return -1;
 }
 

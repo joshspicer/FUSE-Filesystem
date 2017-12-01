@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <bsd/string.h>
 
 void storage_init(const char* path);
 int         get_stat(const char* path, struct stat* st);
