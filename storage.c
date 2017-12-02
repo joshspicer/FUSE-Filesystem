@@ -58,7 +58,7 @@ storage_init(const char* path)
 
 }
 
-static int
+int
 streq(const char* aa, const char* bb)
 {
   return strcmp(aa, bb) == 0;

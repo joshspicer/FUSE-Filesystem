@@ -7,6 +7,7 @@
 #include <dirent.h>
 #include <bsd/string.h>
 #include <assert.h>
+#include <stdlib.h>
 
 #define FUSE_USE_VERSION 26
 #include <fuse.h>
@@ -15,6 +16,12 @@
 // Josh added this
 #include "pages.h"
 
+char* concat(const char *string1, const char *string2)
+{
+    char *newStr = malloc(strlen(string1)+strlen(string2)+1);
+    strcpy(newStr, string1); strcat(newStr, string2);
+    return newStr;
+}
 
 // implementation for: man 2 access
 // Checks if a file exists.
@@ -50,10 +57,9 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
              off_t offset, struct fuse_file_info *fi)
 {
     struct stat st;
-
     printf("readdir(%s)\n", path);
 
-    //readdir("/");  //TODO PERMISSIONS!
+    //readdir("/");  // Why do we need this?
 
     get_stat("/", &st);
     // filler is a callback that adds one item to the result
@@ -62,12 +68,28 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     // TODO: Loop through current iNodes and present their data
 
-    //for (int i = 0; i < GET_NUMBER_OF_INODES; i++) {
-    printf("%d\n",GET_NUMBER_OF_INODES);
-    //  GET_OFFSET_start_iNode_bitMap();
-     get_stat("/maddie.txt", &st);
-     filler(buf, "maddie.txt", &st, 0);
-//    }
+    for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+
+      //TODO: Once we implement directories, this has to change!!
+
+      // check inode bitmap. If value isn't one, then that inode isn't active.
+      if(*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) != 1) {
+        continue;
+      }
+      // There must be an associated iNode. Calculate address.
+      void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
+      pnode* current = ((pnode*)currentPtr);
+
+      if (!(streq(current->path, "/"))) {
+           printf("%s\n",current->path);
+           get_stat(concat("/","maddie.txt"), &st);
+           filler(buf, "maddie.txt", &st, 0);
+         }
+
+       // get_stat("/maddie.txt", &st);
+       // filler(buf, "maddie.txt", &st, 0);
+
+    }
 
 
     // get_stat("/hello.txt", &st);
