@@ -62,7 +62,7 @@ pages_init(const char* path)
     write_int_offset(3, start_dataBlocks);
 
     // TEST
-    printf("PAGES BASE: %d\n",pages_base);
+    printf("PAGES BASE: %p\n",pages_base);
     printf("1stOffset: %d\n",start_iNode_bitMap);
     printf("2stOffset: %d\n",start_dataBlock_bitMap);
     printf("3stOffset: %d\n",start_iNode_Table);
@@ -106,32 +106,28 @@ add_node(const char* completePath, int mode, int size, int xtra, int which_iNode
   newNode->mode = mode;
   newNode->size = size;
   newNode->xtra = xtra;
-
-  const char* path = computePath(completePath);
-  //const char* fileName = computeFileName(completePath);
-  newNode->path = path;
-  //newNode->fileName = fileName;
+  newNode->path = completePath;
+  newNode->name = findName(completePath);
 
   printf("%s\n", "add node got to this point");
 }
 
 const char*
-computePath(const char* completePath) {
+findName(const char* completePath) {
+  printf("here\n");
   int size = strlen(completePath);
   int indexOfFinalSlash = 0;
-  const char* output;
+  // char* cur =
   // Loop through, saving the location of a slash whenever found.
   for (int i = 0; i < size; i++) {
-    if(strcmp(completePath[i], "/") == 0) {
+    //cur[0] = *(completePath + i);
+    //printf("%s\n", cur);
+    if(streq((const char*) (((void*)completePath) + i), "/")) {
       indexOfFinalSlash = i;
     }
   }
-
-  // Save the path WITHOUT the file name
-  for (int i = 0; i < indexOfFinalSlash;i++) {
-    output = concat(output,completePath[i]);
-  }
-
+  printf("here\n");
+  return (const char*)(((void*)completePath) + indexOfFinalSlash + 1);
 
 }
 
@@ -187,8 +183,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, fileName: %d}\n",
-               node->refs, node->mode, node->size, node->xtra, node->path, node->fileName);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s}\n",
+               node->refs, node->mode, node->size, node->xtra, node->path, node->name);
     }
     else {
         printf("node{null}\n");

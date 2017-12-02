@@ -13,7 +13,7 @@ typedef struct inode {
     // Path of file
     const char* path;
     // File rename
-    char* fileName;
+    const char* name;
 
     // IDs of all data blocks in use.
     int blocksIDS[];
@@ -57,8 +57,7 @@ void* GET_ptr_start_dataBlocks();
 int GET_NUMBER_OF_INODES();
 int GET_NUMBER_OF_DATABLOCKS();
 
-const char* computePath(const char* completePath);
-const char* computeFileName(const char* completePath);
+const char* findName(const char* completePath);
 
 
 #endif

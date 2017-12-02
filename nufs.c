@@ -74,10 +74,10 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
       void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
       pnode* current = ((pnode*)currentPtr);
 
-      if (!(streq(concat(current->path, current->fileName), "/"))) {
-           printf("path: %s; name: %s\n", current->path, current->fileName);
-           get_stat(concat(current->path, current->fileName), &st);
-           filler(buf, current->fileName, &st, 0);
+      if (!(streq(current->path, "/"))) {
+           printf("path: %s; name: %s\n", current->path, current->name);
+           get_stat(current->path, &st);
+           filler(buf, current->name, &st, 0);
          }
     }
 

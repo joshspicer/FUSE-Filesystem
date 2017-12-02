@@ -82,10 +82,10 @@ get_file_data(const char* path) {
     void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
     pnode* current = ((pnode*)currentPtr);
 
-    printf("Current's Path: %s\n", concat(current->path, current->fileName));
+    printf("Current's Path: %s\n", current->path);
     printf("Inputted Path: %s\n",path);
 
-    if (streq(path, concat(current->path, current->fileName))) { //If this pnode's path is same.
+    if (streq(path, current->path)) { //If this pnode's path is same.
     printf("File <%s> FOUND in get_file_data\n", path);
     return current;
   }
