@@ -15,7 +15,6 @@ typedef struct inode {
     // IDs of all data blocks in use.
     int blocksIDS[];
 
-
 } pnode;
 
 
@@ -23,18 +22,6 @@ typedef struct inode {
 static int   pages_fd   = -1;
 static void* pages_base =  0;
 
-// Global variables
-// const int SUPER_SIZE = 20;
-// const int NUMBER_OF_INODES = 8;
-// const int NUMBER_OF_DATABLOCKS = 8;
-//
-// const int start_iNode_bitMap = SUPER_SIZE;
-// const int start_dataBlock_bitMap = start_iNode_bitMap
-//                                 + NUMBER_OF_INODES*sizeof(int);
-// const int start_iNode_Table = start_dataBlock_bitMap
-//                                 + NUMBER_OF_DATABLOCKS*sizeof(int);
-// const int start_dataBlocks = start_iNode_Table
-//                                 + NUMBER_OF_INODES*sizeof(pnode);
 static int SUPER_SIZE;
 static int NUMBER_OF_INODES;
 static int NUMBER_OF_DATABLOCKS;

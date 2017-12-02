@@ -40,21 +40,21 @@ storage_init(const char* path)
     pages_init(path);
 
     // TEST
-    printf("1stGetter: %d\n", GET_ptr_start_iNode_bitMap());
-    printf("2stGetter: %d\n",GET_ptr_start_dataBlock_bitMap());
-    printf("3stGetter: %d\n",GET_ptr_start_iNode_Table());
-    printf("4stGetter: %d\n",GET_ptr_start_dataBlocks());
+    // printf("1stGetter: %d\n",GET_ptr_start_iNode_bitMap());
+    // printf("2stGetter: %d\n",GET_ptr_start_dataBlock_bitMap());
+    // printf("3stGetter: %d\n",GET_ptr_start_iNode_Table());
+    // printf("4stGetter: %d\n",GET_ptr_start_dataBlocks());
 
-    //int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
+    // int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
     // TEST
-     //char buffer[10];
-     //read(dataRV, buffer,10);
-     ///printf("%s\n", buffer);
-     //  char newBuffer = "newBuffer";
-     // printf("%s\n",strerror(errno));
-      //int reval = write(dataRV, &newBuffer, 5);
-    //  printf("%s\n",strerror(errno));
-     // printf("%s%d\n","RETURN: ",reval);
+    // char buffer[10];
+    // read(dataRV, buffer,10);
+    // printf("%s\n", buffer);
+    // char newBuffer = "newBuffer";
+    // printf("%s\n",strerror(errno));
+    // int reval = write(dataRV, &newBuffer, 5);
+    // printf("%s\n",strerror(errno));
+    // printf("%s%d\n","RETURN: ",reval);
 
 }
 
@@ -70,24 +70,18 @@ streq(const char* aa, const char* bb)
 static pnode*
 get_file_data(const char* path) {
 
-  printf("%s\n","RE-IMPLEMENT GET_FILE_DATA");
-
-  for (int i = 0; i < 10; i++) {  //loop through all inodes (right now there's 10)
-
-    // check inode bitmap
-    if(GET_ptr_start_iNode_bitMap + sizeof(int)*i != 1) {
+  //loop through all inodes
+  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+    // check inode bitmap. If value isn't one, then that inode isn't active.
+    if(*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) != 1) {
       continue;
     }
 
     void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
     pnode* current = ((pnode*)currentPtr);
-    printf("CURRENT POINTER%d\n",current->xtra);
-
-    printf("%s%d\n","help: ",i);
-    printf("%s\n", "after continue");
 
     if (streq(path, current->path) == 0) { //If this pnode's path is same.
-      printf("%s\n","hello its me");
+      printf("%s\n","File with given path FOUND in get_file_data");
       return current;
     }
   }

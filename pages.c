@@ -37,8 +37,6 @@ pages_init(const char* path)
 
     printf("IN PAGES FD:%d\n", pages_fd);
 
-    //*((char*)pages_base) = 'H';
-
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
     // Start location of iNode
     SUPER_SIZE = 20;
@@ -62,8 +60,6 @@ pages_init(const char* path)
     // Write offset to start of data blocks in the superblock
     write_int_offset(3, start_dataBlocks);
 
-    // + (int*)(pages_base);
-
     // TEST
     printf("PAGES BASE: %d\n",pages_base);
     printf("1stOffset:%d\n",start_iNode_bitMap);
@@ -74,11 +70,11 @@ pages_init(const char* path)
     // Test inserting Inode into thing
     add_node("/",56,25,145,3);
     flip_iNode_bit(3,1);
-    printf("Bit On :%d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*3)));
+    printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*3)));
     printf("%s","Print out the node: xtra should equal 145\n");
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*3));
-
-
+          //TODO fix the weird bug where commenting out "addnode" above
+          //      causes the last part of this print node to print garbage
 }
 
 void
@@ -98,6 +94,7 @@ add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
 
   void* locationToPlace =
             (sizeof(pnode)*which_iNode) + GET_ptr_start_iNode_Table();
+
   pnode* newNode = (pnode*)(locationToPlace);
   newNode->mode = mode;
   newNode->size = size;
@@ -111,16 +108,14 @@ add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
 // States: 0 == off  // 1 == on
 void
 flip_iNode_bit(int which_iNode, int state) {
-
   // Assert that we're changing the state to something useful.
   assert(state == 0 || state == 1);
 
   void* targetPtr = GET_ptr_start_iNode_bitMap() + sizeof(int)*which_iNode;
-  printf("TargetPointer: %d\n", targetPtr);
+  //printf("TargetPointer: %d\n", targetPtr);
   //*((int*)(targetPtr)) = 1;
   *((int*)targetPtr) = state;
   //*((int*)targetPtr) = 4;
-  printf("Target:%d\n", *((int*)(targetPtr)));
 }
 
 void
@@ -184,4 +179,10 @@ GET_ptr_start_iNode_Table() {
 void*
 GET_ptr_start_dataBlocks() {
   return start_dataBlocks + pages_base;
+}
+int GET_NUMBER_OF_INODES(){
+  return NUMBER_OF_INODES;
+}
+int GET_NUMBER_OF_DATABLOCKS() {
+  return NUMBER_OF_DATABLOCKS;
 }
