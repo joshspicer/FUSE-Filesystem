@@ -35,7 +35,7 @@
 void
 storage_init(const char* path)
 {
-    printf("TODO: Store file system data in: %s\n", path);
+    //printf("TODO: Store file system data in: %s\n", path);
 
     pages_init(path);
 
@@ -74,7 +74,7 @@ get_file_data(const char* path) {
 
   for (int i = 0; i < 10; i++) {  //loop through all inodes (right now there's 10)
 
-    // check inode bitmap later
+    // check inode bitmap
     if(GET_ptr_start_iNode_bitMap + sizeof(int)*i != 1) {
       continue;
     }

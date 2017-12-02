@@ -22,6 +22,8 @@ void
 pages_init(const char* path)
 {
 
+  // TODO have a "reset" flush out option?
+
     printf("%s\n","PAGE INIT STARTING.");
 
     pages_fd = open(path, O_CREAT | O_RDWR, 0644);
@@ -71,9 +73,10 @@ pages_init(const char* path)
 
     // Test inserting Inode into thing
     add_node("/",56,25,145,3);
-    flip_iNode_bit(3);
+    flip_iNode_bit(3,1);
+    printf("Bit On :%d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*3)));
     printf("%s","Print out the node: xtra should equal 145\n");
-    print_node((pnode*)(start_iNode_Table + sizeof(pnode)*3));
+    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*3));
 
 
 }
@@ -104,13 +107,20 @@ add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
   printf("%s\n", "add node got to this point");
 }
 
+
+// States: 0 == off  // 1 == on
 void
-flip_iNode_bit(int which_iNode) {
+flip_iNode_bit(int which_iNode, int state) {
+
+  // Assert that we're changing the state to something useful.
+  assert(state == 0 || state == 1);
+
   void* targetPtr = GET_ptr_start_iNode_bitMap() + sizeof(int)*which_iNode;
   printf("TargetPointer: %d\n", targetPtr);
   //*((int*)(targetPtr)) = 1;
-  int targetVal = ((int*)targetPtr)[0];
-  printf("Target%d\n", targetVal);
+  *((int*)targetPtr) = state;
+  //*((int*)targetPtr) = 4;
+  printf("Target:%d\n", *((int*)(targetPtr)));
 }
 
 void
