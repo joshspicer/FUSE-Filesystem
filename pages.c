@@ -106,8 +106,19 @@ add_node(const char* completePath, int mode, int size, int xtra, int which_iNode
   newNode->mode = mode;
   newNode->size = size;
   newNode->xtra = xtra;
-  newNode->path = completePath;
-  newNode->name = findName(completePath);
+
+
+  //newNode->path = *(completePath);
+  for (int i = 0; i < strlen(completePath); i++) {
+    newNode->path[i] = completePath[i];
+  }
+  newNode->path[strlen(completePath)] = NULL;
+
+  //newNode->name = *(findName(completePath));
+  for (int i = 0; i < strlen(findName(completePath));i++) {
+    newNode->name[i] = findName(completePath)[i];
+  }
+  newNode->name[strlen(findName(completePath))] = NULL;
 
   printf("%s\n", "add node got to this point");
 }

@@ -11,9 +11,11 @@ typedef struct inode {
     int xtra; // more stuff can go here
 
     // Path of file
-    const char* path;
+    //const char* path;
+    char path[32];
     // File rename
-    const char* name;
+    //const char* name;
+    char name[32];
 
     // IDs of all data blocks in use.
     int blocksIDS[];

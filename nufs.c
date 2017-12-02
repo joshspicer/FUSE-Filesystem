@@ -101,12 +101,12 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 
     printf("mknod(%s, %04o)\n", path, mode);
 
-    add_node(path, S_IFREG, 60, 0, 4);
     flip_iNode_bit(4,1);
+    add_node(path, mode, 60, 0, 4);
 
+    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*4));
 
-
-    return -1;
+    return 0;  //was -1
 }
 
 // most of the following callbacks implement
@@ -195,11 +195,13 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset, struct 
 int
 nufs_utimens(const char* path, const struct timespec ts[2])
 {
-    //int rv = storage_set_time(path, ts);
-    int rv = -1;
-    printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
+  //   //int rv = storage_set_time(path, ts);
+     int rv = -1;
+     printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
            path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
-	return rv;
+
+  // return rv;
+  return 0;
 }
 
 void

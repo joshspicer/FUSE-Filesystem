@@ -1,0 +1,141 @@
+ile </maddie.txt> FOUND in get_file_data
+getattr(/joshua.txt)
+Current's Path: /
+Inputted Path: /joshua.txt
+Current's Path: /maddie.txt
+Inputted Path: /joshua.txt
+Current's Path: /joshua.txt
+Inputted Path: /joshua.txt
+File </joshua.txt> FOUND in get_file_data
+getattr(/bad.txt)
+Current's Path: /
+Inputted Path: /bad.txt
+Current's Path: /maddie.txt
+Inputted Path: /bad.txt
+Current's Path: /joshua.txt
+Inputted Path: /bad.txt
+mknod(/bad.txt, 100664)
+here
+here
+add node got to this point
+getattr(/bad.txt)
+Current's Path: /
+Inputted Path: /bad.txt
+Current's Path: /maddie.txt
+Inputted Path: /bad.txt
+Current's Path: /joshua.txt
+Inputted Path: /bad.txt
+Current's Path: /bad.txt
+Inputted Path: /bad.txt
+File </bad.txt> FOUND in get_file_data
+open(/bad.txt)
+getattr(/bad.txt)
+Current's Path: /
+Inputted Path: /bad.txt
+Current's Path: /maddie.txt
+Inputted Path: /bad.txt
+Current's Path: /joshua.txt
+Inputted Path: /bad.txt
+Current's Path: /bad.txt
+Inputted Path: /bad.txt
+File </bad.txt> FOUND in get_file_data
+getattr(/)
+Current's Path: /
+Inputted Path: /
+File </> FOUND in get_file_data
+getattr(/.git)
+Current's Path: /
+Inputted Path: /.git
+Current's Path: /maddie.txt
+Inputted Path: /.git
+Current's Path: /joshua.txt
+Inputted Path: /.git
+Current's Path: /.git
+Inputted Path: /.git
+File </.git> FOUND in get_file_data
+access(/.git, 0000)
+readdir(/)
+Current's Path: /
+Inputted Path: /
+File </> FOUND in get_file_data
+path: /maddie.txt; name: maddie.txt
+Current's Path: /
+Inputted Path: /maddie.txt
+Current's Path: /maddie.txt
+Inputted Path: /maddie.txt
+File </maddie.txt> FOUND in get_file_data
+path: /joshua.txt; name: joshua.txt
+Current's Path: /
+Inputted Path: /joshua.txt
+Current's Path: /maddie.txt
+Inputted Path: /joshua.txt
+Current's Path: /joshua.txt
+Inputted Path: /joshua.txt
+File </joshua.txt> FOUND in get_file_data
+path: ; name:
+Current's Path: /
+Inputted Path: 
+Current's Path: /maddie.txt
+Inputted Path: 
+Current's Path: /joshua.txt
+Inputted Path: 
+Current's Path: 
+Inputted Path: 
+File <> FOUND in get_file_data
+getattr(/maddie.txt)
+Current's Path: /
+Inputted Path: /maddie.txt
+Current's Path: /maddie.txt
+Inputted Path: /maddie.txt
+File </maddie.txt> FOUND in get_file_data
+getattr(/joshua.txt)
+Current's Path: /
+Inputted Path: /joshua.txt
+Current's Path: /maddie.txt
+Inputted Path: /joshua.txt
+Current's Path: /joshua.txt
+Inputted Path: /joshua.txt
+File </joshua.txt> FOUND in get_file_data
+open(/.git)
+read(/.git, 4096 bytes, @0)
+getattr(/)
+Current's Path: /
+Inputted Path: /
+File </> FOUND in get_file_data
+readdir(/)
+Current's Path: /
+Inputted Path: /
+File </> FOUND in get_file_data
+path: /maddie.txt; name: maddie.txt
+Current's Path: /
+Inputted Path: /maddie.txt
+Current's Path: /maddie.txt
+Inputted Path: /maddie.txt
+File </maddie.txt> FOUND in get_file_data
+path: /joshua.txt; name: joshua.txt
+Current's Path: /
+Inputted Path: /joshua.txt
+Current's Path: /maddie.txt
+Inputted Path: /joshua.txt
+Current's Path: /joshua.txt
+Inputted Path: /joshua.txt
+File </joshua.txt> FOUND in get_file_data
+path: ; name:
+Current's Path: /
+Inputted Path:
+Current's Path: /maddie.txt
+Inputted Path:
+Current's Path: /joshua.txt
+Inputted Path:
+Current's Path:
+Inputted Path:
+File <> FOUND in get_file_data
+getattr(/.gitignore)
+Current's Path: /
+Inputted Path: /.gitignore
+Current's Path: /maddie.txt
+Inputted Path: /.gitignore
+Current's Path: /joshua.txt
+Inputted Path: /.gitignore
+Current's Path:
+Inputted Path: /.gitignore

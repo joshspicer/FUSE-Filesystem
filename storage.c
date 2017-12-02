@@ -105,8 +105,8 @@ get_stat(const char* path, struct stat* st)
   st->st_uid  = getuid();
   st->st_gid = getgid();
   st->st_mode = dat->mode;
-  //st->st_atime = time( NULL );
-  //st->st_mtime = time( NULL );
+  st->st_atime = time( NULL );  //TODO time
+  st->st_mtime = time( NULL ); //TODO time
   st->st_size = dat->size;
 
   //TODO stat with something to do with data blocks....
