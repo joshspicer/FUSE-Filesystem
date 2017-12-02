@@ -16,13 +16,6 @@
 // Josh added this
 #include "pages.h"
 
-char* concat(const char *string1, const char *string2)
-{
-    char *newStr = malloc(strlen(string1)+strlen(string2)+1);
-    strcpy(newStr, string1); strcat(newStr, string2);
-    return newStr;
-}
-
 // implementation for: man 2 access
 // Checks if a file exists.
 int
@@ -80,10 +73,10 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
       void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
       pnode* current = ((pnode*)currentPtr);
 
-      if (!(streq(current->path, "/"))) {
-           printf("%s\n",current->path);
-           get_stat(concat("/","maddie.txt"), &st);
-           filler(buf, "maddie.txt", &st, 0);
+      if (!(streq(concat(current->path, current->fileName), "/"))) {
+           printf("path: %s; name: %s\n", current->path, current->fileName);
+           get_stat(concat(current->path, current->fileName), &st);
+           filler(buf, current->fileName, &st, 0);
          }
 
        // get_stat("/maddie.txt", &st);

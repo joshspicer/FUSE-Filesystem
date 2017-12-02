@@ -68,14 +68,14 @@ pages_init(const char* path)
     printf("4stOffset: %d\n",start_dataBlocks);
 
     // Test inserting Inode into thing TEMP
-    add_node("/",040755,25,145,0);
+    add_node("/", "", 040755,25,145,0);
     flip_iNode_bit(0,1);
     printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*0)));
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*0));
           //TODO fix the weird bug where commenting out "addnode" above
           //      causes the last part of this print node to print garbage
 
-   add_node("/maddie.txt",S_IFREG,50,166,1);
+   add_node("/", "maddie.txt",S_IFREG,50,166,1);
    flip_iNode_bit(1,1);
 }
 
@@ -91,7 +91,7 @@ write_int_offset(int offset, int data) {
 // }
 
 void
-add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
+add_node(const char* path, char* fileName, int mode, int size, int xtra, int which_iNode) {
   //TODO add the data block array as an argument of this function and set.
 
   void* locationToPlace =
@@ -102,6 +102,7 @@ add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
   newNode->size = size;
   newNode->xtra = xtra;
   newNode->path = path;
+  newNode->fileName = fileName;
 
   printf("%s\n", "add node got to this point");
 }
@@ -158,8 +159,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s}\n",
-               node->refs, node->mode, node->size, node->xtra, node->path);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, fileName: %d}\n",
+               node->refs, node->mode, node->size, node->xtra, node->path, node->fileName);
     }
     else {
         printf("node{null}\n");
