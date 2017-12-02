@@ -15,6 +15,7 @@
 #include "storage.h"
 // Josh added this
 #include "pages.h"
+#include "util.h"
 
 // implementation for: man 2 access
 // Checks if a file exists.
@@ -78,16 +79,11 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
            get_stat(concat(current->path, current->fileName), &st);
            filler(buf, current->fileName, &st, 0);
          }
-
-       // get_stat("/maddie.txt", &st);
-       // filler(buf, "maddie.txt", &st, 0);
-
     }
-
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
-    //
+
     // get_stat("/josh.txt", &st);
     // filler(buf, "josh.txt",&st,0);
 
@@ -100,12 +96,16 @@ int
 nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 {
 
-    //TODO: this is the next step! (after getAttr)
-
     //open(path, O_CREAT, mode); --- maybe for mode do S_IRWXU | mode
     //link()
 
     printf("mknod(%s, %04o)\n", path, mode);
+
+    add_node(path, S_IFREG, 60, 0, 4);
+    flip_iNode_bit(4,1);
+
+
+
     return -1;
 }
 

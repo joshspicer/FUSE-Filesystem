@@ -15,6 +15,7 @@
 
 //Josh: Included one of his hints
 #include "pages.h"
+#include "util.h"
 
 // typedef struct file_data {
 //     const char* path;
@@ -58,11 +59,6 @@ storage_init(const char* path)
 
 }
 
-int
-streq(const char* aa, const char* bb)
-{
-  return strcmp(aa, bb) == 0;
-}
 
 char* concat(const char *string1, const char *string2)
 {
@@ -129,5 +125,5 @@ get_data(const char* path)
   // }
 
   //return dat->data;
-  return "get_data isn't implemented yet.";
+  return "get_data isn't implemented yet.\n";
 }

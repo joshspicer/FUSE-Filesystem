@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 #include "pages.h"
+#include "storage.h"
 #include "slist.h"
 #include "util.h"
 
@@ -68,15 +69,19 @@ pages_init(const char* path)
     printf("4stOffset: %d\n",start_dataBlocks);
 
     // Test inserting Inode into thing TEMP
-    add_node("/", "", 040755,25,145,0);
+    add_node("/", 040755,25,145,0);
     flip_iNode_bit(0,1);
     printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*0)));
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*0));
           //TODO fix the weird bug where commenting out "addnode" above
           //      causes the last part of this print node to print garbage
 
-   add_node("/", "maddie.txt",S_IFREG,50,166,1);
+   add_node("/maddie.txt",S_IFREG,50,166,1);
    flip_iNode_bit(1,1);
+
+   add_node("/joshua.txt",S_IFREG | S_IRWXU,20,166,2);
+   flip_iNode_bit(2,1);
+
 }
 
 void
@@ -91,7 +96,7 @@ write_int_offset(int offset, int data) {
 // }
 
 void
-add_node(const char* path, char* fileName, int mode, int size, int xtra, int which_iNode) {
+add_node(const char* completePath, int mode, int size, int xtra, int which_iNode) {
   //TODO add the data block array as an argument of this function and set.
 
   void* locationToPlace =
@@ -101,10 +106,33 @@ add_node(const char* path, char* fileName, int mode, int size, int xtra, int whi
   newNode->mode = mode;
   newNode->size = size;
   newNode->xtra = xtra;
+
+  const char* path = computePath(completePath);
+  //const char* fileName = computeFileName(completePath);
   newNode->path = path;
-  newNode->fileName = fileName;
+  //newNode->fileName = fileName;
 
   printf("%s\n", "add node got to this point");
+}
+
+const char*
+computePath(const char* completePath) {
+  int size = strlen(completePath);
+  int indexOfFinalSlash = 0;
+  const char* output;
+  // Loop through, saving the location of a slash whenever found.
+  for (int i = 0; i < size; i++) {
+    if(strcmp(completePath[i], "/") == 0) {
+      indexOfFinalSlash = i;
+    }
+  }
+
+  // Save the path WITHOUT the file name
+  for (int i = 0; i < indexOfFinalSlash;i++) {
+    output = concat(output,completePath[i]);
+  }
+
+
 }
 
 

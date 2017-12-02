@@ -2,6 +2,7 @@
 #define PAGES_H
 
 #include <stdio.h>
+#include "util.h"
 
 typedef struct inode {
     int refs; // reference count
@@ -42,7 +43,7 @@ int    pages_find_empty();
 void   print_node(pnode* node);
 
 // Josh: My new methods
-void add_node(const char* path, char* fileName, int mode, int size, int xtra, int which_iNode);
+void add_node(const char* fullPath, int mode, int size, int xtra, int which_iNode);
 void flip_iNode_bit(int which_iNode, int state); // 0 == off, 1 == on
 
 void write_int_offset(int offset, int data);
@@ -55,6 +56,9 @@ void* GET_ptr_start_dataBlocks();
 
 int GET_NUMBER_OF_INODES();
 int GET_NUMBER_OF_DATABLOCKS();
+
+const char* computePath(const char* completePath);
+const char* computeFileName(const char* completePath);
 
 
 #endif
