@@ -67,6 +67,19 @@ char* concat(const char *string1, const char *string2)
     return newStr;
 }
 
+int
+find_empty_inode_index() {
+  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+
+    // check inode bitmap. If value isn't one, then that inode isn't active.
+    if(*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) != 1) {
+      return i;
+    }
+  }
+  // If there's no empty slot, return -1
+  return -1;
+}
+
 static pnode*
 get_file_data(const char* path) {
 

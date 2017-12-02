@@ -101,10 +101,19 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 
     printf("mknod(%s, %04o)\n", path, mode);
 
-    flip_iNode_bit(4,1);
-    add_node(path, mode, 60, 0, 4);
+    int index = find_empty_inode_index();
 
-    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*4));
+    // If there's no free iNodes, return -1
+    if (index == -1) {
+      printf("%s\n","ERROR: No free iNode slots.  Cannot mknod");
+      return -1;
+    }
+
+    printf("PLACING NEW INODE AT INDEX: %d\n", index);
+    flip_iNode_bit(index, 1);
+    add_node(path, mode, 60, 0, index);
+
+    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*index));
 
     return 0;  //was -1
 }

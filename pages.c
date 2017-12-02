@@ -68,19 +68,18 @@ pages_init(const char* path)
     printf("3stOffset: %d\n",start_iNode_Table);
     printf("4stOffset: %d\n",start_dataBlocks);
 
-    // Test inserting Inode into thing TEMP
+    // Init the root directory.
     add_node("/", 040755,25,145,0);
     flip_iNode_bit(0,1);
-    printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*0)));
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*0));
           //TODO fix the weird bug where commenting out "addnode" above
           //      causes the last part of this print node to print garbage
 
-   add_node("/maddie.txt",S_IFREG,50,166,1);
-   flip_iNode_bit(1,1);
-
-   add_node("/joshua.txt",S_IFREG | S_IRWXU,20,166,2);
-   flip_iNode_bit(2,1);
+   // add_node("/maddie.txt",S_IFREG,50,166,1);
+   // flip_iNode_bit(1,1);
+   //
+   // add_node("/joshua.txt",S_IFREG | S_IRWXU,20,166,2);
+   // flip_iNode_bit(2,1);
 
 }
 
