@@ -32,7 +32,7 @@ nufs_getattr(const char *path, struct stat *st)
 {
     printf("getattr(%s)\n", path);
 
-    int rv = get_stat(path, st);  //TODO re-write get_stat()
+    int rv = get_stat(path, st);
     if (rv == -1) {
         return -ENOENT;
     }
@@ -53,17 +53,21 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     printf("readdir(%s)\n", path);
 
+    //readdir("/");  //TODO PERMISSIONS!
+
     get_stat("/", &st);
     // filler is a callback that adds one item to the result
     // it will return non-zero when the buffer is full
     filler(buf, ".", &st, 0);
 
     // TODO: Loop through current iNodes and present their data
-    // like hardcoded below...
 
-    for (int i = 0; i<10;i++) { //TODO right now we only support 10 iNodes
+    //for (int i = 0; i < GET_NUMBER_OF_INODES; i++) {
+    printf("%d\n",GET_NUMBER_OF_INODES);
     //  GET_OFFSET_start_iNode_bitMap();
-    }
+     get_stat("/maddie.txt", &st);
+     filler(buf, "maddie.txt", &st, 0);
+//    }
 
 
     // get_stat("/hello.txt", &st);
@@ -208,7 +212,7 @@ struct fuse_operations nufs_ops;
 int
 main(int argc, char *argv[])
 {
-    assert(argc > 2 && argc < 6);
+    assert(argc > 2 && argc < 1000);  //1000 was 6
     storage_init(argv[--argc]);
     nufs_init_ops(&nufs_ops);
     return fuse_main(argc, argv, &nufs_ops, NULL);

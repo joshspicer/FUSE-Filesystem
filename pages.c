@@ -62,19 +62,21 @@ pages_init(const char* path)
 
     // TEST
     printf("PAGES BASE: %d\n",pages_base);
-    printf("1stOffset:%d\n",start_iNode_bitMap);
-    printf("2stOffset:%d\n",start_dataBlock_bitMap);
-    printf("3stOffset:%d\n",start_iNode_Table);
-    printf("4stOffset:%d\n",start_dataBlocks);
+    printf("1stOffset: %d\n",start_iNode_bitMap);
+    printf("2stOffset: %d\n",start_dataBlock_bitMap);
+    printf("3stOffset: %d\n",start_iNode_Table);
+    printf("4stOffset: %d\n",start_dataBlocks);
 
-    // Test inserting Inode into thing
-    add_node("/",56,25,145,3);
-    flip_iNode_bit(3,1);
-    printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*3)));
-    printf("%s","Print out the node: xtra should equal 145\n");
-    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*3));
+    // Test inserting Inode into thing TEMP
+    add_node("/",040755,25,145,0);
+    flip_iNode_bit(0,1);
+    printf("Bit On: %d\n",*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*0)));
+    print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*0));
           //TODO fix the weird bug where commenting out "addnode" above
           //      causes the last part of this print node to print garbage
+
+   add_node("/maddie.txt",S_IFREG,50,166,1);
+   flip_iNode_bit(1,1);
 }
 
 void
@@ -83,10 +85,10 @@ write_int_offset(int offset, int data) {
 }
 
 
-void
-write_char_offset(int offset, char data) {
-    *((char*)pages_base + sizeof(char)*offset) = data;
-}
+// void
+// write_char_offset(int offset, char data) {
+//     *((char*)pages_base + sizeof(char)*offset) = data;
+// }
 
 void
 add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
@@ -108,6 +110,7 @@ add_node(const char* path,int mode, int size, int xtra, int which_iNode) {
 // States: 0 == off  // 1 == on
 void
 flip_iNode_bit(int which_iNode, int state) {
+
   // Assert that we're changing the state to something useful.
   assert(state == 0 || state == 1);
 
