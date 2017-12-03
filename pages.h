@@ -17,8 +17,8 @@ typedef struct inode {
     //const char* name;
     char name[32];
 
-    // IDs of all data blocks in use.
-    int blocksIDS[];
+    // ID of data block in use.
+    int blockID;
 
 } pnode;
 
@@ -46,7 +46,9 @@ void   print_node(pnode* node);
 
 // Josh: My new methods
 void add_node(const char* fullPath, int mode, int size, int xtra, int which_iNode);
+
 void flip_iNode_bit(int which_iNode, int state); // 0 == off, 1 == on
+void flip_data_block_bit(int which_block, int state); // 0 == off, 1 == on
 
 void write_int_offset(int offset, int data);
 void write_char_offset(int offset, char data);

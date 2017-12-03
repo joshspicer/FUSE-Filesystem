@@ -156,6 +156,19 @@ flip_iNode_bit(int which_iNode, int state) {
   //*((int*)targetPtr) = 4;
 }
 
+void flip_data_block_bit(int which_block, int state) {
+  // Assert that we're changing the state to something useful.
+  assert(state == 0 || state == 1);
+
+  void* targetPtr = GET_ptr_start_dataBlock_bitMap() + sizeof(int)*which_block;
+  //printf("TargetPointer: %d\n", targetPtr);
+  //*((int*)(targetPtr)) = 1;
+  *((int*)targetPtr) = state;
+  //*((int*)targetPtr) = 4;
+}
+
+
+
 void
 pages_free()
 {
@@ -166,7 +179,7 @@ pages_free()
 void*
 pages_get_page(int pnum)
 {
-    return pages_base + 4096 * pnum;
+    return GET_ptr_start_dataBlocks() + 4096 * pnum;
 }
 
 pnode*

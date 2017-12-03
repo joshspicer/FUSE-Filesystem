@@ -80,7 +80,20 @@ find_empty_inode_index() {
   return -1;
 }
 
-static pnode*
+int
+find_empty_block_index() {
+  for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
+
+    // check inode bitmap. If value isn't one, then that inode isn't active.
+    if(*((int*)(GET_ptr_start_dataBlock_bitMap() + sizeof(int)*i)) != 1) {
+      return i;
+    }
+  }
+  // If there's no empty slot, return -1
+  return -1;
+}
+
+pnode*
 get_file_data(const char* path) {
 
   //loop through all inodes
