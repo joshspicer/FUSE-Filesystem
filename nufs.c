@@ -83,9 +83,6 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
 
-    // get_stat("/josh.txt", &st);
-    // filler(buf, "josh.txt",&st,0);
-
     return 0;
 }
 
@@ -159,9 +156,16 @@ nufs_chmod(const char *path, mode_t mode)
 int
 nufs_truncate(const char *path, off_t size)
 {
-    printf("truncate(%s, %ld bytes)\n", path, size);
-    printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
-    return -1;
+
+  //  VERY BIG TODO: implement this
+
+
+    //
+    // printf("truncate(%s, %ld bytes)\n", path, size);
+    // printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
+    // return -1;
+
+    return 0;
 }
 
 // this is called on open, but doesn't need to do much
@@ -192,10 +196,37 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
 
 // Actually write data
 int
-nufs_write(const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
+nufs_write(const char *path, const char *buf, size_t size, off_t offset,
+                                                          struct fuse_file_info *fi)
 {
-    printf("write(%s, %ld bytes, @%ld)\n", path, size, offset);
-    return -1;
+     printf("write(%s, %ld bytes, %ld)\n", path, size, offset);
+
+    // Get the node associated with this path.
+    pnode* node = get_file_data(path);
+
+    if (!node) {
+      printf("%s\n","YOU CAN'T WRITE TO A FILE THAT DOESN'T EXIST!");
+      return -1;  //TODO return error code.
+    }
+
+    // We definitely want a positive blockID
+    assert(node->blockID != -1);
+
+    // Calculate the memory address of this block's data.
+    void* ptr = data_block_ptr_at_index(node->blockID);
+
+    // Write to that memory location (using the given buffer/size/offset)
+    //ptr = buf;
+    memcpy(ptr,buf,size);
+    //int fd = fi->direct_io;
+
+    // TODO Change stat somehow??? (I don't get stat.)
+
+    // Set node's size to size of this file.
+    node->size = size;
+
+
+    return 0;
 }
 
 // Update the timestamps on a file or directory.

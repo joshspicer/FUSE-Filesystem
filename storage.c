@@ -60,12 +60,12 @@ storage_init(const char* path)
 }
 
 
-char* concat(const char *string1, const char *string2)
-{
-    char *newStr = malloc(strlen(string1)+strlen(string2)+1);
-    strcpy(newStr, string1); strcat(newStr, string2);
-    return newStr;
-}
+// char* concat(const char *string1, const char *string2)
+// {
+//     char *newStr = malloc(strlen(string1)+strlen(string2)+1);
+//     strcpy(newStr, string1); strcat(newStr, string2);
+//     return newStr;
+// }
 
 pnode*
 get_file_data(const char* path) {

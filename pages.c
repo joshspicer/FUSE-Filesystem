@@ -64,9 +64,7 @@ pages_init(const char* path)
           //TODO fix the weird bug where commenting out "addnode" above
           //      causes the last part of this print node to print garbage
 
-   // add_node("/maddie.txt",S_IFREG,50,166,1);
-   // flip_iNode_bit(1,1);
-   //
+
    // add_node("/joshua.txt",S_IFREG | S_IRWXU,20,166,2);
    // flip_iNode_bit(2,1);
 
@@ -152,6 +150,7 @@ add_node(const char* completePath, int mode, int xtra, int which_iNode) {
     printf("BLOCK %d FOUND FOR INODE\n",firstAvailableBlockIdx);
 
   } else {
+    newNode->blockID = -1;
     printf("%s\n","NO AVAILABLE BLOCK FOUND FOR THIS INODE.");
   }
 
@@ -211,7 +210,7 @@ pages_free()
 void*
 data_block_ptr_at_index(int index)
 {
-    return GET_ptr_start_dataBlocks() + 4096 * index;
+    return GET_ptr_start_dataBlocks() + (4096 * index);
 }
 
 // pnode*
@@ -238,8 +237,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s, blockID: %d}\n",
-               node->refs, node->mode, node->size, node->xtra, node->path, node->name, node->blockID);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d,  path: %s, name: %s, blockID: %d}\n",
+        node->refs, node->mode, node->size, node->xtra,node->path, node->name, node->blockID);
     }
     else {
         printf("node{null}\n");
