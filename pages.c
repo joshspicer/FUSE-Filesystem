@@ -85,18 +85,18 @@ find_empty_inode_index() {
   return -1;
 }
 
-int
-find_empty_block_index() {
-  for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
-
-    // check inode bitmap. If value isn't one, then that inode isn't active.
-    if(*((int*)(GET_ptr_start_dataBlock_bitMap() + sizeof(int)*i)) != 1) {
-      return i;
-    }
-  }
-  // If there's no empty slot, return -1
-  return -1;
-}
+// int
+// find_empty_block_index() {
+//   for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
+//
+//     // check inode bitmap. If value isn't one, then that inode isn't active.
+//     if(*((int*)(GET_ptr_start_dataBlock_bitMap() + sizeof(int)*i)) != 1) {
+//       return i;
+//     }
+//   }
+//   // If there's no empty slot, return -1
+//   return -1;
+// }
 
 void
 write_int_offset(int offset, int data) {
@@ -137,7 +137,7 @@ add_node(const char* completePath, int mode, int xtra, int which_iNode) {
   //      so that we don't go over.
   int MAX_BLOCKS = 10;  //FIXME
 
-  // Keep se
+  // Keep searching for next available block according to bitmap
   int firstAvailableBlockIdx = -1;
   for (int i = 0; i < MAX_BLOCKS; i++) {
     if (*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) == 0) {
@@ -238,8 +238,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s}\n",
-               node->refs, node->mode, node->size, node->xtra, node->path, node->name);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s, blockID: %d}\n",
+               node->refs, node->mode, node->size, node->xtra, node->path, node->name, node->blockID);
     }
     else {
         printf("node{null}\n");
