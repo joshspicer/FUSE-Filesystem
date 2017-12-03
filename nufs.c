@@ -162,9 +162,17 @@ nufs_rmdir(const char *path)
 int
 nufs_rename(const char *from, const char *to)
 {
-    rename(from, to); //TODO
     printf("rename(%s => %s)\n", from, to);
-    return -1;
+
+    pnode* node = get_file_data(from);
+
+    if (!node) {
+      printf("Cannot rename file or directory because it does not exist.\n");
+    }
+
+    name_node(node, to);
+    
+    return 0;
 }
 
 int

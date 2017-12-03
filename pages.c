@@ -117,14 +117,7 @@ add_node(const char* completePath, int mode, int xtra, int which_iNode) {
   newNode->mode = mode;
   newNode->xtra = xtra;
 
-  for (int i = 0; i < strlen(completePath); i++) {
-    newNode->path[i] = completePath[i];
-  }
-  newNode->path[strlen(completePath)] = NULL;
-  for (int i = 0; i < strlen(findName(completePath));i++) {
-    newNode->name[i] = findName(completePath)[i];
-  }
-  newNode->name[strlen(findName(completePath))] = NULL;
+  name_node(newNode, completePath);
 
   // --- Add first open data block array as this inode's chunk of data --
 
@@ -170,6 +163,18 @@ findName(const char* completePath) {
   }
   return (const char*)(((void*)completePath) + indexOfFinalSlash + 1);
 
+}
+
+void
+name_node(pnode* node, const char* path) {
+  for (int i = 0; i < strlen(path); i++) {
+    node->path[i] = path[i];
+  }
+  node->path[strlen(path)] = NULL;
+  for (int i = 0; i < strlen(findName(path));i++) {
+    node->name[i] = findName(path)[i];
+  }
+  node->name[strlen(findName(path))] = NULL;
 }
 
 

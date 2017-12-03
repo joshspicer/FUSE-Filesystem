@@ -69,6 +69,7 @@ int GET_NUMBER_OF_INODES();
 int GET_NUMBER_OF_DATABLOCKS();
 
 const char* findName(const char* completePath);
+void name_node(pnode* node, const char* path);
 
 
 #endif
