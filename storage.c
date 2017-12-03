@@ -123,7 +123,7 @@ get_data(const char* path)
 
   int blockID = node->blockID;
 
-  if (blockId == -1) {
+  if (blockID == -1) {
     printf("No data block associated with this node.\n");
     return 0; // TODO error codes
   }

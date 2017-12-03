@@ -129,13 +129,34 @@ int
 nufs_unlink(const char *path)
 {
     printf("unlink(%s)\n", path);
-    return -1;
+
+    pnode* node = get_file_data(path);
+
+    if (!node) {
+      printf("Cannot remove path because path does not exist.\n");
+    }
+
+    flip_iNode_bit(node->nodeID, 0);
+    flip_data_block_bit(node->blockID, 0);
+
+    return 0;
 }
 
 int
 nufs_rmdir(const char *path)
 {
     printf("rmdir(%s)\n", path);
+
+    // pnode* node = get_file_data(path);
+    // print_node(node);
+    //
+    // if (!node) {
+    //   printf("Cannot remove path because path does not exist.\n");
+    // }
+    //
+    // flip_iNode_bit(node->nodeID, 0);
+    // flip_data_block_bit(node->blockID, 0);
+
     return -1;
 }
 
@@ -181,7 +202,7 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
     const char* data = get_data(path);
 
-    int len = node->size + 1; // strlen(data) + 1
+    int len = strlen(data) + 1; // strlen(data) + 1
     if (size < len) {
         len = size;
     }

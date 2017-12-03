@@ -20,6 +20,7 @@ typedef struct inode {
     // ID of data block in use.
     // It's simply an index of
     int blockID;
+    int nodeID;
 
 } pnode;
 
