@@ -181,7 +181,7 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
     const char* data = get_data(path);
 
-    int len = strlen(data) + 1;
+    int len = node->size + 1; // strlen(data) + 1
     if (size < len) {
         len = size;
     }
