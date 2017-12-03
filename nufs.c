@@ -111,7 +111,7 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev)
 
     printf("PLACING NEW INODE AT INDEX: %d\n", index);
     flip_iNode_bit(index, 1);
-    add_node(path, mode, 60, 0, index);
+    add_node(path, mode, 0, index);
 
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*index));
 

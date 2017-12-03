@@ -69,7 +69,7 @@ pages_init(const char* path)
     printf("4stOffset: %d\n",start_dataBlocks);
 
     // Init the root directory.
-    add_node("/", 040755,25,145,0);
+    add_node("/", 040755,145,0);
     flip_iNode_bit(0,1);
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*0));
           //TODO fix the weird bug where commenting out "addnode" above
@@ -95,17 +95,14 @@ write_int_offset(int offset, int data) {
 // }
 
 void
-add_node(const char* completePath, int mode, int size, int xtra, int which_iNode) {
-  //TODO add the data block array as an argument of this function and set.
+add_node(const char* completePath, int mode, int xtra, int which_iNode) {
 
   void* locationToPlace =
             (sizeof(pnode)*which_iNode) + GET_ptr_start_iNode_Table();
 
   pnode* newNode = (pnode*)(locationToPlace);
   newNode->mode = mode;
-  newNode->size = size;
   newNode->xtra = xtra;
-
 
   //newNode->path = *(completePath);
   for (int i = 0; i < strlen(completePath); i++) {
@@ -119,7 +116,35 @@ add_node(const char* completePath, int mode, int size, int xtra, int which_iNode
   }
   newNode->name[strlen(findName(completePath))] = NULL;
 
-  printf("%s\n", "add node got to this point");
+
+  // --- Add first open data block array as this inode's chunk of data --
+
+  // TODO support more than 4096 bytes of data per block
+
+  // TODO calculate how many blocks we can allot with our superblock (1MB limit)
+  //      so that we don't go over.
+  int MAX_BLOCKS = 10;  //FIXME
+
+  // Keep se
+  int firstAvailableBlockIdx = -1;
+  for (int i = 0; i < MAX_BLOCKS; i++) {
+    if (*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) == 0) {
+      firstAvailableBlockIdx = i;
+      break;
+    }
+  }
+
+  if (firstAvailableBlockIdx != -1) {
+    flip_data_block_bit(firstAvailableBlockIdx, 1);
+    newNode->blockID = firstAvailableBlockIdx;
+    printf("BLOCK %d FOUND FOR INODE\n",firstAvailableBlockIdx);
+
+  } else {
+    printf("%s\n","NO AVAILABLE BLOCK FOUND FOR THIS INODE.");
+  }
+
+  // Size of files within block start as 0 (cuz nothing is there).
+  newNode->size = 0;
 }
 
 const char*
@@ -177,30 +202,30 @@ pages_free()
 }
 
 void*
-pages_get_page(int pnum)
+data_block_ptr_at_index(int index)
 {
-    return GET_ptr_start_dataBlocks() + 4096 * pnum;
+    return GET_ptr_start_dataBlocks() + 4096 * index;
 }
 
-pnode*
-pages_get_node(int nodeNum)  //NOTE: changed node_id to nodeNum
-{
-    pnode* idx = (pnode*) pages_get_page(0);
-    return &(idx[nodeNum]);
-}
+// pnode*
+// pages_get_node(int nodeNum)  //NOTE: changed node_id to nodeNum
+// {
+//     pnode* idx = (pnode*) pages_get_page(0);
+//     return &(idx[nodeNum]);
+// }
 
-int
-pages_find_empty()
-{
-    int pnum = -1;
-    for (int ii = 2; ii < PAGE_COUNT; ++ii) {
-        if (0) { // if page is empty
-            pnum = ii;
-            break;
-        }
-    }
-    return pnum;
-}
+// int
+// pages_find_empty()
+// {
+//     int pnum = -1;
+//     for (int ii = 2; ii < PAGE_COUNT; ++ii) {
+//         if (0) { // if page is empty
+//             pnum = ii;
+//             break;
+//         }
+//     }
+//     return pnum;
+// }
 
 void
 print_node(pnode* node)

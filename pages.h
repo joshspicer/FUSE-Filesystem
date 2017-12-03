@@ -18,6 +18,7 @@ typedef struct inode {
     char name[32];
 
     // ID of data block in use.
+    // It's simply an index of
     int blockID;
 
 } pnode;
@@ -39,13 +40,13 @@ static int start_dataBlocks;
 
 void   pages_init(const char* path);
 void   pages_free();
-void*  pages_get_page(int pnum);
-/*inode**/ pnode* pages_get_node(int node_id);
-int    pages_find_empty();
+void*  data_block_ptr_at_index(int index);
+// /*inode**/ pnode* pages_get_node(int node_id);
+// int    pages_find_empty();
 void   print_node(pnode* node);
 
 // Josh: My new methods
-void add_node(const char* fullPath, int mode, int size, int xtra, int which_iNode);
+void add_node(const char* fullPath, int mode, int xtra, int which_iNode);
 
 void flip_iNode_bit(int which_iNode, int state); // 0 == off, 1 == on
 void flip_data_block_bit(int which_block, int state); // 0 == off, 1 == on
