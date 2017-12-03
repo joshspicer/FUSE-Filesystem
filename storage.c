@@ -67,32 +67,6 @@ char* concat(const char *string1, const char *string2)
     return newStr;
 }
 
-int
-find_empty_inode_index() {
-  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
-
-    // check inode bitmap. If value isn't one, then that inode isn't active.
-    if(*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) != 1) {
-      return i;
-    }
-  }
-  // If there's no empty slot, return -1
-  return -1;
-}
-
-int
-find_empty_block_index() {
-  for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
-
-    // check inode bitmap. If value isn't one, then that inode isn't active.
-    if(*((int*)(GET_ptr_start_dataBlock_bitMap() + sizeof(int)*i)) != 1) {
-      return i;
-    }
-  }
-  // If there's no empty slot, return -1
-  return -1;
-}
-
 pnode*
 get_file_data(const char* path) {
 
@@ -107,9 +81,6 @@ get_file_data(const char* path) {
     // There must be an associated iNode. Calculate address.
     void* currentPtr = ((void*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*i));
     pnode* current = ((pnode*)currentPtr);
-
-    printf("Current's Path: %s\n", current->path);
-    printf("Inputted Path: %s\n",path);
 
     if (streq(path, current->path)) { //If this pnode's path is same.
     printf("File <%s> FOUND in get_file_data\n", path);

@@ -48,6 +48,11 @@ void   print_node(pnode* node);
 // Josh: My new methods
 void add_node(const char* fullPath, int mode, int xtra, int which_iNode);
 
+// Returns the index of the first free iNode, or -1 if no empty inode.
+int find_empty_inode_index();
+int find_empty_block_index();
+
+
 void flip_iNode_bit(int which_iNode, int state); // 0 == off, 1 == on
 void flip_data_block_bit(int which_block, int state); // 0 == off, 1 == on
 
