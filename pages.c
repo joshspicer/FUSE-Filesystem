@@ -126,7 +126,6 @@ add_node(const char* completePath, int mode, int xtra, int which_iNode) {
   }
   newNode->name[strlen(findName(completePath))] = NULL;
 
-
   // --- Add first open data block array as this inode's chunk of data --
 
   // TODO support more than 4096 bytes of data per block
@@ -156,6 +155,7 @@ add_node(const char* completePath, int mode, int xtra, int which_iNode) {
 
   // Size of files within block start as 0 (cuz nothing is there).
   newNode->size = 0;
+  newNode->nodeID = which_iNode;
 }
 
 const char*
@@ -237,8 +237,8 @@ void
 print_node(pnode* node)
 {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d,  path: %s, name: %s, blockID: %d}\n",
-        node->refs, node->mode, node->size, node->xtra,node->path, node->name, node->blockID);
+        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s, blockID: %d, InodeID: %d}\n",
+               node->refs, node->mode, node->size, node->xtra, node->path, node->name, node->blockID, node->nodeID);
     }
     else {
         printf("node{null}\n");

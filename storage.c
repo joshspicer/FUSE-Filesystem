@@ -114,13 +114,24 @@ get_stat(const char* path, struct stat* st)
 const char*
 get_data(const char* path)
 {
-  //TODO actually getting data from the inodes and sharing that.
+  pnode* node = get_file_data(path);
 
-  // pnode* dat = get_file_data(path);
-  // if (!dat) {
-  //     return 0;
-  // }
+  if (!node) {
+    printf("Node does not exist.\n");
+    return 0; // TODO error codes
+  }
 
-  //return dat->data;
-  return "get_data isn't implemented yet.\n";
+  int blockID = node->blockID;
+
+  if (blockID == -1) {
+    printf("No data block associated with this node.\n");
+    return 0; // TODO error codes
+  }
+
+  void* blockPtr = data_block_ptr_at_index(blockID);
+  if (!blockPtr) {
+    return 0; // TODO error codes
+  }
+
+  return ((const char*) blockPtr);
 }
