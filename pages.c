@@ -25,8 +25,6 @@ pages_init(const char* path)
 
   // TODO have a "reset" flush out option?
 
-    printf("%s\n","PAGE INIT STARTING.");
-
     pages_fd = open(path, O_CREAT | O_RDWR, 0644);
     assert(pages_fd != -1);
 
@@ -35,8 +33,6 @@ pages_init(const char* path)
 
     pages_base = mmap(0, NUFS_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, pages_fd, 0);
     assert(pages_base != MAP_FAILED);
-
-    printf("IN PAGES FD:%d\n", pages_fd);
 
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
     // Start location of iNode
@@ -61,13 +57,6 @@ pages_init(const char* path)
     // Write offset to start of data blocks in the superblock
     write_int_offset(3, start_dataBlocks);
 
-    // TEST
-    printf("PAGES BASE: %p\n",pages_base);
-    printf("1stOffset: %d\n",start_iNode_bitMap);
-    printf("2stOffset: %d\n",start_dataBlock_bitMap);
-    printf("3stOffset: %d\n",start_iNode_Table);
-    printf("4stOffset: %d\n",start_dataBlocks);
-
     // Init the root directory.
     add_node("/", 040755,25,145,0);
     flip_iNode_bit(0,1);
@@ -83,6 +72,32 @@ pages_init(const char* path)
 
 }
 
+int
+find_empty_inode_index() {
+  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+
+    // check inode bitmap. If value isn't one, then that inode isn't active.
+    if(*((int*)(GET_ptr_start_iNode_bitMap() + sizeof(int)*i)) != 1) {
+      return i;
+    }
+  }
+  // If there's no empty slot, return -1
+  return -1;
+}
+
+int
+find_empty_block_index() {
+  for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
+
+    // check inode bitmap. If value isn't one, then that inode isn't active.
+    if(*((int*)(GET_ptr_start_dataBlock_bitMap() + sizeof(int)*i)) != 1) {
+      return i;
+    }
+  }
+  // If there's no empty slot, return -1
+  return -1;
+}
+
 void
 write_int_offset(int offset, int data) {
     *((int*)(pages_base + sizeof(int)*offset)) = data;
@@ -95,7 +110,8 @@ write_int_offset(int offset, int data) {
 // }
 
 void
-add_node(const char* completePath, int mode, int size, int xtra, int which_iNode) {
+add_node(const char* completePath, int mode, int size, int xtra,
+  int which_iNode) {
   //TODO add the data block array as an argument of this function and set.
 
   void* locationToPlace =
@@ -106,37 +122,29 @@ add_node(const char* completePath, int mode, int size, int xtra, int which_iNode
   newNode->size = size;
   newNode->xtra = xtra;
 
-
-  //newNode->path = *(completePath);
   for (int i = 0; i < strlen(completePath); i++) {
     newNode->path[i] = completePath[i];
   }
   newNode->path[strlen(completePath)] = NULL;
-
-  //newNode->name = *(findName(completePath));
   for (int i = 0; i < strlen(findName(completePath));i++) {
     newNode->name[i] = findName(completePath)[i];
   }
   newNode->name[strlen(findName(completePath))] = NULL;
 
-  printf("%s\n", "add node got to this point");
+  printf("Added Node: ");
+  print_node(newNode);
 }
 
 const char*
 findName(const char* completePath) {
-  printf("here\n");
   int size = strlen(completePath);
   int indexOfFinalSlash = 0;
-  // char* cur =
   // Loop through, saving the location of a slash whenever found.
   for (int i = 0; i < size; i++) {
-    //cur[0] = *(completePath + i);
-    //printf("%s\n", cur);
     if(streq((const char*) (((void*)completePath) + i), "/")) {
       indexOfFinalSlash = i;
     }
   }
-  printf("here\n");
   return (const char*)(((void*)completePath) + indexOfFinalSlash + 1);
 
 }

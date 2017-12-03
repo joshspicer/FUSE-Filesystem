@@ -75,7 +75,6 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
       pnode* current = ((pnode*)currentPtr);
 
       if (!(streq(current->path, "/"))) {
-           printf("path: %s; name: %s\n", current->path, current->name);
            get_stat(current->path, &st);
            filler(buf, current->name, &st, 0);
          }
@@ -109,13 +108,12 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev)
       return -1;
     }
 
-    printf("PLACING NEW INODE AT INDEX: %d\n", index);
     flip_iNode_bit(index, 1);
     add_node(path, mode, 60, 0, index);
 
     print_node((pnode*)(GET_ptr_start_iNode_Table() + sizeof(pnode)*index));
 
-    return 0;  //was -1
+    return 0;  // was -1
 }
 
 // most of the following callbacks implement
