@@ -4,14 +4,16 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <bsd/string.h>
-#include <assert.h>
 
 #define FUSE_USE_VERSION 26
 
 #include <fuse.h>
 
 #include "storage.h"
-// Josh added this
+#include "superblock.h"
+#include "datablock.h"
+#include "node.h"
+#include "storage.h"
 
 // implementation for: man 2 access
 // Checks if a file exists.
@@ -173,8 +175,6 @@ nufs_truncate(const char *path, off_t size) {
 
     //  VERY BIG TODO: implement this
 
-
-    //
     // printf("truncate(%s, %ld bytes)\n", path, size);
     // printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
     // return -1;

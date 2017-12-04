@@ -9,58 +9,19 @@
 #include <fuse.h>
 
 #include "storage.h"
+#include "datablock.h"
 
-//Josh: Included one of his hints
-
-// typedef struct file_data {
-//     const char* path;
-//     int         mode;
-//     const char* data;
-//
-// } file_data;
-
-// Josh: This struct is replaced by our data.nufs storage solution.
-
-// static file_data file_table[] = {
-//     {"/", 040755, 0},
-//     {"/hello.txt", S_IFREG  /*| S_IWUSR*/ /*0100644*/, "hello\n"},
-//     {"/josh.txt", S_IFREG, "maddie\n"},
-//     {0, 0, 0},
-// };
-
+// INITIALIZES: the kind of storage to be used by this file system.
 void
 storage_init(const char *path) {
-    //printf("TODO: Store file system data in: %s\n", path);
 
-    pages_init(path);
-
-    // TEST
-    // printf("1stGetter: %d\n",GET_ptr_start_iNode_bitMap());
-    // printf("2stGetter: %d\n",GET_ptr_start_dataBlock_bitMap());
-    // printf("3stGetter: %d\n",GET_ptr_start_iNode_Table());
-    // printf("4stGetter: %d\n",GET_ptr_start_dataBlocks());
-
-    // int dataRV = open(path,O_CREAT|O_APPEND, S_IRWXU);  //TODO
-    // TEST
-    // char buffer[10];
-    // read(dataRV, buffer,10);
-    // printf("%s\n", buffer);
-    // char newBuffer = "newBuffer";
-    // printf("%s\n",strerror(errno));
-    // int reval = write(dataRV, &newBuffer, 5);
-    // printf("%s\n",strerror(errno));
-    // printf("%s%d\n","RETURN: ",reval);
-
+    superBlock_init(path);
 }
 
+// ---------------------------------------------------------------------------- //
 
-// char* concat(const char *string1, const char *string2)
-// {
-//     char *newStr = malloc(strlen(string1)+strlen(string2)+1);
-//     strcpy(newStr, string1); strcat(newStr, string2);
-//     return newStr;
-// }
 
+// Given a path, searches our storage struture for the given pnode, and returns it.
 pnode *
 get_file_data(const char *path) {
 
@@ -84,6 +45,9 @@ get_file_data(const char *path) {
     return 0;
 }
 
+// ---------------------------------------------------------------------------- //
+
+// Get the stat's of the node at the given path.
 int
 get_stat(const char *path, struct stat *st) {
     pnode *dat = get_file_data(path);
@@ -104,6 +68,9 @@ get_stat(const char *path, struct stat *st) {
     return 0;
 }
 
+// ---------------------------------------------------------------------------- //
+
+// Get the data stored in the data block of the given Path.
 const char *
 get_data(const char *path) {
     pnode *node = get_file_data(path);
