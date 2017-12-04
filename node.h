@@ -28,10 +28,16 @@ typedef struct inode {
     //const char* name;
     char name[32];
 
-    // ID of data block in use.
-    // It's simply an index of
+    // ID of data block this node is referencing to store data.
+    // It's simply an index
     int blockID;
+
+    // Let the iNode know which node it is in the bitmap.
+    // Useful for removing.
     int nodeID;
+
+  /////  int links;
+
 
 } pnode;
 
@@ -48,6 +54,8 @@ int find_empty_inode_index(); // Returns the index of the first free iNode, or -
 const char *findName(const char *completePath);
 
 void name_node(pnode *node, const char *path);
+
+const char *findPreceedingPath(const char *completePath);
 
 
 #endif //CHALLENGE03_NODE_H

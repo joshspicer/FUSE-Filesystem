@@ -46,6 +46,9 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
 
     // Size of files within block start as 0 (cuz nothing is there).
     newNode->size = 0;
+
+    // Let the iNode know which node it is in the bitmap.
+    // Useful for removing.
     newNode->nodeID = which_iNode;
 }
 
@@ -66,6 +69,24 @@ findName(const char *completePath) {
     }
     return (const char *) (((void *) completePath) + indexOfFinalSlash + 1);
 }
+
+const char *
+findPreceedingPath(const char *completePath) {
+  int size = strlen(completePath);
+  int indexOfFinalSlash = 0;
+  // Loop through, saving the location of a slash whenever found.
+  for (int i = 0; i < size; i++) {
+      if (streq((const char *) (((void *) completePath) + i), "/")) {
+          indexOfFinalSlash = i;
+      }
+  }
+
+  char *preceedingPath;
+  memcpy(preceedingPath,completePath,indexOfFinalSlash);
+
+  return preceedingPath;
+}
+
 
 // Used during node initalization to set the name field.
 void
@@ -124,4 +145,3 @@ print_node(pnode *node) {
         printf("node{null}\n");
     }
 }
-

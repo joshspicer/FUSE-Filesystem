@@ -14,6 +14,7 @@
 #include "datablock.h"
 #include "node.h"
 #include "storage.h"
+#include "slist.h"
 
 // implementation for: man 2 access
 // Checks if a file exists.
@@ -30,8 +31,12 @@ nufs_getattr(const char *path, struct stat *st) {
     printf("getattr(%s)\n", path);
 
     int rv = get_stat(path, st);
+    printf("Error code for getattr: %d\n", rv); //REMOVE
+    printf("STAT numHardLinks for %s is %d \n", path,st->st_nlink); //REMOVE
+
     if (rv == -1) {
-        return -ENOENT;
+      //return 0;
+      return -ENOENT;
     } else {
         return 0;
     }
@@ -47,14 +52,14 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     struct stat st;
     printf("readdir(%s)\n", path);
 
-    //readdir("/");  // Why do we need this?
+    get_stat("/", &st); //get_stat(path, &st);
 
-    get_stat("/", &st);
     // filler is a callback that adds one item to the result
     // it will return non-zero when the buffer is full
-    filler(buf, ".", &st, 0);
+    int rv = filler(buf, ".", &st, 0);
+    assert(rv == 0);
 
-    // TODO: Loop through current iNodes and present their data
+    // Loop through current iNodes and present their data
 
     for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
 
@@ -69,6 +74,9 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
         pnode *current = ((pnode *) currentPtr);
 
         if (!(streq(current->path, "/"))) {
+
+            //printf("CUR_PATH: %s, NODE PRECEEDING: %s\n",path, findPreceedingPath(current->path));
+
             get_stat(current->path, &st);
             filler(buf, current->name, &st, 0);
         }
@@ -119,7 +127,7 @@ nufs_mkdir(const char *path, mode_t mode) {
 
     flip_iNode_bit(nodeID, 1);
     add_node(path, S_IFDIR|S_IRWXU, 16, nodeID);
-    
+
     return 0; //was -1
 }
 
@@ -184,7 +192,10 @@ nufs_truncate(const char *path, off_t size) {
 
     //  VERY BIG TODO: implement this
 
-    // printf("truncate(%s, %ld bytes)\n", path, size);
+    printf("truncate(%s, %ld bytes)\n", path, size);
+
+    //truncate(path, size);
+
     // printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
     // return -1;
 
@@ -261,6 +272,39 @@ nufs_utimens(const char *path, const struct timespec ts[2]) {
     return 0;
 }
 
+
+// TODO test. Seeing if I can add in additional fuse struct functions
+int
+josh_nufs_link(const char *target, const char *linkName) {
+  printf("%s\n","--------------------LINK CALLED------------------" );
+
+  // Get the target Node.
+  pnode* targetNode = get_file_data(target);
+  printf("%s\n","TARGET NODE: "); //REMOVE
+  print_node(targetNode); //REMOVE
+
+  // Create a new inode with "linkName"
+  int index = find_empty_inode_index();
+  add_node(linkName, S_IFREG | S_IRWXU, 640, index);
+  flip_iNode_bit(index,1);
+
+  // Get that newly created inode.
+  pnode* linkedNode = get_file_data(linkName);
+
+  printf("%s\n","NEW LINK NODE:"); //REMOVE
+  print_node(linkName); //REMOVE
+
+  // Set the linkedNode's data block ID to that of target Block.
+
+  printf("%s\n", );
+  //linkedNode->blockID = targetNode->blockID;
+
+  targetNode->blockID = linkedNode->blockID;
+
+  return 0;  //TODO error checking and returning error codes.
+}
+
+
 void
 nufs_init_ops(struct fuse_operations *ops) {
     memset(ops, 0, sizeof(struct fuse_operations));
@@ -278,6 +322,9 @@ nufs_init_ops(struct fuse_operations *ops) {
     ops->read = nufs_read;
     ops->write = nufs_write;
     ops->utimens = nufs_utimens;
+
+    ops->link = josh_nufs_link;
+
 };
 
 struct fuse_operations nufs_ops;

@@ -52,6 +52,19 @@ superBlock_init(const char *path)
     add_node("/", 040755, 145, 0);
     flip_iNode_bit(0, 1);
     print_node((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * 0));
+
+
+    // // TODO TEST ADDING iNodes
+    // add_node("/aaa.txt",S_IFREG | S_IRWXU,55,1);
+    // flip_iNode_bit(1,1);
+    //
+    // add_node("/bbb.txt",S_IFREG | S_IRWXU,55,2);
+    // flip_iNode_bit(2,1);
+    //
+    // josh_nufs_link("/aaa.txt","/ccc.txt");
+
+
+
 }
 
 

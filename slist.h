@@ -13,5 +13,6 @@ void s_free(slist *xs);
 
 slist *s_split(const char *text, char delim);
 
-#endif
+int contains(const char *path, const char *dir);
 
+#endif

@@ -50,6 +50,11 @@ get_file_data(const char *path) {
 // Get the stat's of the node at the given path.
 int
 get_stat(const char *path, struct stat *st) {
+
+  //printf("----- PATH: %s NLINK: %d  ------ \n",path,st->st_nlink); //REMOVE
+
+    st->st_nlink = 1; //TODO do we need this?!?!?!?!
+
     pnode *dat = get_file_data(path);
     if (!dat) {
         return -1;
@@ -63,7 +68,9 @@ get_stat(const char *path, struct stat *st) {
     st->st_mtime = time(NULL); //TODO time
     st->st_size = dat->size;
 
-    //TODO stat with something to do with data blocks....
+    //st_nlink was here was when it was working.
+
+    //TODO stat with something to do with data blocks.
 
     return 0;
 }
