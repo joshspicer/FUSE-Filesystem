@@ -27,4 +27,9 @@ gdb: nufs
 	mkdir -p mnt || true
 	gdb --args ./nufs -f mnt data.nufs
 
+clean2: unmount
+		rm -f nufs *.o test.log
+		rmdir mnt || true
+		rm data.nufs || true
+
 .PHONY: clean mount unmount gdb

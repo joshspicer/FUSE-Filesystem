@@ -31,8 +31,8 @@ nufs_getattr(const char *path, struct stat *st) {
     printf("getattr(%s)\n", path);
 
     int rv = get_stat(path, st);
-    printf("Error code for getattr: %d\n", rv); //REMOVE
-    printf("STAT numHardLinks for %s is %d \n", path,st->st_nlink); //REMOVE
+    printf("Path: <%s>. Error code for getattr: %d\n",path,rv); //REMOVE
+    //printf("STAT numHardLinks for %s is %d \n", path,st->st_nlink); //REMOVE
 
     if (rv == -1) {
       //return 0;
@@ -284,24 +284,31 @@ josh_nufs_link(const char *target, const char *linkName) {
   print_node(targetNode); //REMOVE
 
   // Create a new inode with "linkName"
-  int idx = find_empty_inode_index();
-  add_node(linkName, S_IFREG, 640, 5); //TODO change back from 5 to idx
-  flip_iNode_bit(5,1); //same here.
+  // int idx = find_empty_inode_index();
+  // add_node(linkName, S_IFREG, 640, 5); //TODO change back from 5 to idx
+  // flip_iNode_bit(5,1); //same here.
+
+  nufs_mknod(linkName, S_IFREG, 0);
+  struct stat st;
+  nufs_getattr(linkName,&st);
 
   // Get that newly created inode.
-  pnode* linkedNode = get_file_data(linkName);
+  pnode* linkedNODE = get_file_data(linkName);
 
   printf("%s\n","NEW LINK NODE:"); //REMOVE
-  print_node(linkName); //REMOVE
+  print_node(linkedNODE); //REMOVE
 
   // Set the linkedNode's data block ID to that of target Block.
 
-  printf("BEFORE: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNode->blockID);  //REMOVE
-  linkedNode->blockID = targetNode->blockID;
+  printf("BEFORE: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNODE->blockID);  //REMOVE
+  linkedNODE->blockID = targetNode->blockID;
+  linkedNODE->size = targetNode->size;
 
-//  targetNode->blockID = linkedNode->blockID;
+  //  targetNode->blockID = linkedNode->blockID;
+  // nufs_getattr(target,&st);
+  // nufs_getattr(linkName,&st);
 
-  printf("AFTER: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNode->blockID);  //REMOVE
+  printf("AFTER: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNODE->blockID);  //REMOVE
 
 
   return 0;  //TODO error checking and returning error codes.
