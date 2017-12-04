@@ -284,9 +284,9 @@ josh_nufs_link(const char *target, const char *linkName) {
   print_node(targetNode); //REMOVE
 
   // Create a new inode with "linkName"
-  int index = find_empty_inode_index();
-  add_node(linkName, S_IFREG | S_IRWXU, 640, index);
-  flip_iNode_bit(index,1);
+  int idx = find_empty_inode_index();
+  add_node(linkName, S_IFREG, 640, 5); //TODO change back from 5 to idx
+  flip_iNode_bit(5,1); //same here.
 
   // Get that newly created inode.
   pnode* linkedNode = get_file_data(linkName);
@@ -296,10 +296,13 @@ josh_nufs_link(const char *target, const char *linkName) {
 
   // Set the linkedNode's data block ID to that of target Block.
 
-  printf("%s\n", );
-  //linkedNode->blockID = targetNode->blockID;
+  printf("BEFORE: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNode->blockID);  //REMOVE
+  linkedNode->blockID = targetNode->blockID;
 
-  targetNode->blockID = linkedNode->blockID;
+//  targetNode->blockID = linkedNode->blockID;
+
+  printf("AFTER: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNode->blockID);  //REMOVE
+
 
   return 0;  //TODO error checking and returning error codes.
 }

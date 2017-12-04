@@ -69,6 +69,7 @@ get_stat(const char *path, struct stat *st) {
     st->st_size = dat->size;
 
     //st_nlink was here was when it was working.
+    st->st_nlink = 1;
 
     //TODO stat with something to do with data blocks.
 
