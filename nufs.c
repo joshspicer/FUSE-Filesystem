@@ -110,8 +110,17 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev) {
 // another system call; see section 2 of the manual
 int
 nufs_mkdir(const char *path, mode_t mode) {
-    printf("mkdir(%s)\n", path);
-    return -1;
+    printf("mkdir(%s) with mode <%d>\n", path, mode);
+
+    int nodeID = find_empty_inode_index();
+    if (nodeID == -1) {
+      return -1; //TODO error codes?
+    }
+
+    flip_iNode_bit(nodeID, 1);
+    add_node(path, S_IFDIR|S_IRWXU, 16, nodeID);
+    
+    return 0; //was -1
 }
 
 int
