@@ -24,19 +24,12 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
     // TODO calculate how many blocks we can allot with our superblock (1MB limit)
     //      so that we don't go over.
 
-    //int MAX_BLOCKS = 10;  //FIXME
 
     // Keep searching for next available block according to bitmap
-    int firstAvailableBlockIdx = -1;
-    for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
-        if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) == 0) {
-            firstAvailableBlockIdx = i;
-            break;
-        }
-    }
+    int firstAvailableBlockIdx = find_empty_block_index();
 
     if (firstAvailableBlockIdx != -1) {
-        flip_data_block_bit(firstAvailableBlockIdx, 1);
+        //flip_data_block_bit(firstAvailableBlockIdx, 1); // ^^ find_empty_block_index does this.
         newNode->blockID = firstAvailableBlockIdx;
         printf("BLOCK %d FOUND FOR INODE\n", firstAvailableBlockIdx);
 
