@@ -1,8 +1,8 @@
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
-make[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
+which loop: 0
+i: 0
 BLOCK 0 FOUND FOR INODE
 node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 access(/, 0004)
@@ -14,102 +14,261 @@ getattr(/.Trash)
 getattr(/.Trash-1000)
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/autorun.inf)
-getattr(/)
-File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 getattr(/one.txt)
 mknod(/one.txt, 100664)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
 BLOCK 2 FOUND FOR INODE
+File </one.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+Prec Path: /
+File </> FOUND in get_file_data
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
 node{mode: 100664, size: 0, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
 getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
@@ -125,7 +284,32 @@ getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
 getattr(/two.txt)
 mknod(/two.txt, 100664)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
 BLOCK 3 FOUND FOR INODE
+File </two.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+Prec Path: /
+File </> FOUND in get_make[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+file_data
+node{mode: 40755, size: 1, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
 node{mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
@@ -135,19 +319,52 @@ File </two.txt> FOUND in get_file_data
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
 open(/two.txt)
+getattr(/)
+File </> FOUND in get_file_data
 read(/two.txt, 4096 bytes, @0)
 File </two.txt> FOUND in get_file_data
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 2
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
 getattr(/2k.txt)
 mknod(/2k.txt, 100664)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
 BLOCK 4 FOUND FOR INODE
+File </2k.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+Prec Path: /
+File </> FOUND in get_file_data
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
 node{mode: 100664, size: 0, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/2k.txt)
 File </2k.txt> FOUND in get_file_data
@@ -171,184 +388,543 @@ make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
-BLOCK 4 FOUND FOR INODE
-node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 4, InodeID: 0}
+File </> FOUND in get_file_data
 access(/, 0004)
 getattr(/.xdg-volume-info)
+getattr(/autorun.inf)
 getattr(/)
 File </> FOUND in get_file_data
-getattr(/autorun.inf)
 getattr(/.Trash)
 getattr(/.Trash-1000)
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-File </one.txt> FOUND in get_file_data
-File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
+File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
+File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
+File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/autorun.inf)
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 3
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: 1
+Entry path: /one.txt
 File </one.txt> FOUND in get_file_data
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
 open(/one.txt)
@@ -365,23 +941,93 @@ getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
 unlink(/one.txt)
 File </one.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+File </> FOUND in get_file_data
+IN REMOVE FROM DIR
+Current: 1, Looking for: 1
+Found it!
+Now: -1
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 2
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: -1
+NodeID: 2
+Entry path: /two.txt
 File </two.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/abc.txt)
 getattr(/abc.txt)
 getattr(/abc.txt)
 rename(/two.txt => /abc.txt)
 File </two.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+Node name: abc.txt
+getattr(/)
+File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 2
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+NodeID: -1
+NodeID: 2
+Entry path: /abc.txt
 File </abc.txt> FOUND in get_file_data
+NodeID: 3
+Entry path: /2k.txt
 File </2k.txt> FOUND in get_file_data
+PRINTING ALL
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 100664, size: 11, xtra: 0, path: /abc.txt, name: abc.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 open(/abc.txt)
 getattr(/abc.txt)
 File </abc.txt> FOUND in get_file_data
@@ -394,7 +1040,30 @@ getattr(/def.txt)
 Linking target: </abc.txt> to new file </def.txt>. 
 File </abc.txt> FOUND in get_file_data
 mknod(/def.txt, 100000)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
 BLOCK 4 FOUND FOR INODE
+File </def.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+Prec Path: /
+File </> FOUND in get_file_data
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
 node{mode: 100000, size: 0, xtra: 0, path: /def.txt, name: def.txt, blockID: 4, InodeID: 1}
 getattr(/def.txt)
 File </def.txt> FOUND in get_file_data
@@ -410,6 +1079,21 @@ getattr(/abc.txt)
 File </abc.txt> FOUND in get_file_data
 unlink(/abc.txt)
 File </abc.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+File </> FOUND in get_file_data
+IN REMOVE FROM DIR
+Current: -1, Looking for: 2
+Current: 2, Looking for: 2
+Found it!
+Now: -1
 open(/def.txt)
 read(/def.txt, 4096 bytes, @0)
 File </def.txt> FOUND in get_file_data
@@ -417,7 +1101,23 @@ getattr(/def.txt)
 File </def.txt> FOUND in get_file_data
 getattr(/foo)
 mkdir(/foo) with mode <509>
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
 BLOCK 4 FOUND FOR INODE
+File </foo> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+Prec Path: /
+File </> FOUND in get_file_data
+node{mode: 40755, size: 2, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
+node{mode: 40700, size: 0, xtra: 0, path: /foo, name: foo, blockID: 4, InodeID: 2}
 getattr(/foo)
 File </foo> FOUND in get_file_data
 getattr(/foo/abc.txt)
@@ -425,8 +1125,41 @@ getattr(/foo/abc.txt)
 open(/def.txt)
 getattr(/foo/abc.txt)
 mknod(/foo/abc.txt, 100000)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+i: 4
+which loop: 5
+which loop: 6
+which loop: 7
+which loop: 8
+which loop: 9
+which loop: 10
+which loop: 11
 BLOCK 5 FOUND FOR INODE
-node{mode: 100000, size: 0, xtra: 0, path: /foo/abc.txt, name: foo/abc.txt, blockID: 5, InodeID: 4}
+File </foo/abc.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+i: 4
+which loop: 5
+which loop: 6
+which loop: 7
+which loop: 8
+which loop: 9
+which loop: 10
+which loop: 11
+Prec Path: /foo
+File </foo> FOUND in get_file_data
+node{mode: 40700, size: 0, xtra: 0, path: /foo, name: foo, blockID: 4, InodeID: 2}
+File </foo> FOUND in get_file_data
+node{mode: 100000, size: 0, xtra: 0, path: /foo/abc.txt, name: abc.txt, blockID: 5, InodeID: 4}
 getattr(/foo/abc.txt)
 File </foo/abc.txt> FOUND in get_file_data
 open(/foo/abc.txt)
@@ -438,12 +1171,39 @@ open(/foo/abc.txt)
 getattr(/foo/abc.txt)
 File </foo/abc.txt> FOUND in get_file_data
 read(/foo/abc.txt, 4096 bytes, @0)
-File </foo/abc.txt> FOUND in get_file_data
+File <make[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+/foo/abc.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 getattr(/foo/abc.txt)
 File </foo/abc.txt> FOUND in get_file_data
 getattr(/40k.txt)
 mknod(/40k.txt, 100664)
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
 BLOCK 6 FOUND FOR INODE
+File </40k.txt> FOUND in get_file_data
+which loop: 0
+i: 0
+which loop: 1
+which loop: 2
+which loop: 3
+which loop: 4
+which loop: 5
+which loop: 6
+which loop: 7
+Prec Path: /
+File </> FOUND in get_file_data
+node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+File </> FOUND in get_file_data
 node{mode: 100664, size: 0, xtra: 0, path: /40k.txt, name: 40k.txt, blockID: 6, InodeID: 5}
 getattr(/40k.txt)
 File </40k.txt> FOUND in get_file_data
@@ -452,11 +1212,7 @@ write(/40k.txt, 4096 bytes, 0)
 File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
 getattr(/40k.txt)
-File </40k.txt> make[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
-FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
+File </40k.txt> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @0)
 File </40k.txt> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @4096)
@@ -466,5 +1222,7 @@ File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
 read(/40k.txt, 4096 bytes, @4096)
 File </40k.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'
