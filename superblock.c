@@ -29,7 +29,7 @@ superBlock_init(const char *path)
     // Start location of iNode
     SUPER_SIZE = 20;
     NUMBER_OF_INODES = 800;
-    NUMBER_OF_DATABLOCKS = 238;
+    NUMBER_OF_DATABLOCKS = 238 / 10;
 
     //TODO calculate how much space we have for 4k data blocks, and make that many!
 
@@ -45,9 +45,7 @@ superBlock_init(const char *path)
     printf("Start of DataBlock: %d\n", start_dataBlocks);
     int MaxSizeOfDataSection = NUFS_SIZE - start_dataBlocks;
     printf("NUFS Size - start_dataBlocks: %d\n", MaxSizeOfDataSection);
-    int numBlocksFloor = MaxSizeOfDataSection / 4096;
-    printf("Num Blocks: %d\n",numBlocksFloor );
-
+    
 
     // Write offset to start of inode bitmap in the superblock
     write_int_offset(0, start_iNode_bitMap);

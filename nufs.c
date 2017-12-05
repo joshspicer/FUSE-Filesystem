@@ -217,14 +217,14 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
 
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
 
-    const char *data = get_data(path); //  <----- Now supports >4k
+    void *data = get_data(path);
 
     int len = strlen(data) + 1; // strlen(data) + 1
     if (size < len) {
         len = size;
     }
 
-    strlcpy(buf, data, len);
+    strlcpy(buf, data + offset, len);
     return len;
 }
 
@@ -251,12 +251,12 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
 
     // Write to that memory location (using the given buffer/size/offset)
 
-    int singleBlockSafeSize = size;
-    if (singleBlockSafeSize > 4096) {
-      singleBlockSafeSize = 4096;
-    }
+    // int singleBlockSafeSize = size;
+    // if (singleBlockSafeSize > 4096) {
+    //   singleBlockSafeSize = 4096;
+    // }
 
-    memcpy(ptr, buf, singleBlockSafeSize); //TODO add offset.
+    memcpy(ptr, buf + offset, 4096); //TODO add offset.
 
 
     // TODO ::: if you want to memcpy more than one page,
@@ -266,37 +266,37 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
 
 
     // Set node's size to size of this file.
-    node->size = size;
+    node->size = size * 10;
 
     // Fix all the references files inodes!
     correctSizeForLinkedBlocks(node->blockID, size);
 
 
-    // ---------- Beneath this line supports writing file ----------------- //
-
-    int sizeRemaining = node->size - 4096;
-    int looped = 1;
-
-    while (sizeRemaining > 0) {
-      printf("Inside over 4K writing block for <%s> ", node->path); //REMOVE
-      printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
-
-      void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[looped]);
-
-      // Mem copy the offset data in 4k increments.
-      int sizeToCopy = 4096;
-      if (sizeRemaining < 4096) {
-        sizeToCopy = sizeRemaining;
-      }
-
-      memcpy(additionalPtr, buf + (4096*looped),sizeToCopy);
-
-      sizeRemaining -= 4096;
-      looped += 1;
-
-      // TODO
-      printf("TODO: %s\n", "implement correctSizeForLinkedBlocks()");
-    }
+    // // ---------- Beneath this line supports writing file ----------------- //
+    //
+    // int sizeRemaining = node->size - 4096;
+    // int looped = 1;
+    //
+    // while (sizeRemaining > 0) {
+    //   printf("Inside over 4K writing block for <%s> ", node->path); //REMOVE
+    //   printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
+    //
+    //   void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[looped]);
+    //
+    //   // Mem copy the offset data in 4k increments.
+    //   int sizeToCopy = 4096;
+    //   if (sizeRemaining < 4096) {
+    //     sizeToCopy = sizeRemaining;
+    //   }
+    //
+    //   memcpy(additionalPtr, buf + (4096*looped),sizeToCopy);
+    //
+    //   sizeRemaining -= 4096;
+    //   looped += 1;
+    //
+    //   // TODO
+    //   printf("TODO: %s\n", "implement correctSizeForLinkedBlocks()");
+    // }
 
     return 0;
 }

@@ -17,7 +17,7 @@ void flip_data_block_bit(int which_block, int state) {
 
 void *
 data_block_ptr_at_index(int index) {
-    return GET_ptr_start_dataBlocks() + (4096 * index);
+    return GET_ptr_start_dataBlocks() + (40960 * index);
 }
 
 // ---------------------------------------------------------------------------- //
