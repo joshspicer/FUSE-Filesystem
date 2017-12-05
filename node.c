@@ -61,16 +61,46 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
 // (the name after the last slash)
 // HELPER for name_node below
 const char *
-findName(const char *completePath) {
-    int size = strlen(completePath);
+findName(const char *path) {
+    int size = strlen(path);
     int indexOfFinalSlash = 0;
     // Loop through, saving the location of a slash whenever found.
     for (int i = 0; i < size; i++) {
-        if (streq((const char *) (((void *) completePath) + i), "/")) {
+      printf("which loop: %d\n", i);
+      char c[2];
+      memcpy(c, ((char*) (((void *) path) + i)), 1);
+      c[1] = 0;
+        if (streq((const char *) c, "/")) {
+          printf("i: %d\n", i);
             indexOfFinalSlash = i;
         }
     }
-    return (const char *) (((void *) completePath) + indexOfFinalSlash + 1);
+    return (const char *) (((void *) path) + indexOfFinalSlash + 1);
+}
+
+const char*
+findPrecedingPath(const char* path) {
+    int size = strlen(path);
+    int indexOfFinalSlash = 0;
+    // Loop through, saving the location of a slash whenever found.
+    for (int i = 0; i < size; i++) {
+      printf("which loop: %d\n", i);
+      char c[2];
+      memcpy(c, ((char*) (((void *) path) + i)), 1);
+      c[1] = 0;
+        if (streq((const char *) c, "/")) {
+          printf("i: %d\n", i);
+            indexOfFinalSlash = i;
+        }
+    }
+    // Handles case in base directory
+    if (indexOfFinalSlash == 0) {
+      indexOfFinalSlash = 1;
+    }
+
+    char* prec = strdup(path);
+    prec[indexOfFinalSlash] = 0;
+    return prec;
 }
 
 const char *
@@ -147,6 +177,7 @@ print_node(pnode *node) {
     } else {
         printf("node{null}\n");
     }
+
 }
 
 // ---------------------------------------------------------------------------- //

@@ -42,7 +42,8 @@ void print_additionalBlocks(pnode *node);
 
 int find_empty_inode_index(); // Returns the index of the first free iNode, or -1 if no empty inode.
 
-const char *findName(const char *completePath);
+const char *findName(const char* path);
+const char* findPrecedingPath(const char* path);
 
 void name_node(pnode *node, const char *path);
 
