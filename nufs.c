@@ -277,8 +277,7 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
       printf("Inside over 4K writing block for <%s> ", node->path); //REMOVE
       printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
 
-      int idx = size / 4096;
-      void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[idx]);
+      void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[looped]);
 
       // Mem copy the offset data in 4k increments.
       int sizeToCopy = 4096;
