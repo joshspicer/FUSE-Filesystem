@@ -42,6 +42,18 @@ correctSizeForLinkedBlocks(int givenBlockID, int size) {
 
 // ---------------------------------------------------------------------------- //
 
+// Finds the next empty data block, and returns that index.
+// ALSO FLIPS THE BIT MAP
+int
+find_empty_block_index() {
+  for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
 
-
-// TODO: implement find_empty_block_index() and replace my other stuff with it
+      // check block bitmap. If value isn't one, then that block isn't active.
+      if (*((int *) (GET_ptr_start_dataBlock_bitMap() + sizeof(int) * i)) != 1) {
+          flip_data_block_bit(i, 1);
+          return i;
+      }
+  }
+  // If there's no empty slot, return -1
+  return -1;
+}

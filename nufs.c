@@ -237,6 +237,7 @@ nufs_rename(const char *from, const char *to) {
 
     if (!node) {
         printf("Cannot rename file or directory because it does not exist.\n");
+        return -1;
     }
 
     const char* fromDir = findPrecedingPath(from);
@@ -261,7 +262,10 @@ nufs_rename(const char *from, const char *to) {
 int
 nufs_chmod(const char *path, mode_t mode) {
     printf("chmod(%s, %04o)\n", path, mode);
-    return -1;
+
+    pnode *node = get_file_data(path);
+    node->mode = mode;
+    return 0;
 }
 
 int
@@ -291,8 +295,10 @@ nufs_open(const char *path, struct fuse_file_info *fi) {
 // Actually read data
 int
 nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
+
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
-    const char *data = get_data(path);
+
+    const char *data = get_data(path); //  <----- Now supports >4k
 
     int len = strlen(data) + 1; // strlen(data) + 1
     if (size < len) {
@@ -308,13 +314,13 @@ int
 nufs_write(const char *path, const char *buf, size_t size, off_t offset,
            struct fuse_file_info *fi) {
 
-    printf("write(%s, %ld bytes, %ld)\n", path, size, offset);
+    printf("write(%s, %ld bytes, offset %ld)\n", path, size, offset);
 
     // Get the node associated with this path.
     pnode *node = get_file_data(path);
 
     if (!node) {
-        printf("%s\n", "YOU CAN'T WRITE TO A FILE THAT DOESN'T EXIST!");
+        printf("%s\n", "Can't write. File doesn't exist.");
         return -1;  //TODO return error code.
     }
 
@@ -325,11 +331,20 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     void *ptr = data_block_ptr_at_index(node->blockID);
 
     // Write to that memory location (using the given buffer/size/offset)
-    //ptr = buf;
-    memcpy(ptr, buf, size);
-    //int fd = fi->direct_io;
 
-    // TODO Change stat somehow??? (I don't get stat.)
+    int singleBlockSafeSize = size;
+    if (singleBlockSafeSize > 4096) {
+      singleBlockSafeSize = 4096;
+    }
+
+    memcpy(ptr, buf, singleBlockSafeSize); //TODO add offset.
+
+
+    // TODO ::: if you want to memcpy more than one page,
+    //          recalculate ptr after copying 2048 bytes and then
+    //          memcpy again!!!!!!!!!!
+    /// TODO :: size/4096 to find out which additionalBlock you need to fill!!!
+
 
     // Set node's size to size of this file.
     node->size = size;
@@ -337,18 +352,53 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     // Fix all the references files inodes!
     correctSizeForLinkedBlocks(node->blockID, size);
 
+
+    // ---------- Beneath this line supports writing file ----------------- //
+
+    int sizeRemaining = node->size - 4096;
+    int looped = 1;
+
+    while (sizeRemaining > 0) {
+      printf("Inside over 4K writing block for <%s> ", node->path); //REMOVE
+      printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
+
+      void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[looped]);
+
+      // Mem copy the offset data in 4k increments.
+      int sizeToCopy = 4096;
+      if (sizeRemaining < 4096) {
+        sizeToCopy = sizeRemaining;
+      }
+
+      memcpy(additionalPtr, buf + (4096*looped),sizeToCopy);
+
+      sizeRemaining -= 4096;
+      looped += 1;
+
+      // TODO
+      printf("TODO: %s\n", "implement correctSizeForLinkedBlocks()");
+    }
+
     return 0;
 }
 
 // Update the timestamps on a file or directory.
 int
 nufs_utimens(const char *path, const struct timespec ts[2]) {
-    //int rv = storage_set_time(path, ts); TODO TODO TODO
-    int rv = -1;
-    printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
-           path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
 
-    // return rv;
+    printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
+           path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec);
+
+    pnode *node = get_file_data(path);
+
+    if (!node) {
+        printf("%s\n", "Can't write. File doesn't exist.");
+        return -1;  //TODO return error code.
+    }
+
+
+    node->timeStamp = ts->tv_sec;
+
     return 0;
 }
 

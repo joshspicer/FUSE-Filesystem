@@ -10,7 +10,7 @@
 #include "superblock.h"
 
 const int NUFS_SIZE = 1024 * 1024; // 1MB
-const int PAGE_COUNT = 256;
+
 
 void
 superBlock_init(const char *path)
@@ -28,8 +28,10 @@ superBlock_init(const char *path)
     // --- CREATE SUPERBLOCK ASSIGNING OFFSETS ---
     // Start location of iNode
     SUPER_SIZE = 20;
-    NUMBER_OF_INODES = 8;
-    NUMBER_OF_DATABLOCKS = 10;
+    NUMBER_OF_INODES = 800;
+    NUMBER_OF_DATABLOCKS = 238;
+
+    //TODO calculate how much space we have for 4k data blocks, and make that many!
 
     start_iNode_bitMap = SUPER_SIZE;
     start_dataBlock_bitMap = start_iNode_bitMap
@@ -38,6 +40,13 @@ superBlock_init(const char *path)
                         + NUMBER_OF_DATABLOCKS * sizeof(int);
     start_dataBlocks = start_iNode_Table
                        + NUMBER_OF_INODES * sizeof(pnode);
+
+    // Calculate how many Data blocks we have space for.
+    printf("Start of DataBlock: %d\n", start_dataBlocks);
+    int MaxSizeOfDataSection = NUFS_SIZE - start_dataBlocks;
+    printf("NUFS Size - start_dataBlocks: %d\n", MaxSizeOfDataSection);
+    int numBlocksFloor = MaxSizeOfDataSection / 4096;
+    printf("Num Blocks: %d\n",numBlocksFloor );
 
 
     // Write offset to start of inode bitmap in the superblock

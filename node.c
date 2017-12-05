@@ -24,19 +24,12 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
     // TODO calculate how many blocks we can allot with our superblock (1MB limit)
     //      so that we don't go over.
 
-    //int MAX_BLOCKS = 10;  //FIXME
 
     // Keep searching for next available block according to bitmap
-    int firstAvailableBlockIdx = -1;
-    for (int i = 0; i < GET_NUMBER_OF_DATABLOCKS(); i++) {
-        if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) == 0) {
-            firstAvailableBlockIdx = i;
-            break;
-        }
-    }
+    int firstAvailableBlockIdx = find_empty_block_index();
 
     if (firstAvailableBlockIdx != -1) {
-        flip_data_block_bit(firstAvailableBlockIdx, 1);
+        //flip_data_block_bit(firstAvailableBlockIdx, 1); // ^^ find_empty_block_index does this.
         newNode->blockID = firstAvailableBlockIdx;
         printf("BLOCK %d FOUND FOR INODE\n", firstAvailableBlockIdx);
 
@@ -51,6 +44,15 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
     // Let the iNode know which node it is in the bitmap.
     // Useful for removing.
     newNode->nodeID = which_iNode;
+
+
+    // Set all additional blocks to -1, meaning they aren't in use.
+    for (int i = 0; i < 9;i++) {
+      newNode->additionalBlocks[i] = -1;
+    }
+
+    printf("Addtional Blocks for <%s>\n",completePath);
+    print_additionalBlocks(newNode);
 }
 
 // ---------------------------------------------------------------------------- //
@@ -196,4 +198,17 @@ print_node(pnode *node) {
         printf("node{null}\n");
     }
 
+}
+
+// ---------------------------------------------------------------------------- //
+
+void print_additionalBlocks(pnode *node) {
+  if (node) {
+    printf("\nadditionalBlocks{\nA: %d, B: %d, C: %d,\n D: %d, E: %d, F: %d,\n G: %d, H: %d, I: %d}\n\n",
+              node->additionalBlocks[0],node->additionalBlocks[1],node->additionalBlocks[2],
+              node->additionalBlocks[3],node->additionalBlocks[4],node->additionalBlocks[5],
+              node->additionalBlocks[6],node->additionalBlocks[7], node->additionalBlocks[8]);
+  } else {
+    printf("node{null}\n");
+  }
 }

@@ -1,17 +1,25 @@
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
-make[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
+Start of DataBlock: 100172
+NUFS Size - start_dataBlocks: 948404
+Num Blocks: 231
 BLOCK 0 FOUND FOR INODE
+Addtional Blocks for </>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
 node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 access(/, 0004)
-getattr(/.xdg-volume-info)
-getattr(/)
-File </> FOUND in get_file_data
-getattr(/autorun.inf)
 getattr(/.Trash)
 getattr(/.Trash-1000)
+getattr(/.xdg-volume-info)
+getattr(/autorun.inf)
+getattr(/)
+File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
 getattr(/)
@@ -103,14 +111,19 @@ File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
 getattr(/autorun.inf)
-getattr(/)
-File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 getattr(/one.txt)
 mknod(/one.txt, 100664)
-BLOCK 2 FOUND FOR INODE
-node{mode: 100664, size: 0, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+BLOCK 1 FOUND FOR INODE
+Addtional Blocks for </one.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
+node{mode: 100664, size: 0, xtra: 0, path: /one.txt, name: one.txt, blockID: 1, InodeID: 1}
 getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
 open(/one.txt)
@@ -123,10 +136,19 @@ read(/one.txt, 4096 bytes, @0)
 File </one.txt> FOUND in get_file_data
 getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
+getattr(/one.txt)
+File </one.txt> FOUND in get_file_data
 getattr(/two.txt)
 mknod(/two.txt, 100664)
-BLOCK 3 FOUND FOR INODE
-node{mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+BLOCK 2 FOUND FOR INODE
+Addtional Blocks for </two.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
+node{mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 2, InodeID: 2}
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
 open(/two.txt)
@@ -147,10 +169,21 @@ File </one.txt> FOUND in get_file_data
 File </two.txt> FOUND in get_file_data
 getattr(/2k.txt)
 mknod(/2k.txt, 100664)
-BLOCK 4 FOUND FOR INODE
-node{mode: 100664, size: 0, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+BLOCK 3 FOUND FOR INODE
+Addtional Blocks for </2k.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
+node{mode: 100664, size: 0,make[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+ xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 3, InodeID: 3}
 getattr(/2k.txt)
 File </2k.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 open(/2k.txt)
 write(/2k.txt, 2001 bytes, 0)
 File </2k.txt> FOUND in get_file_data
@@ -171,7 +204,17 @@ make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
+Start of DataBlock: 100172
+NUFS Size - start_dataBlocks: 948404
+Num Blocks: 231
 BLOCK 4 FOUND FOR INODE
+Addtional Blocks for </>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
 node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 4, InodeID: 0}
 access(/, 0004)
 getattr(/.xdg-volume-info)
@@ -320,8 +363,6 @@ File </two.txt> FOUND in get_file_data
 File </2k.txt> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
 readdir(/)
 File </> FOUND in get_file_data
 File </one.txt> FOUND in get_file_data
@@ -394,8 +435,15 @@ getattr(/def.txt)
 Linking target: </abc.txt> to new file </def.txt>. 
 File </abc.txt> FOUND in get_file_data
 mknod(/def.txt, 100000)
-BLOCK 4 FOUND FOR INODE
-node{mode: 100000, size: 0, xtra: 0, path: /def.txt, name: def.txt, blockID: 4, InodeID: 1}
+BLOCK 1 FOUND FOR INODE
+Addtional Blocks for </def.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
+node{mode: 100000, size: 0, xtra: 0, path: /def.txt, name: def.txt, blockID: 1, InodeID: 1}
 getattr(/def.txt)
 File </def.txt> FOUND in get_file_data
 File </def.txt> FOUND in get_file_data
@@ -417,7 +465,14 @@ getattr(/def.txt)
 File </def.txt> FOUND in get_file_data
 getattr(/foo)
 mkdir(/foo) with mode <509>
-BLOCK 4 FOUND FOR INODE
+BLOCK 2 FOUND FOR INODE
+Addtional Blocks for </foo>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
 getattr(/foo)
 File </foo> FOUND in get_file_data
 getattr(/foo/abc.txt)
@@ -426,6 +481,13 @@ open(/def.txt)
 getattr(/foo/abc.txt)
 mknod(/foo/abc.txt, 100000)
 BLOCK 5 FOUND FOR INODE
+Addtional Blocks for </foo/abc.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
 node{mode: 100000, size: 0, xtra: 0, path: /foo/abc.txt, name: foo/abc.txt, blockID: 5, InodeID: 4}
 getattr(/foo/abc.txt)
 File </foo/abc.txt> FOUND in get_file_data
@@ -436,7 +498,11 @@ write(/foo/abc.txt, 11 bytes, 0)
 File </foo/abc.txt> FOUND in get_file_data
 open(/foo/abc.txt)
 getattr(/foo/abc.txt)
-File </foo/abc.txt> FOUND in get_file_data
+File </foo/abc.txt> FOUND in get_filemake[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+_data
+getattr(/)
+File </> FOUND in get_file_data
 read(/foo/abc.txt, 4096 bytes, @0)
 File </foo/abc.txt> FOUND in get_file_data
 getattr(/foo/abc.txt)
@@ -444,6 +510,13 @@ File </foo/abc.txt> FOUND in get_file_data
 getattr(/40k.txt)
 mknod(/40k.txt, 100664)
 BLOCK 6 FOUND FOR INODE
+Addtional Blocks for </40k.txt>
+
+additionalBlocks{
+A: -1, B: -1, C: -1,
+ D: -1, E: -1, F: -1,
+ G: -1, H: -1, I: -1}
+
 node{mode: 100664, size: 0, xtra: 0, path: /40k.txt, name: 40k.txt, blockID: 6, InodeID: 5}
 getattr(/40k.txt)
 File </40k.txt> FOUND in get_file_data
@@ -452,11 +525,7 @@ write(/40k.txt, 4096 bytes, 0)
 File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
 getattr(/40k.txt)
-File </40k.txt> make[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
-FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
+File </40k.txt> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @0)
 File </40k.txt> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @4096)
@@ -466,5 +535,7 @@ File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
 read(/40k.txt, 4096 bytes, @4096)
 File </40k.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'

@@ -24,6 +24,9 @@ typedef struct inode {
     char name[32]; // File name (last part of path).
     int blockID;   // ID of data block this node is referencing to store data.
     int nodeID;    // The ID of THIS node (in the associated bitmap).
+    time_t timeStamp; //Timestamp
+
+    int additionalBlocks[9];  // Additional blocks for data > 4k
 
 } pnode;
 
@@ -34,6 +37,8 @@ void add_node(const char *fullPath, int mode, int xtra, int which_iNode);
 void flip_iNode_bit(int which_iNode, int state); // 0 == off, 1 == on
 
 void print_node(pnode *node);
+
+void print_additionalBlocks(pnode *node);
 
 int find_empty_inode_index(); // Returns the index of the first free iNode, or -1 if no empty inode.
 
