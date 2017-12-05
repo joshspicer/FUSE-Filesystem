@@ -2,37 +2,38 @@ make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
 BLOCK 0 FOUND FOR INODE
-node{refs: 0, mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 access(/, 0004)
 getattr(/.xdg-volume-info)
 getattr(/)
 File </> FOUND in get_file_data
 getattr(/autorun.inf)
-readdir(/)
-File </> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
 getattr(/.Trash)
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
-getattr(/)
-File </> FOUND in get_file_data
-readdir(/)
-File </> FOUND in get_file_data
 getattr(/.Trash-1000)
+readdir(/)
+File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
+readdir(/)
+File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
@@ -104,10 +105,12 @@ File </> FOUND in get_file_data
 getattr(/autorun.inf)
 getattr(/)
 File </> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 getattr(/one.txt)
 mknod(/one.txt, 100664)
 BLOCK 2 FOUND FOR INODE
-node{refs: 0, mode: 100664, size: 0, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
+node{mode: 100664, size: 0, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
 getattr(/one.txt)
 File </one.txt> FOUND in get_file_data
 open(/one.txt)
@@ -123,7 +126,7 @@ File </one.txt> FOUND in get_file_data
 getattr(/two.txt)
 mknod(/two.txt, 100664)
 BLOCK 3 FOUND FOR INODE
-node{refs: 0, mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
+node{mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
 open(/two.txt)
@@ -136,8 +139,6 @@ read(/two.txt, 4096 bytes, @0)
 File </two.txt> FOUND in get_file_data
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
-getattr(/two.txt)
-File </two.txt> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
@@ -147,7 +148,7 @@ File </two.txt> FOUND in get_file_data
 getattr(/2k.txt)
 mknod(/2k.txt, 100664)
 BLOCK 4 FOUND FOR INODE
-node{refs: 0, mode: 100664, size: 0, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
+node{mode: 100664, size: 0, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
 getattr(/2k.txt)
 File </2k.txt> FOUND in get_file_data
 open(/2k.txt)
@@ -164,19 +165,16 @@ open(/2k.txt)
 read(/2k.txt, 4096 bytes, @0)
 File </2k.txt> FOUND in get_file_data
 getattr(/)
-File </> FOUND in gfusermount -u mnt || true
-et_file_data
+File </> FOUND in get_file_data
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Leaving directory '/home/josh/Desktop/challenge03'
 make[1]: Entering directory '/home/josh/Desktop/challenge03'
 mkdir -p mnt || true
 ./nufs -s -f mnt data.nufs
 BLOCK 4 FOUND FOR INODE
-node{refs: 0, mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 4, InodeID: 0}
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 4, InodeID: 0}
 access(/, 0004)
 getattr(/.xdg-volume-info)
-getattr(/)
-File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 getattr(/autorun.inf)
@@ -312,9 +310,7 @@ readdir(/)
 File </> FOUND in get_file_data
 File </one.txt> FOUND in get_file_data
 File </two.txt> FOUND in get_file_data
-File </2k.txt> FOUND in get_file_datamake[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
-
+File </2k.txt> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
@@ -322,6 +318,8 @@ File </> FOUND in get_file_data
 File </one.txt> FOUND in get_file_data
 File </two.txt> FOUND in get_file_data
 File </2k.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
@@ -393,20 +391,60 @@ getattr(/abc.txt)
 File </abc.txt> FOUND in get_file_data
 getattr(/def.txt)
 getattr(/def.txt)
+Linking target: </abc.txt> to new file </def.txt>. 
+File </abc.txt> FOUND in get_file_data
+mknod(/def.txt, 100000)
+BLOCK 4 FOUND FOR INODE
+node{mode: 100000, size: 0, xtra: 0, path: /def.txt, name: def.txt, blockID: 4, InodeID: 1}
 getattr(/def.txt)
+File </def.txt> FOUND in get_file_data
+File </def.txt> FOUND in get_file_data
+getattr(/def.txt)
+File </def.txt> FOUND in get_file_data
+open(/def.txt)
+read(/def.txt, 4096 bytes, @0)
+File </def.txt> FOUND in get_file_data
+getattr(/def.txt)
+File </def.txt> FOUND in get_file_data
+getattr(/abc.txt)
+File </abc.txt> FOUND in get_file_data
 unlink(/abc.txt)
 File </abc.txt> FOUND in get_file_data
+open(/def.txt)
+read(/def.txt, 4096 bytes, @0)
+File </def.txt> FOUND in get_file_data
 getattr(/def.txt)
+File </def.txt> FOUND in get_file_data
 getattr(/foo)
-mkdir(/foo)
+mkdir(/foo) with mode <509>
+BLOCK 4 FOUND FOR INODE
 getattr(/foo)
-getattr(/foo)
-getattr(/def.txt)
-getattr(/foo)
+File </foo> FOUND in get_file_data
+getattr(/foo/abc.txt)
+getattr(/foo/abc.txt)
+open(/def.txt)
+getattr(/foo/abc.txt)
+mknod(/foo/abc.txt, 100000)
+BLOCK 5 FOUND FOR INODE
+node{mode: 100000, size: 0, xtra: 0, path: /foo/abc.txt, name: foo/abc.txt, blockID: 5, InodeID: 4}
+getattr(/foo/abc.txt)
+File </foo/abc.txt> FOUND in get_file_data
+open(/foo/abc.txt)
+read(/def.txt, 4096 bytes, @0)
+File </def.txt> FOUND in get_file_data
+write(/foo/abc.txt, 11 bytes, 0)
+File </foo/abc.txt> FOUND in get_file_data
+open(/foo/abc.txt)
+getattr(/foo/abc.txt)
+File </foo/abc.txt> FOUND in get_file_data
+read(/foo/abc.txt, 4096 bytes, @0)
+File </foo/abc.txt> FOUND in get_file_data
+getattr(/foo/abc.txt)
+File </foo/abc.txt> FOUND in get_file_data
 getattr(/40k.txt)
 mknod(/40k.txt, 100664)
-BLOCK 2 FOUND FOR INODE
-node{refs: 0, mode: 100664, size: 0, xtra: 0, path: /40k.txt, name: 40k.txt, blockID: 2, InodeID: 1}
+BLOCK 6 FOUND FOR INODE
+node{mode: 100664, size: 0, xtra: 0, path: /40k.txt, name: 40k.txt, blockID: 6, InodeID: 5}
 getattr(/40k.txt)
 File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
@@ -414,7 +452,11 @@ write(/40k.txt, 4096 bytes, 0)
 File </40k.txt> FOUND in get_file_data
 open(/40k.txt)
 getattr(/40k.txt)
-File </40k.txt> FOUND in get_file_data
+File </40k.txt> make[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @0)
 File </40k.txt> FOUND in get_file_data
 read(/40k.txt, 4096 bytes, @4096)

@@ -1,5 +1,5 @@
 //
-// Created by Joshua Spicer on 12/3/17.
+// Created by Joshua Spicer on 12/3/17. .
 //
 
 #include "datablock.h"
@@ -10,10 +10,7 @@ void flip_data_block_bit(int which_block, int state) {
     assert(state == 0 || state == 1);
 
     void *targetPtr = GET_ptr_start_dataBlock_bitMap() + sizeof(int) * which_block;
-    //printf("TargetPointer: %d\n", targetPtr);
-    //*((int*)(targetPtr)) = 1;
     *((int *) targetPtr) = state;
-    //*((int*)targetPtr) = 4;
 }
 
 // ---------------------------------------------------------------------------- //
@@ -31,22 +28,17 @@ void
 correctSizeForLinkedBlocks(int givenBlockID, int size) {
 
   for (int i = 0; i < GET_NUMBER_OF_INODES();i++) {
-    printf("%s\n","1");
     // Node exists!
     if(*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) == 1) {
-      printf("%s\n","2");
       pnode* tmp = ((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
-      printf("%s\n","3");
       // If this node is referring to "givenBlockID"
       if (tmp->blockID == givenBlockID) {
-        printf("%s\n","4");
         // Set the size to that size.
         tmp->size = size;
       }
     }
   }
 }
-
 
 // ---------------------------------------------------------------------------- //
 

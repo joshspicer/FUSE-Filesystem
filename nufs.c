@@ -30,9 +30,7 @@ int
 nufs_getattr(const char *path, struct stat *st) {
     printf("getattr(%s)\n", path);
 
-    int rv = get_stat(path, st);
-    printf("Path: <%s>. Error code for getattr: %d\n",path,rv); //REMOVE
-    //printf("STAT numHardLinks for %s is %d \n", path,st->st_nlink); //REMOVE
+    int rv = get_stat(path, st); //All the work is done in get_stat.
 
     if (rv == -1) {
       //return 0;
@@ -75,7 +73,8 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
         if (!(streq(current->path, "/"))) {
 
-            //printf("CUR_PATH: %s, NODE PRECEEDING: %s\n",path, findPreceedingPath(current->path));
+            //printf("CUR_PATH: %s, NODE PRECEEDING:
+                              //%s\n",path, findPreceedingPath(current->path));
 
             get_stat(current->path, &st);
             filler(buf, current->name, &st, 0);
@@ -92,9 +91,6 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 // called for: man 2 open, man 2 link
 int
 nufs_mknod(const char *path, mode_t mode, dev_t rdev) {
-
-    //open(path, O_CREAT, mode); --- maybe for mode do S_IRWXU | mode
-    //link()
 
     printf("mknod(%s, %04o)\n", path, mode);
 
@@ -266,7 +262,7 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
 // Update the timestamps on a file or directory.
 int
 nufs_utimens(const char *path, const struct timespec ts[2]) {
-    //   //int rv = storage_set_time(path, ts);
+    //int rv = storage_set_time(path, ts); TODO TODO TODO
     int rv = -1;
     printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
            path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
@@ -278,18 +274,11 @@ nufs_utimens(const char *path, const struct timespec ts[2]) {
 
 // TODO test. Seeing if I can add in additional fuse struct functions
 int
-josh_nufs_link(const char *target, const char *linkName) {
-  printf("%s\n","--------------------LINK CALLED------------------" );
+nufs_link(const char *target, const char *linkName) {
+  printf("Linking target: <%s> to new file <%s>. \n",target, linkName);
 
   // Get the target Node.
   pnode* targetNode = get_file_data(target);
-  printf("%s\n","TARGET NODE: "); //REMOVE
-  print_node(targetNode); //REMOVE
-
-  // Create a new inode with "linkName"
-  // int idx = find_empty_inode_index();
-  // add_node(linkName, S_IFREG, 640, 5); //TODO change back from 5 to idx
-  // flip_iNode_bit(5,1); //same here.
 
   nufs_mknod(linkName, S_IFREG, 0);
   struct stat st;
@@ -298,23 +287,11 @@ josh_nufs_link(const char *target, const char *linkName) {
   // Get that newly created inode.
   pnode* linkedNODE = get_file_data(linkName);
 
-  printf("%s\n","NEW LINK NODE:"); //REMOVE
-  print_node(linkedNODE); //REMOVE
-
   // Set the linkedNode's data block ID to that of target Block.
-
-  printf("BEFORE: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNODE->blockID);  //REMOVE
   linkedNODE->blockID = targetNode->blockID;
   linkedNODE->size = targetNode->size;
 
-  //  targetNode->blockID = linkedNode->blockID;
-  // nufs_getattr(target,&st);
-  // nufs_getattr(linkName,&st);
-
-  printf("AFTER: targetBlockID: %d, linkedNodeBlockID: %d\n",targetNode->blockID,linkedNODE->blockID);  //REMOVE
-
-
-  return 0;  //TODO error checking and returning error codes.
+  return 0; // ln error checks for us.
 }
 
 
@@ -336,7 +313,7 @@ nufs_init_ops(struct fuse_operations *ops) {
     ops->write = nufs_write;
     ops->utimens = nufs_utimens;
 
-    ops->link = josh_nufs_link;
+    ops->link = nufs_link;
 
 };
 
@@ -344,7 +321,7 @@ struct fuse_operations nufs_ops;
 
 int
 main(int argc, char *argv[]) {
-    assert(argc > 2 && argc < 1000);  //1000 was 6
+    assert(argc > 2 && argc < 6);
     storage_init(argv[--argc]);
     nufs_init_ops(&nufs_ops);
     return fuse_main(argc, argv, &nufs_ops, NULL);

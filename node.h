@@ -13,34 +13,21 @@
 #include "superblock.h"
 
 
-// Header file for helpful methods related to creating and modifying NODES (as an atomic unit).
-
+// Header file for helpful methods related to
+// creating and modifying NODES (as an atomic unit).
 typedef struct inode {
-    int refs; // reference count
-    int mode; // permission & type
-    int size; // bytes for file
-    int xtra; // more stuff can go here
 
-    // Path of file
-    //const char* path;
-    char path[32];
-    // File rename
-    //const char* name;
-    char name[32];
-
-    // ID of data block this node is referencing to store data.
-    // It's simply an index
-    int blockID;
-
-    // Let the iNode know which node it is in the bitmap.
-    // Useful for removing.
-    int nodeID;
-
-
+    int mode;      // permission & type
+    int size;      // bytes for file
+    int xtra;      // more stuff can go here
+    char path[32]; // full file path
+    char name[32]; // File name (last part of path).
+    int blockID;   // ID of data block this node is referencing to store data.
+    int nodeID;    // The ID of THIS node (in the associated bitmap).
 
 } pnode;
 
-// ------- FUNCTIONS -------
+// ------- FUNCTIONS ------- //
 
 void add_node(const char *fullPath, int mode, int xtra, int which_iNode);
 

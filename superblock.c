@@ -39,6 +39,7 @@ superBlock_init(const char *path)
     start_dataBlocks = start_iNode_Table
                        + NUMBER_OF_INODES * sizeof(pnode);
 
+
     // Write offset to start of inode bitmap in the superblock
     write_int_offset(0, start_iNode_bitMap);
     // Write offset to start of data block bitmap in the superblock
@@ -53,18 +54,8 @@ superBlock_init(const char *path)
     flip_iNode_bit(0, 1);
     print_node((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * 0));
 
-
-    // // TODO TEST ADDING iNodes
     // add_node("/aaa.txt",S_IFREG | S_IRWXU,55,1);
     // flip_iNode_bit(1,1);
-    //
-    // add_node("/bbb.txt",S_IFREG | S_IRWXU,55,2);
-    // flip_iNode_bit(2,1);
-    //
-    // josh_nufs_link("/aaa.txt","/ccc.txt");
-
-
-
 }
 
 

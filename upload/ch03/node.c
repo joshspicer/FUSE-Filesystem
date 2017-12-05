@@ -140,8 +140,8 @@ find_empty_inode_index() {
 void
 print_node(pnode *node) {
     if (node) {
-        printf("node{refs: %d, mode: %04o, size: %d, xtra: %d, path: %s, name: %s, blockID: %d, InodeID: %d}\n",
-               node->refs, node->mode, node->size, node->xtra, node->path, node->name, node->blockID, node->nodeID);
+        printf("node{mode: %04o, size: %d, xtra: %d, path: %s, name: %s, blockID: %d, InodeID: %d}\n",
+                    node->mode, node->size, node->xtra, node->path, node->name, node->blockID, node->nodeID);
     } else {
         printf("node{null}\n");
     }
