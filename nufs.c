@@ -210,7 +210,9 @@ nufs_open(const char *path, struct fuse_file_info *fi) {
 // Actually read data
 int
 nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
+
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
+
     const char *data = get_data(path);
 
     int len = strlen(data) + 1; // strlen(data) + 1
@@ -248,7 +250,12 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     memcpy(ptr, buf, size);
     //int fd = fi->direct_io;
 
-    // TODO Change stat somehow??? (I don't get stat.)
+
+    // TODO ::: if you want to memcpy more than one page,
+    //          recalculate ptr after copying 2048 bytes and then
+    //          memcpy again!!!!!!!!!!
+    /// TODO :: size/4096 to find out which additionalBlock you need to fill!!!
+
 
     // Set node's size to size of this file.
     node->size = size;

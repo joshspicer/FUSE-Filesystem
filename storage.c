@@ -18,6 +18,18 @@ storage_init(const char *path) {
     superBlock_init(path);
 }
 
+// ----------------------------------------------------------------------------- //
+char*
+concatStrings(const char *string1, const char *string2) {
+ char *newStr =
+      malloc(strlen(string1) + strlen(string2) + 1);
+
+  strcpy(newStr, string1);
+  strcat(newStr, string2);
+
+  return newStr;
+}
+
 // ---------------------------------------------------------------------------- //
 
 
@@ -81,6 +93,7 @@ get_stat(const char *path, struct stat *st) {
 // Get the data stored in the data block of the given Path.
 const char *
 get_data(const char *path) {
+
     pnode *node = get_file_data(path);
 
     if (!node) {
@@ -99,6 +112,27 @@ get_data(const char *path) {
     if (!blockPtr) {
         return 0; // TODO error codes
     }
+
+
+    // -- CODE BELOW HERE SUPPORTS DATA OVER 4K --
+    int sizeRemaining = node->size - 4096;
+
+    while (sizeRemaining > 0) {
+      printf("Inside over 4K get_data() block for <%s> ", node->path);
+      printf("Size Remaining: %d\n", sizeRemaining);
+      // Use the current Size to determine which additional block.
+      int idx =  node->size - sizeRemaining;
+
+      // Fetch the data at the additional block.
+      void *tmp = data_block_ptr_at_index(node->additionalBlocks[idx]);
+      const char *tmpString = ((const char *) tmp);
+
+      // Append entire contents (4K) of tmpString to blockPtr.
+      blockPtr = concatStrings(((const char *) blockPtr), tmpString);
+
+      sizeRemaining -= 4096;
+    }
+
 
     return ((const char *) blockPtr);
 }
