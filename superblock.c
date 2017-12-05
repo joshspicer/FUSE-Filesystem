@@ -49,10 +49,15 @@ superBlock_init(const char *path)
     // Write offset to start of data blocks in the superblock
     write_int_offset(3, start_dataBlocks);
 
+
     // Init the root directory.
+    pnode* home = get_file_data("/");
+
+    if (!home) {
     add_node("/", 040755, 145, 0);
     flip_iNode_bit(0, 1);
     print_node((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * 0));
+  }
 
     // add_node("/aaa.txt",S_IFREG | S_IRWXU,55,1);
     // flip_iNode_bit(1,1);

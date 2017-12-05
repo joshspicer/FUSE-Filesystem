@@ -30,8 +30,15 @@ int
 nufs_getattr(const char *path, struct stat *st) {
     printf("getattr(%s)\n", path);
 
-    int rv = get_stat(path, st); //All the work is done in get_stat.
-
+    int rv = get_stat(path, st);
+    // printf("UID: %s\n", st->st_uid);
+    // printf("GID: %s\n",st->st_gid);
+    // printf("MODE: %s\n",st->st_mode);
+    // printf("ATIME: %s\n",st->st_atime);  //TODO time
+    // printf("MTIME: %s\n",st->st_mtime); //TODO time
+    // printf("SIZE: %s\n",st->st_size);
+    // printf("NLINK: %s\n",st->st_nlink); //All the work is done in get_stat.
+    // printf("RV: %s\n", rv);
     if (rv == -1) {
       //return 0;
       return -ENOENT;
@@ -50,7 +57,7 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     struct stat st;
     printf("readdir(%s)\n", path);
 
-    get_stat("/", &st); //get_stat(path, &st);
+    // get_stat("/", &st); //get_stat(path, &st);
 
     get_stat(path, &st);
     // filler is a callback that adds one item to the result
@@ -68,15 +75,21 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     printf("/ size: %d\n", node->size);
     int* node_data = ((int*)get_data(path));
     int nodeID = -1;
-    for (int i = 0; i < node->size; i ++) {
+    printf("LOOPING THROUGH DIRECTORY ENTIRES.\n");
+    int count = 0;
+    int i = 0;
+    while (count < node->size) {
       nodeID = node_data[i];
+      printf("NodeID: %d\n", nodeID);
       // File has been removed
-      if (nodeID == -1) {
-        continue;
+      if (nodeID != -1) {
+        pnode* dirent = (pnode*) (GET_ptr_start_iNode_Table() + nodeID * sizeof(pnode));
+        printf("Entry path: %s\n", dirent->path);
+        get_stat(dirent->path, &st);
+        filler(buf, dirent->name, &st, 0);
+        count++;
       }
-      pnode* dirent = (pnode*) (GET_ptr_start_iNode_Table() + nodeID * sizeof(pnode));
-      get_stat(dirent->path, &st);
-      filler(buf, dirent->name, &st, 0);
+      i++;
     }
 
 
@@ -155,19 +168,19 @@ nufs_mkdir(const char *path, mode_t mode) {
     flip_iNode_bit(nodeID, 1);
     add_node(path, S_IFDIR|S_IRWXU, 0, nodeID);
 
-    // pnode* newNode = get_file_data(path);
-    //
-    // const char* prec = findPrecedingPath(path);
-    // printf("Prec Path: %s\n", prec);
-    //
-    // pnode* dir = get_file_data(prec);
-    // print_node(dir);
-    //
-    // int* nodeIDs = ((int*)get_data(prec));
-    // nodeIDs[dir->size] = newNode->nodeID;
-    // dir->size += 1;
-    //
-    // print_node(newNode);
+    pnode* newNode = get_file_data(path);
+
+    const char* prec = findPrecedingPath(path);
+    printf("Prec Path: %s\n", prec);
+
+    pnode* dir = get_file_data(prec);
+    print_node(dir);
+
+    int* nodeIDs = ((int*)get_data(prec));
+    nodeIDs[dir->size] = newNode->nodeID;
+    dir->size += 1;
+
+    print_node(newNode);
 
     return 0; //was -1
 }
@@ -185,6 +198,10 @@ nufs_unlink(const char *path) {
     flip_iNode_bit(node->nodeID, 0);
     flip_data_block_bit(node->blockID, 0);
 
+    const char* dirPath = findPrecedingPath(path);
+    pnode* dir = get_file_data(dirPath);
+    remove_from_dir(dir, node->nodeID);
+
     return 0;
 }
 
@@ -192,17 +209,21 @@ int
 nufs_rmdir(const char *path) {
     printf("rmdir(%s)\n", path);
 
-    // pnode* node = get_file_data(path);
-    // print_node(node);
-    //
-    // if (!node) {
-    //   printf("Cannot remove path because path does not exist.\n");
-    // }
-    //
-    // flip_iNode_bit(node->nodeID, 0);
-    // flip_data_block_bit(node->blockID, 0);
+    pnode* node = get_file_data(path);
+    print_node(node);
 
-    return -1;
+    if (!node) {
+      printf("Cannot remove path because path does not exist.\n");
+    }
+
+    flip_iNode_bit(node->nodeID, 0);
+    flip_data_block_bit(node->blockID, 0);
+
+    const char* dirPath = findPrecedingPath(path);
+    pnode* dir = get_file_data(dirPath);
+    remove_from_dir(dir, node->nodeID);
+
+    return 0;
 }
 
 // implements: man 2 rename

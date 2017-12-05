@@ -39,10 +39,9 @@ int find_empty_inode_index(); // Returns the index of the first free iNode, or -
 
 const char *findName(const char* path);
 const char* findPrecedingPath(const char* path);
+void remove_from_dir(pnode* dir, int nodeID);
 
 void name_node(pnode *node, const char *path);
-
-const char *findPreceedingPath(const char *completePath);
 
 
 #endif //CHALLENGE03_NODE_H

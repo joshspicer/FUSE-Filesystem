@@ -102,7 +102,8 @@ findPrecedingPath(const char* path) {
 }
 
 const char *
-findPreceedingPath(const char *completePath) {
+findPreceedingPath(const char *completePath)
+{
   int size = strlen(completePath);
   int indexOfFinalSlash = 0;
   // Loop through, saving the location of a slash whenever found.
@@ -118,6 +119,24 @@ findPreceedingPath(const char *completePath) {
   return preceedingPath;
 }
 
+void
+remove_from_dir(pnode* dir, int nodeID)
+{
+  printf("IN REMOVE FROM DIR\n");
+  int* nodeIDs = ((int*)data_block_ptr_at_index(dir->blockID));
+  for (int i = 0; i < dir->size; i++) {
+    printf("Current: %d, Looking for: %d\n", nodeIDs[i], nodeID);
+    if (nodeIDs[i] == nodeID) {
+      printf("Found it!\n");
+      nodeIDs[i] = -1;
+      printf("Now: %d\n", nodeIDs[i]);
+      dir->size = dir->size - 1;
+      return;
+    }
+  }
+  printf("No such entry in directory.\n");
+}
+
 
 // Used during node initalization to set the name field.
 void
@@ -126,10 +145,11 @@ name_node(pnode *node, const char *path) {
         node->path[i] = path[i];
     }
     node->path[strlen(path)] = NULL;
-    for (int i = 0; i < strlen(findName(path)); i++) {
-        node->name[i] = findName(path)[i];
+    const char* name = findName(path);
+    for (int i = 0; i < strlen(name); i++) {
+        node->name[i] = name[i];
     }
-    node->name[strlen(findName(path))] = NULL;
+    node->name[strlen(name)] = NULL;
 }
 
 // ---------------------------------------------------------------------------- //
