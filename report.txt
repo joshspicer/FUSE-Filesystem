@@ -1,0 +1,48 @@
+## REPORT ##
+
+Our filesystem is awesome!  We based it on the ext1 example provided demonstrated
+in class.
+
+Our data is organized into the 5 following blocks:
+
+  * Superblock
+  * inode Bitmap
+  * Data Blocks Bitmap
+  * inode structures
+  * 4K blocks of data
+
+
+Our superblock is always the first 20 bytes of the our data.nufs file.
+From there, we are able to manipulate constants to offset where each section
+begins allowing us to support more blocks/less inode, etc.  Our program refers
+to these constants within the superblock to calculate boundaries.
+
+Our inode structure holds the metadata of every file (a hardlinked file has its
+own inode).  Metadata includes size, time, etc.  These inodes also hold the
+indices of the data block(s) storing its data.  We know which inodes are in use
+because we utilize a simple bitmap, which is a 1-to-1 mapping of which bitmaps
+are active, and which ones are not in use.  This is how we "unlink".
+
+
+We completed all of the basic functionality perfectly, as well as most of the
+bonus functionality.  Mounting and unmounting our file system works, due to our
+implementation of a superblock storing the offsets associated with the start
+of various sections.  Users can add files via "touch", as well as list the file
+structure with "ls".  By using "echo", a user can write to a file, and by
+calling "cat" a user can read that file.
+
+
+NOTE: sometimes our file system returns error messages (ex: when calling echo),
+even though the calls WORK.  This is probably due to us not returning correct
+error code/success codes in our program.  This does NOT impact the funcationality of
+the program (and echo still writes as you would expect).
+
+
+If we had more time I would definitely devise a better way to find files by
+path.  Right now we loop through the relevant (active) iNodes looking for a matching
+path.  There are certainly better ways to .....
+
+
+I also would have finished implementing >4K files.  My design (if I had more time),
+would have supported writing larger files, whether that be indicated by
+size or by offset.
