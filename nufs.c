@@ -116,6 +116,7 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
+    print_all();
 
     return 0;
 }
@@ -238,7 +239,21 @@ nufs_rename(const char *from, const char *to) {
         printf("Cannot rename file or directory because it does not exist.\n");
     }
 
+    const char* fromDir = findPrecedingPath(from);
+    const char* toDir = findPrecedingPath(to);
+    if (!streq(fromDir, toDir)) {
+      // Handles case where we are changing directories
+      remove_from_dir(get_file_data(fromDir), node->nodeID);
+
+      pnode* dir = get_file_data(toDir);
+
+      int* nodeIDs = ((int*)get_data(toDir));
+      nodeIDs[dir->size] = node->nodeID;
+      dir->size += 1;
+    }
+
     name_node(node, to);
+    printf("Node name: %s\n", node->name);
 
     return 0;
 }
@@ -358,6 +373,28 @@ nufs_link(const char *target, const char *linkName) {
   linkedNODE->size = targetNode->size;
 
   return 0; // ln error checks for us.
+}
+
+void print_all() {
+  printf("PRINTING ALL\n");
+  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+
+      //TODO: Once we implement directories, this has to change!!
+
+      // check inode bitmap. If value isn't one, then that inode isn't active.
+      if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
+          continue;
+      }
+      // There must be an associated iNode. Calculate address.
+      void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
+      pnode *current = ((pnode *) currentPtr);
+      print_node(current);
+
+      // if (!(streq(current->path, "/"))) {
+      //     get_stat(current->path, &st);
+      //     filler(buf, current->name, &st, 0);
+      // }
+  }
 }
 
 
