@@ -118,8 +118,9 @@ get_data(const char *path) {
     int sizeRemaining = node->size - 4096;
 
     while (sizeRemaining > 0) {
-      printf("Inside over 4K get_data() block for <%s> ", node->path);
-      printf("Size Remaining: %d\n", sizeRemaining);
+      printf("Inside over 4K get_data() block for <%s> ", node->path); //REMOVE
+      printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
+
       // Use the current Size to determine which additional block.
       int idx =  node->size - sizeRemaining;
 
@@ -129,6 +130,8 @@ get_data(const char *path) {
 
       // Append entire contents (4K) of tmpString to blockPtr.
       blockPtr = concatStrings(((const char *) blockPtr), tmpString);
+
+      printf("Iteration for %d remaining COMPLETE\n", sizeRemaining); //REMOVE
 
       sizeRemaining -= 4096;
     }

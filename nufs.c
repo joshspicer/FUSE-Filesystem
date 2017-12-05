@@ -213,7 +213,7 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
 
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
 
-    const char *data = get_data(path);
+    const char *data = get_data(path); //  <----- Now supports >4k
 
     int len = strlen(data) + 1; // strlen(data) + 1
     if (size < len) {
@@ -235,7 +235,7 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     pnode *node = get_file_data(path);
 
     if (!node) {
-        printf("%s\n", "YOU CAN'T WRITE TO A FILE THAT DOESN'T EXIST!");
+        printf("%s\n", "Can't write. File doesn't exist.");
         return -1;  //TODO return error code.
     }
 
@@ -246,9 +246,13 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     void *ptr = data_block_ptr_at_index(node->blockID);
 
     // Write to that memory location (using the given buffer/size/offset)
-    //ptr = buf;
-    memcpy(ptr, buf, size);
-    //int fd = fi->direct_io;
+
+    int singleBlockSafeSize = size;
+    if (singleBlockSafeSize > 4096) {
+      singleBlockSafeSize = 4096;
+    }
+
+    memcpy(ptr, buf, singleBlockSafeSize);
 
 
     // TODO ::: if you want to memcpy more than one page,
@@ -262,6 +266,34 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
 
     // Fix all the references files inodes!
     correctSizeForLinkedBlocks(node->blockID, size);
+
+
+    // ---------- Beneath this line supports writing file ----------------- //
+
+    int sizeRemaining = node->size - 4096;
+    int looped = 1;
+
+    while (sizeRemaining > 0) {
+      printf("Inside over 4K writing block for <%s> ", node->path); //REMOVE
+      printf("Size Remaining: %d\n", sizeRemaining); //REMOVE
+
+      int idx = size / 4096;
+      void *additionalPtr = data_block_ptr_at_index(node->additionalBlocks[idx]);
+
+      // Mem copy the offset data in 4k increments.
+      int sizeToCopy = 4096;
+      if (sizeRemaining < 4096) {
+        sizeToCopy = sizeRemaining;
+      }
+
+      memcpy(additionalPtr, buf + (4096*looped),sizeToCopy);
+
+      sizeRemaining -= 4096;
+      looped += 1;
+
+      // TODO
+      printf("TODO: %s\n", "implement correctSizeForLinkedBlocks()");
+    }
 
     return 0;
 }
