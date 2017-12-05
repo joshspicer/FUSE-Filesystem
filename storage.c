@@ -39,6 +39,14 @@ get_file_data(const char *path) {
 
         if (streq(path, current->path)) { //If this pnode's path is same.
             printf("File <%s> FOUND in get_file_data\n", path);
+            // printf("refs: %d\n", dir->refs);
+            // printf("mode: %d\n", dir->mode);
+            // printf("size: %d\n", dir->size);
+            // printf("xtra: %d\n", dir->xtra);
+            // printf("path: %d\n", dir->path);
+            // printf("name: %d\n", dir->name);
+            // printf("blockID: %d\n", dir->blockID);
+            // printf("nodeID: %d\n", dir->nodeID);
             return current;
         }
     }
