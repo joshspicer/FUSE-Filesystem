@@ -49,30 +49,53 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     //readdir("/");  // Why do we need this?
 
-    get_stat("/", &st);
+    get_stat(path, &st);
     // filler is a callback that adds one item to the result
     // it will return non-zero when the buffer is full
     filler(buf, ".", &st, 0);
 
+    // Not sure if I need this?
+    if (!streq(path, "/")) {
+      get_stat(findPrecedingPath(path), &st);
+      filler(buf, "..", &st, 0);
+    }
+
+    pnode* node = get_file_data(path);
+    printf("/ size: %d\n", node->size);
+    int* node_data = ((int*)get_data(path));
+    int nodeID = -1;
+    for (int i = 0; i < node->size; i ++) {
+      nodeID = node_data[i];
+      // File has been removed
+      if (nodeID == -1) {
+        continue;
+      }
+      pnode* dirent = (pnode*) (GET_ptr_start_iNode_Table() + nodeID * sizeof(pnode));
+      get_stat(dirent->path, &st);
+      filler(buf, dirent->name, &st, 0);
+    }
+
+
+
     // TODO: Loop through current iNodes and present their data
 
-    for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
-
-        //TODO: Once we implement directories, this has to change!!
-
-        // check inode bitmap. If value isn't one, then that inode isn't active.
-        if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
-            continue;
-        }
-        // There must be an associated iNode. Calculate address.
-        void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
-        pnode *current = ((pnode *) currentPtr);
-
-        if (!(streq(current->path, "/"))) {
-            get_stat(current->path, &st);
-            filler(buf, current->name, &st, 0);
-        }
-    }
+    // for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+    //
+    //     //TODO: Once we implement directories, this has to change!!
+    //
+    //     // check inode bitmap. If value isn't one, then that inode isn't active.
+    //     if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
+    //         continue;
+    //     }
+    //     // There must be an associated iNode. Calculate address.
+    //     void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
+    //     pnode *current = ((pnode *) currentPtr);
+    //
+    //     if (!(streq(current->path, "/"))) {
+    //         get_stat(current->path, &st);
+    //         filler(buf, current->name, &st, 0);
+    //     }
+    // }
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
@@ -100,8 +123,19 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev) {
 
     flip_iNode_bit(index, 1);
     add_node(path, mode, 0, index);
+    pnode* newNode = get_file_data(path);
 
-    print_node((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * index));
+    const char* prec = findPrecedingPath(path);
+    printf("Prec Path: %s\n", prec);
+
+    pnode* dir = get_file_data(prec);
+    print_node(dir);
+
+    int* nodeIDs = ((int*)get_data(prec));
+    nodeIDs[dir->size] = newNode->nodeID;
+    dir->size += 1;
+
+    print_node(newNode);
 
     return 0;  // was -1
 }
@@ -118,8 +152,22 @@ nufs_mkdir(const char *path, mode_t mode) {
     }
 
     flip_iNode_bit(nodeID, 1);
-    add_node(path, S_IFDIR|S_IRWXU, 16, nodeID);
-    
+    add_node(path, S_IFDIR|S_IRWXU, 0, nodeID);
+
+    // pnode* newNode = get_file_data(path);
+    //
+    // const char* prec = findPrecedingPath(path);
+    // printf("Prec Path: %s\n", prec);
+    //
+    // pnode* dir = get_file_data(prec);
+    // print_node(dir);
+    //
+    // int* nodeIDs = ((int*)get_data(prec));
+    // nodeIDs[dir->size] = newNode->nodeID;
+    // dir->size += 1;
+    //
+    // print_node(newNode);
+
     return 0; //was -1
 }
 
