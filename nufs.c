@@ -170,6 +170,7 @@ nufs_rename(const char *from, const char *to) {
 
     if (!node) {
         printf("Cannot rename file or directory because it does not exist.\n");
+        return -1;
     }
 
     name_node(node, to);
@@ -180,7 +181,10 @@ nufs_rename(const char *from, const char *to) {
 int
 nufs_chmod(const char *path, mode_t mode) {
     printf("chmod(%s, %04o)\n", path, mode);
-    return -1;
+
+    pnode *node = get_file_data(path);
+    node->mode = mode;
+    return 0;
 }
 
 int
@@ -229,7 +233,7 @@ int
 nufs_write(const char *path, const char *buf, size_t size, off_t offset,
            struct fuse_file_info *fi) {
 
-    printf("write(%s, %ld bytes, %ld)\n", path, size, offset);
+    printf("write(%s, %ld bytes, offset %ld)\n", path, size, offset);
 
     // Get the node associated with this path.
     pnode *node = get_file_data(path);
@@ -252,7 +256,7 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
       singleBlockSafeSize = 4096;
     }
 
-    memcpy(ptr, buf, singleBlockSafeSize);
+    memcpy(ptr, buf, singleBlockSafeSize); //TODO add offset.
 
 
     // TODO ::: if you want to memcpy more than one page,
@@ -300,12 +304,20 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
 // Update the timestamps on a file or directory.
 int
 nufs_utimens(const char *path, const struct timespec ts[2]) {
-    //int rv = storage_set_time(path, ts); TODO TODO TODO
-    int rv = -1;
-    printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
-           path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
 
-    // return rv;
+    printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
+           path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec);
+
+    pnode *node = get_file_data(path);
+
+    if (!node) {
+        printf("%s\n", "Can't write. File doesn't exist.");
+        return -1;  //TODO return error code.
+    }
+
+
+    node->timeStamp = ts->tv_sec;
+
     return 0;
 }
 

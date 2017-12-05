@@ -24,6 +24,7 @@ typedef struct inode {
     char name[32]; // File name (last part of path).
     int blockID;   // ID of data block this node is referencing to store data.
     int nodeID;    // The ID of THIS node (in the associated bitmap).
+    time_t timeStamp; //Timestamp
 
     int additionalBlocks[9];  // Additional blocks for data > 4k
 
