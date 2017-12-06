@@ -243,6 +243,17 @@ node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/autorun.inf)
 getattr(/)
 File </> FOUND in get_file_data
+access(/, 0004)
+access(/, 0002)
+access(/, 0001)
+readdir(/)
+File </> FOUND in get_file_data
+File </> FOUND in get_file_data
+/ size: 0
+File </> FOUND in get_file_data
+LOOPING THROUGH DIRECTORY ENTIRES.
+PRINTING ALL
+node{mode: 40755, size: 0, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 getattr(/one.txt)
 mknod(/one.txt, 100664)
 which loop: 0
@@ -287,7 +298,9 @@ mknod(/two.txt, 100664)
 which loop: 0
 i: 0
 which loop: 1
-which loop: 2
+which lmake[1]: Entering directory '/home/josh/Desktop/challenge03'
+fusermount -u mnt || true
+oop: 2
 which loop: 3
 which loop: 4
 which loop: 5
@@ -305,22 +318,20 @@ which loop: 5
 which loop: 6
 which loop: 7
 Prec Path: /
-File </> FOUND in get_make[1]: Entering directory '/home/josh/Desktop/challenge03'
-fusermount -u mnt || true
-file_data
+File </> FOUND in get_file_data
 node{mode: 40755, size: 1, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 File </> FOUND in get_file_data
 node{mode: 100664, size: 0, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
+getattr(/)
+File </> FOUND in get_file_data
 open(/two.txt)
 write(/two.txt, 11 bytes, 0)
 File </two.txt> FOUND in get_file_data
 getattr(/two.txt)
 File </two.txt> FOUND in get_file_data
 open(/two.txt)
-getattr(/)
-File </> FOUND in get_file_data
 read(/two.txt, 4096 bytes, @0)
 File </two.txt> FOUND in get_file_data
 getattr(/two.txt)
@@ -526,8 +537,6 @@ node{mode: 40755, size: 3, xtra: 145, path: /, name: , blockID: 0, InodeID: 0}
 node{mode: 100664, size: 11, xtra: 0, path: /one.txt, name: one.txt, blockID: 2, InodeID: 1}
 node{mode: 100664, size: 11, xtra: 0, path: /two.txt, name: two.txt, blockID: 3, InodeID: 2}
 node{mode: 100664, size: 2001, xtra: 0, path: /2k.txt, name: 2k.txt, blockID: 4, InodeID: 3}
-getattr(/)
-File </> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
 readdir(/)
@@ -1171,13 +1180,13 @@ open(/foo/abc.txt)
 getattr(/foo/abc.txt)
 File </foo/abc.txt> FOUND in get_file_data
 read(/foo/abc.txt, 4096 bytes, @0)
-File <make[1]: Entering directory '/home/josh/Desktop/challenge03'
+File </foo/abc.txt> FOUND in get_file_data
+getattmake[1]: Entering directory '/home/josh/Desktop/challenge03'
 fusermount -u mnt || true
-/foo/abc.txt> FOUND in get_file_data
+r(/foo/abc.txt)
+File </foo/abc.txt> FOUND in get_file_data
 getattr(/)
 File </> FOUND in get_file_data
-getattr(/foo/abc.txt)
-File </foo/abc.txt> FOUND in get_file_data
 getattr(/40k.txt)
 mknod(/40k.txt, 100664)
 which loop: 0

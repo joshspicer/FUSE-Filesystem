@@ -37,8 +37,8 @@ nufs_getattr(const char *path, struct stat *st) {
     // printf("UID: %s\n", st->st_uid);
     // printf("GID: %s\n",st->st_gid);
     // printf("MODE: %s\n",st->st_mode);
-    // printf("ATIME: %s\n",st->st_atime);  //TODO time
-    // printf("MTIME: %s\n",st->st_mtime); //TODO time
+    // printf("ATIME: %s\n",st->st_atime);
+    // printf("MTIME: %s\n",st->st_mtime);
     // printf("SIZE: %s\n",st->st_size);
     // printf("NLINK: %s\n",st->st_nlink); //All the work is done in get_stat.
     // printf("RV: %s\n", rv);
@@ -274,11 +274,10 @@ nufs_chmod(const char *path, mode_t mode) {
 int
 nufs_truncate(const char *path, off_t size) {
 
-    //  VERY BIG TODO: implement this
+
 
     printf("truncate(%s, %ld bytes)\n", path, size);
-
-    //truncate(path, size);
+    pnode *node = get_file_data(path);
 
     // printf("%s%s\n","TRUNCATE ERROR:", strerror(errno));
     // return -1;
@@ -307,7 +306,6 @@ nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_fi
     if (size < len) {
         len = size;
     }
-
 
     strlcpy(buf, data, len);
     return len;
@@ -338,7 +336,6 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     //ptr = buf;
     memcpy(ptr, buf, size);
     //int fd = fi->direct_io;
-
 
     // Set node's size to size of this file.
     node->size = size;

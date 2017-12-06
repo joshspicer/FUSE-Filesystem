@@ -41,9 +41,14 @@ calling "cat" a user can read that file.
 
 In addition, we implemented all the "additional functionality", with the exception
 of uncompleted >1 block data writing. We CAN nest directories, as well as hard link
-both directories and files. The metadata can be edited on a file as well.  For
-example, you can call "chmod" to change the associated permissions of a node.
-The code is written to READ >4k, just not writing - therefore the test doesn't pass.
+both directories and files. The code is written to READ >4k, just not writing -
+therefore the test doesn't pass.
+
+The metadata can be edited on a file as well.  For example, you can call "chmod"
+to change the associated permissions of a node. You can also change the time_t
+a file was modified by using touch "touch -d 14 May aa.txt" would make aa.txt's
+date be May 14th when you run ls -l
+
 
 NOTE: sometimes our file system returns error messages (ex: when calling echo),
 even though the calls WORK.  This is probably due to us not returning correct

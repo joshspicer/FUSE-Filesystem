@@ -78,17 +78,17 @@ get_stat(const char *path, struct stat *st) {
     }
 
     memset(st, 0, sizeof(struct stat));
+
+    st->st_dev = 0;
+
     st->st_uid = getuid();
     st->st_gid = getgid();
-    st->st_mode = dat->mode;
-    st->st_atime = time(NULL);  //TODO time
-    st->st_mtime = time(NULL); //TODO time
-    st->st_size = dat->size;
-
-    //st_nlink was here was when it was working.
     st->st_nlink = 1;
-
-    //TODO stat with something to do with data blocks.
+    st->st_mode = dat->mode;
+    st->st_atime = dat->time;
+    st->st_mtime = dat->time;
+    st->st_ctime = dat->time;
+    st->st_size = dat->size;
 
     return 0;
 }
