@@ -11,6 +11,15 @@
 #include "storage.h"
 #include "datablock.h"
 
+char*
+concat(const char *string1, const char *string2)
+{
+    char *newStr =
+            malloc(strlen(string1) + strlen(string2) + 1);
+    strcpy(newStr, string1); strcat(newStr, string2);
+    return newStr;
+}
+
 // INITIALIZES: the kind of storage to be used by this file system.
 void
 storage_init(const char *path) {
@@ -89,6 +98,7 @@ get_stat(const char *path, struct stat *st) {
 // Get the data stored in the data block of the given Path.
 const char *
 get_data(const char *path) {
+
     pnode *node = get_file_data(path);
 
     if (!node) {
@@ -107,6 +117,15 @@ get_data(const char *path) {
     if (!blockPtr) {
         return 0; // TODO error codes
     }
+
+
+    // Mem copy the additonal Blocks (for data >4K)
+    for (int i = 0; i < 9; i++) {
+      if (node->additionalBlocks[i] != -1) {
+        blockPtr = concat(blockPtr, data_block_ptr_at_index(node->additionalBlocks[i]));
+      }
+    }
+
 
     return ((const char *) blockPtr);
 }

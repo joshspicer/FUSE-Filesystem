@@ -1,10 +1,7 @@
-##### REPORT ######
+## REPORT ##
 
-Our filesystem is awesome!  We based our data structure on the ext1 example
-provided demonstrated in class.
-
-
----- DATA ----
+Our filesystem is awesome!  We based it on the ext1 example provided demonstrated
+in class.
 
 Our data is organized into the 5 following sections:
 
@@ -18,18 +15,13 @@ Our data is organized into the 5 following sections:
 Our superblock is always the first 20 bytes of the our data.nufs file.
 From there, we are able to manipulate constants to offset where each section
 begins allowing us to support more blocks/less inode, etc.  Our program refers
-to these constants within the superblock to calculate boundaries.  We calculate
-the offsets really flexibly - using sizeof(inode) and sizeof(int) to ensure
-that the file system is platform-indepedent and will run on any computer.
+to these constants within the superblock to calculate boundaries.
 
 Our inode structure holds the metadata of every file (a hardlinked file has its
 own inode).  Metadata includes size, time, etc.  These inodes also hold the
 indices of the data block(s) storing its data.  We know which inodes are in use
 because we utilize a simple bitmap, which is a 1-to-1 mapping of which bitmaps
 are active, and which ones are not in use.  This is how we "unlink".
-
-
----- FUNCTIONALITY ----
 
 
 We completed all of the basic functionality perfectly, as well as most of the
@@ -39,11 +31,6 @@ of various sections.  Users can add files via "touch", as well as list the file
 structure with "ls".  By using "echo", a user can write to a file, and by
 calling "cat" a user can read that file.
 
-In addition, we implemented all the "additional functionality", with the exception
-of uncompleted >1 block data writing. We CAN nest directories, as well as hard link
-both directories and files. The metadata can be edited on a file as well.  For
-example, you can call "chmod" to change the associated permissions of a node.
-The code is written to READ >4k, just not writing - therefore the test doesn't pass.
 
 NOTE: sometimes our file system returns error messages (ex: when calling echo),
 even though the calls WORK.  This is probably due to us not returning correct
@@ -57,7 +44,8 @@ path.  There are certainly better ways to match names to inodes (and i'd love
 to implement that).  For such a small file system, however, it didn't seem to be
 a huge priority.
 
-I also would have finished implementing >4K files.  My design (if I had more time),
+
+I also would have finish implementing >4K files.  My design (if I had more time),
 would have supported writing larger files, whether that be indicated by
 size or by offset.  We had a structure already pre-defined within the iNodes
-that would have allowed us to refer to more than one block of data.
+that would have allowed us to refer to more than one block of data. 

@@ -16,11 +16,14 @@
 #include "storage.h"
 #include "slist.h"
 
+void print_all();
+
 // implementation for: man 2 access
 // Checks if a file exists.
 int
 nufs_access(const char *path, int mask) {
     printf("access(%s, %04o)\n", path, mask);
+    // All files permissions are ok.
     return 0;
 }
 
@@ -116,6 +119,7 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
+
     print_all();
 
     return 0;
@@ -260,8 +264,11 @@ nufs_rename(const char *from, const char *to) {
 
 int
 nufs_chmod(const char *path, mode_t mode) {
-    printf("chmod(%s, %04o)\n", path, mode);
-    return -1;
+  printf("chmod(%s, %04o)\n", path, mode);
+
+ pnode *node = get_file_data(path);
+ node->mode = mode;
+ return 0;
 }
 
 int
@@ -292,12 +299,15 @@ nufs_open(const char *path, struct fuse_file_info *fi) {
 int
 nufs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
     printf("read(%s, %ld bytes, @%ld)\n", path, size, offset);
+
+    // Supports >4K data.
     const char *data = get_data(path);
 
     int len = strlen(data) + 1; // strlen(data) + 1
     if (size < len) {
         len = size;
     }
+
 
     strlcpy(buf, data, len);
     return len;
@@ -329,7 +339,6 @@ nufs_write(const char *path, const char *buf, size_t size, off_t offset,
     memcpy(ptr, buf, size);
     //int fd = fi->direct_io;
 
-    // TODO Change stat somehow??? (I don't get stat.)
 
     // Set node's size to size of this file.
     node->size = size;
@@ -347,6 +356,11 @@ nufs_utimens(const char *path, const struct timespec ts[2]) {
     int rv = -1;
     printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
            path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
+
+    // Get the node associated with this path.
+    pnode *node = get_file_data(path);
+
+    node->time = ts[0].tv_sec;
 
     // return rv;
     return 0;

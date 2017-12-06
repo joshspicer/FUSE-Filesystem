@@ -19,6 +19,7 @@ cp superblock.c upload/ch03/
 cp superblock.h upload/ch03/
 cp test.pl upload/ch03/
 cp util.h upload/ch03/
+cp report.txt upload/ch03
 
 # Add any additional files added after Monday!
 

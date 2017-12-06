@@ -135,6 +135,8 @@ my $huge0 = "=This string is fourty characters long.=" x 1000;
 write_text("40k.txt", $huge0);
 my $huge1 = read_text("40k.txt");
 ok($huge0 eq $huge1, "Read back 40k correctly.");
+#josh added this
+say "# '$huge1'";
 
 my $huge2 = read_text_slice("40k.txt", 10, 8050);
 $right = "ng is four";

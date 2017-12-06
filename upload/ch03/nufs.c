@@ -21,6 +21,7 @@
 int
 nufs_access(const char *path, int mask) {
     printf("access(%s, %04o)\n", path, mask);
+    // All files permissions are ok.
     return 0;
 }
 
@@ -30,8 +31,15 @@ int
 nufs_getattr(const char *path, struct stat *st) {
     printf("getattr(%s)\n", path);
 
-    int rv = get_stat(path, st); //All the work is done in get_stat.
-
+    int rv = get_stat(path, st);
+    // printf("UID: %s\n", st->st_uid);
+    // printf("GID: %s\n",st->st_gid);
+    // printf("MODE: %s\n",st->st_mode);
+    // printf("ATIME: %s\n",st->st_atime);  //TODO time
+    // printf("MTIME: %s\n",st->st_mtime); //TODO time
+    // printf("SIZE: %s\n",st->st_size);
+    // printf("NLINK: %s\n",st->st_nlink); //All the work is done in get_stat.
+    // printf("RV: %s\n", rv);
     if (rv == -1) {
       //return 0;
       return -ENOENT;
@@ -50,39 +58,66 @@ nufs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     struct stat st;
     printf("readdir(%s)\n", path);
 
-    get_stat("/", &st); //get_stat(path, &st);
+    // get_stat("/", &st); //get_stat(path, &st);
 
+    get_stat(path, &st);
     // filler is a callback that adds one item to the result
     // it will return non-zero when the buffer is full
     int rv = filler(buf, ".", &st, 0);
     assert(rv == 0);
 
-    // Loop through current iNodes and present their data
-
-    for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
-
-        //TODO: Once we implement directories, this has to change!!
-
-        // check inode bitmap. If value isn't one, then that inode isn't active.
-        if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
-            continue;
-        }
-        // There must be an associated iNode. Calculate address.
-        void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
-        pnode *current = ((pnode *) currentPtr);
-
-        if (!(streq(current->path, "/"))) {
-
-            //printf("CUR_PATH: %s, NODE PRECEEDING:
-                              //%s\n",path, findPreceedingPath(current->path));
-
-            get_stat(current->path, &st);
-            filler(buf, current->name, &st, 0);
-        }
+    // Not sure if I need this?
+    if (!streq(path, "/")) {
+      get_stat(findPrecedingPath(path), &st);
+      filler(buf, "..", &st, 0);
     }
+
+    pnode* node = get_file_data(path);
+    printf("/ size: %d\n", node->size);
+    int* node_data = ((int*)get_data(path));
+    int nodeID = -1;
+    printf("LOOPING THROUGH DIRECTORY ENTIRES.\n");
+    int count = 0;
+    int i = 0;
+    while (count < node->size) {
+      nodeID = node_data[i];
+      printf("NodeID: %d\n", nodeID);
+      // File has been removed
+      if (nodeID != -1) {
+        pnode* dirent = (pnode*) (GET_ptr_start_iNode_Table() + nodeID * sizeof(pnode));
+        printf("Entry path: %s\n", dirent->path);
+        get_stat(dirent->path, &st);
+        filler(buf, dirent->name, &st, 0);
+        count++;
+      }
+      i++;
+    }
+
+
+
+    // TODO: Loop through current iNodes and present their data
+
+    // for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+    //
+    //     //TODO: Once we implement directories, this has to change!!
+    //
+    //     // check inode bitmap. If value isn't one, then that inode isn't active.
+    //     if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
+    //         continue;
+    //     }
+    //     // There must be an associated iNode. Calculate address.
+    //     void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
+    //     pnode *current = ((pnode *) currentPtr);
+    //
+    //     if (!(streq(current->path, "/"))) {
+    //         get_stat(current->path, &st);
+    //         filler(buf, current->name, &st, 0);
+    //     }
+    // }
 
     // get_stat("/hello.txt", &st);
     // filler(buf, "hello.txt", &st, 0);
+    print_all();
 
     return 0;
 }
@@ -104,8 +139,19 @@ nufs_mknod(const char *path, mode_t mode, dev_t rdev) {
 
     flip_iNode_bit(index, 1);
     add_node(path, mode, 0, index);
+    pnode* newNode = get_file_data(path);
 
-    print_node((pnode *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * index));
+    const char* prec = findPrecedingPath(path);
+    printf("Prec Path: %s\n", prec);
+
+    pnode* dir = get_file_data(prec);
+    print_node(dir);
+
+    int* nodeIDs = ((int*)get_data(prec));
+    nodeIDs[dir->size] = newNode->nodeID;
+    dir->size += 1;
+
+    print_node(newNode);
 
     return 0;  // was -1
 }
@@ -122,7 +168,21 @@ nufs_mkdir(const char *path, mode_t mode) {
     }
 
     flip_iNode_bit(nodeID, 1);
-    add_node(path, S_IFDIR|S_IRWXU, 16, nodeID);
+    add_node(path, S_IFDIR|S_IRWXU, 0, nodeID);
+
+    pnode* newNode = get_file_data(path);
+
+    const char* prec = findPrecedingPath(path);
+    printf("Prec Path: %s\n", prec);
+
+    pnode* dir = get_file_data(prec);
+    print_node(dir);
+
+    int* nodeIDs = ((int*)get_data(prec));
+    nodeIDs[dir->size] = newNode->nodeID;
+    dir->size += 1;
+
+    print_node(newNode);
 
     return 0; //was -1
 }
@@ -140,6 +200,10 @@ nufs_unlink(const char *path) {
     flip_iNode_bit(node->nodeID, 0);
     flip_data_block_bit(node->blockID, 0);
 
+    const char* dirPath = findPrecedingPath(path);
+    pnode* dir = get_file_data(dirPath);
+    remove_from_dir(dir, node->nodeID);
+
     return 0;
 }
 
@@ -147,17 +211,21 @@ int
 nufs_rmdir(const char *path) {
     printf("rmdir(%s)\n", path);
 
-    // pnode* node = get_file_data(path);
-    // print_node(node);
-    //
-    // if (!node) {
-    //   printf("Cannot remove path because path does not exist.\n");
-    // }
-    //
-    // flip_iNode_bit(node->nodeID, 0);
-    // flip_data_block_bit(node->blockID, 0);
+    pnode* node = get_file_data(path);
+    print_node(node);
 
-    return -1;
+    if (!node) {
+      printf("Cannot remove path because path does not exist.\n");
+    }
+
+    flip_iNode_bit(node->nodeID, 0);
+    flip_data_block_bit(node->blockID, 0);
+
+    const char* dirPath = findPrecedingPath(path);
+    pnode* dir = get_file_data(dirPath);
+    remove_from_dir(dir, node->nodeID);
+
+    return 0;
 }
 
 // implements: man 2 rename
@@ -172,15 +240,32 @@ nufs_rename(const char *from, const char *to) {
         printf("Cannot rename file or directory because it does not exist.\n");
     }
 
+    const char* fromDir = findPrecedingPath(from);
+    const char* toDir = findPrecedingPath(to);
+    if (!streq(fromDir, toDir)) {
+      // Handles case where we are changing directories
+      remove_from_dir(get_file_data(fromDir), node->nodeID);
+
+      pnode* dir = get_file_data(toDir);
+
+      int* nodeIDs = ((int*)get_data(toDir));
+      nodeIDs[dir->size] = node->nodeID;
+      dir->size += 1;
+    }
+
     name_node(node, to);
+    printf("Node name: %s\n", node->name);
 
     return 0;
 }
 
 int
 nufs_chmod(const char *path, mode_t mode) {
-    printf("chmod(%s, %04o)\n", path, mode);
-    return -1;
+  printf("chmod(%s, %04o)\n", path, mode);
+
+ pnode *node = get_file_data(path);
+ node->mode = mode;
+ return 0;
 }
 
 int
@@ -267,6 +352,11 @@ nufs_utimens(const char *path, const struct timespec ts[2]) {
     printf("utimens(%s, [%ld, %ld; %ld %ld]) -> %d\n",
            path, ts[0].tv_sec, ts[0].tv_nsec, ts[1].tv_sec, ts[1].tv_nsec, rv);
 
+    // Get the node associated with this path.
+    pnode *node = get_file_data(path);
+
+    node->time = ts[0].tv_sec;
+
     // return rv;
     return 0;
 }
@@ -292,6 +382,28 @@ nufs_link(const char *target, const char *linkName) {
   linkedNODE->size = targetNode->size;
 
   return 0; // ln error checks for us.
+}
+
+void print_all() {
+  printf("PRINTING ALL\n");
+  for (int i = 0; i < GET_NUMBER_OF_INODES(); i++) {
+
+      //TODO: Once we implement directories, this has to change!!
+
+      // check inode bitmap. If value isn't one, then that inode isn't active.
+      if (*((int *) (GET_ptr_start_iNode_bitMap() + sizeof(int) * i)) != 1) {
+          continue;
+      }
+      // There must be an associated iNode. Calculate address.
+      void *currentPtr = ((void *) (GET_ptr_start_iNode_Table() + sizeof(pnode) * i));
+      pnode *current = ((pnode *) currentPtr);
+      print_node(current);
+
+      // if (!(streq(current->path, "/"))) {
+      //     get_stat(current->path, &st);
+      //     filler(buf, current->name, &st, 0);
+      // }
+  }
 }
 
 

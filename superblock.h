@@ -1,7 +1,9 @@
 #ifndef PAGES_H
 #define PAGES_H
 
+
 #include "node.h"
+#include "storage.h"
 
 
 // Moved this from .c file.

@@ -23,7 +23,11 @@ typedef struct inode {
     char path[32]; // full file path
     char name[32]; // File name (last part of path).
     int blockID;   // ID of data block this node is referencing to store data.
-    int nodeID;    // The ID of THIS node (in the associated bitmap).
+    time_t nodeID;    // The ID of THIS node (in the associated bitmap).
+
+    int time;
+
+    int addtionalBlocks[9];
 
 } pnode;
 
@@ -37,11 +41,11 @@ void print_node(pnode *node);
 
 int find_empty_inode_index(); // Returns the index of the first free iNode, or -1 if no empty inode.
 
-const char *findName(const char *completePath);
+const char *findName(const char* path);
+const char* findPrecedingPath(const char* path);
+void remove_from_dir(pnode* dir, int nodeID);
 
 void name_node(pnode *node, const char *path);
-
-const char *findPreceedingPath(const char *completePath);
 
 
 #endif //CHALLENGE03_NODE_H

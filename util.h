@@ -19,13 +19,7 @@ max(int x, int y) {
     return (x > y) ? x : y;
 }
 
- // char* concat(const char *string1, const char *string2)
- // {
- //     char *newStr =
- //             malloc(strlen(string1) + strlen(string2) + 1);
- //     strcpy(newStr, string1); strcat(newStr, string2);
- //     return newStr;
- // }
+
 
 static int
 clamp(int x, int v0, int v1) {

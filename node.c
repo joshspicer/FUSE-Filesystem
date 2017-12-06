@@ -48,6 +48,11 @@ add_node(const char *completePath, int mode, int xtra, int which_iNode) {
     // Size of files within block start as 0 (cuz nothing is there).
     newNode->size = 0;
 
+    // Set all additional blocks to -1, meaning they aren't in use.
+    for (int i = 0; i < 9;i++) {
+      newNode->additionalBlocks[i] = -1;
+    }
+
     // Let the iNode know which node it is in the bitmap.
     // Useful for removing.
     newNode->nodeID = which_iNode;

@@ -10,7 +10,7 @@
 #include "util.h"
 #include <assert.h>
 #include "node.h"
-#include "superblock.h"
+
 
 
 // Header file for helpful methods related to
@@ -24,6 +24,8 @@ typedef struct inode {
     char name[32]; // File name (last part of path).
     int blockID;   // ID of data block this node is referencing to store data.
     int nodeID;    // The ID of THIS node (in the associated bitmap).
+    time_t time;   // The associated time that this time was created.
+    int additionalBlocks[9];  // Additional blocks to store data.
 
 } pnode;
 
